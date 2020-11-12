@@ -1,0 +1,7 @@
+
+.playSourceCurrent{
+	background: rgb(69, 80, 106);
+	color: #fff;
+	font-size: 27rpx;
+}
+

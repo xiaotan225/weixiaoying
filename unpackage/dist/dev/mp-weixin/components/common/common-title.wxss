@@ -1,0 +1,22 @@
+
+.defaulTtitle {
+	font-size: 37rpx;
+	font-family: PingFang SC;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+.icon-backTap {
+	font-size: 50rpx;
+}
+.top-title-h5 {
+	padding: 20rpx 10rpx;
+	background-color: #fff;
+}
+.top-title {
+	background-color: #fff;
+	line-height: 150rpx;
+}
+.top-title .title {
+	position: relative;
+}
+

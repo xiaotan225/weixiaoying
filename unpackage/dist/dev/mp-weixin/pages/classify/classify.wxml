@@ -1,0 +1,1 @@
+<view><view class="width-000 "><common-title vue-id="91ba9280-1" defaultSty="{{false}}" isShowIcon="{{false}}" center="{{true}}" title="频道分类" bind:__l="__l"></common-title></view></view>

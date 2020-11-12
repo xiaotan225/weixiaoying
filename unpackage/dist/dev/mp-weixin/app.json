@@ -1,0 +1,47 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/search/search",
+    "pages/classify/classify",
+    "pages/my/my",
+    "pages/common/video-list",
+    "pages/common/video-details"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationStyle": "custom",
+    "navigationBarTitleText": "微小视",
+    "navigationBarBackgroundColor": "#5B2549",
+    "backgroundColor": "#5B2549"
+  },
+  "tabBar": {
+    "selectedColor": "#7992fc",
+    "borderStyle": "white",
+    "color": "#000",
+    "backgroundColor": "#f6f6f6",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/search/search",
+        "text": "搜索"
+      },
+      {
+        "pagePath": "pages/classify/classify",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {
+    "common-title": "/components/common/common-title",
+    "divider": "/components/common/divider"
+  },
+  "sitemapLocation": "sitemap43.json"
+}

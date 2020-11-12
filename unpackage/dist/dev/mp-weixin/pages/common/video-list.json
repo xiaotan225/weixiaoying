@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "common-list-fill": "/components/common/common-list-fill"
+  }
+}

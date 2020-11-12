@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "carousel": "/components/common/carousel",
+    "card": "/components/common/card",
+    "common-list-fill": "/components/common/common-list-fill"
+  }
+}

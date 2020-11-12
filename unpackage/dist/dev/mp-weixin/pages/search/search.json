@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "search-hot-tab": "/components/search-hot-tab"
+  }
+}

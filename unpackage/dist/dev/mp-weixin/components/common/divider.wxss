@@ -1,0 +1,7 @@
+
+.divider{
+	
+	height: 10rpx;
+	background: #803667;
+}
+

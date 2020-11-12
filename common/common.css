@@ -1,0 +1,26 @@
+/* 设置全局样式 */
+/* (1) 页面高度100%,默认字体28upx,默认行高1.8,背景颜色 */
+page{
+	height: 100%;
+	font-size: 28upx;
+
+	background: #FFFFFF;
+}
+/* (2) 图片默认100%宽度 */
+image{  width: 100%;  }
+/* 主色调 */
+/*背景色白色*/
+.main-bg-white{ background: #FFFFFF; }
+/* 主背景颜色（橙色）*/
+.main-bg-color{ background: #FD6801; }
+/* 主点击背景颜色（淡橙色）*/
+.main-bg-hover-color{ background: rgba(253,104,1,0.85); }
+/* 主字体颜色（橙色）*/
+.main-text-color{color: #FD6801;}
+/* 主边框颜色 */
+.main-border-color{ border-color: #F1F1F1; }
+
+.input-border-color{
+	border-color: #FD6801;
+}
+
