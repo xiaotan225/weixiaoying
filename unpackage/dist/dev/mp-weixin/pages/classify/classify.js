@@ -125,21 +125,109 @@ __webpack_require__.r(__webpack_exports__);
   !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/小潭/Desktop/玩一玩/weixiaoshi/pages/classify/classify.vue?vue&type=script&lang=js& ***!
   \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var commonListFill = function commonListFill() {__webpack_require__.e(/*! require.ensure | components/common/common-list-fill */ "components/common/common-list-fill").then((function () {return resolve(__webpack_require__(/*! @/components/common/common-list-fill.vue */ 93));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+  components: {
+    commonListFill: commonListFill },
+
+  data: function data() {
+    return {
+      tabIndex: 0,
+      tabList: [{
+        name: "电影",
+        no_thing: "no_pay",
+        msg: "暂无数据",
+        list: [
+        { order_no: 111, status_name: 'asdfasd', status: 0 }] },
+
+
+      {
+        name: "连续剧",
+        no_thing: "no_pay",
+        msg: "暂无数据",
+        list: [] },
+
+      {
+        name: "综艺",
+        no_thing: "no_receiving",
+        msg: "暂无数据",
+        list: [
+        { order_no: 111, status_name: 'asdfasd', status: 0 }] },
+
+
+      {
+        name: "动漫",
+        no_thing: "no_comment",
+        msg: "暂无数据",
+        list: [] }] };
+
+
+
+
+  },
+  methods: {
+    tabarTab: function tabarTab(index) {
+      this.tabIndex = index;
+    },
+    //swiper 切换
+    changeTab: function changeTab(e) {
+      console.log(e);
+      this.tabIndex = e.target.current;
+
+    } } };exports.default = _default;
 
 /***/ })
 
