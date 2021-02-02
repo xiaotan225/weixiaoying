@@ -1,24 +1,28 @@
 <template>
 	<!-- 搜索热门和历史搜索组件 -->
 	<view class="list-cont d-flex flex-wrap">
-		<view class="item mr-2 mt-2 mb-1" v-for="(item,index) in list" :key="index">
-			{{item}}
+		<view @tap="tapsearchHistory(item,index)" class="item mr-2 mt-2 mb-1" v-for="(item,index) in list" :key="index">
+			{{item.title || item}}
 		</view>
 	</view>
 </template>
 
 <script>
 	export default {
+		props:{
+			list:{
+				type:Array,
+				default:()=>[]
+			}
+		},
 		data(){
 			return {
-				list:[
-					'余罪',
-					'向往的生活',
-					'萌萌早纳米',
-					'乘风破浪',
-					'定义浏览',
-					'联盟',
-				]
+				
+			}
+		},
+		methods:{
+			tapsearchHistory(item,index){
+				this.$emit('tapsearchHistory',item,index)
 			}
 		}
 	}

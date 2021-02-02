@@ -1,3 +1,6 @@
+button::after {
+	    border: none !important;
+	}
 /* 防止图片闪一下 */
 image {
 	will-change: transform
@@ -1907,4 +1910,8 @@ body {
 }
 
 
-
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}

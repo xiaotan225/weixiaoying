@@ -1,32 +1,57 @@
 
-page{
+page {
 	background: #efefef;
 }
-#button{
+#button {
+	display: inline-block;
+}
+button:after {
+	border: none !important;
+}
+.site {
+	z-index: 2;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	        transform: translate(-50%, -50%);
 }
 .browse-box {
 	width: 100%;
 	background: #fff;
-	-webkit-box-shadow: 0 10rpx 10rpx rgba(0, 0, 0, 0.2);
-	        box-shadow: 0 10rpx 10rpx rgba(0, 0, 0, 0.2);
+	box-shadow: 0 10rpx 10rpx rgba(0, 0, 0, 0.2);
 	padding-bottom: 20rpx;
 }
-.video-list .video-item{
+.video-list .video-item {
 	margin-right: 20rpx;
 	margin-bottom: 20rpx;
-	height: 190rpx;
-	width: calc((100% - 40rpx)/3);
+	height: 250rpx;
 }
-.score{
+.score {
 	top: 0;
 	left: 0;
 	z-index: 0;
 	width: 56rpx;
 	height: 32rpx;
 	font-size: 20rpx;
-	-webkit-border-radius: 0 10rpx 0 10rpx;
 	border-radius: 0 0rpx 10rpx 0rpx;
 	background: rgb(105, 133, 253);
 	color: #fff;
+}
+.test {
+	background-image: -webkit-linear-gradient(left, #ff0, #dd524d 25%, #bdcd34 50%, #dd524d 75%, #ff0);
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+	-webkit-background-size: 200% 100%;
+	-webkit-animation: masked-animation 3s infinite linear;
+	border: 0;
+	font-size: 33rpx;
+}
+@-webkit-keyframes masked-animation {
+0% {
+		background-position: 0 0
+}
+to {
+		background-position: -100% 0
+}
 }
 

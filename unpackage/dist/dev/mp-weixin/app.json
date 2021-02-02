@@ -4,8 +4,11 @@
     "pages/search/search",
     "pages/classify/classify",
     "pages/my/my",
+    "pages/my/collect",
+    "pages/my/feedback-issue",
     "pages/common/video-list",
-    "pages/common/video-details"
+    "pages/common/video-details",
+    "pages/common/video-kan"
   ],
   "subPackages": [],
   "window": {
@@ -16,32 +19,41 @@
     "backgroundColor": "#5B2549"
   },
   "tabBar": {
-    "selectedColor": "#7992fc",
+    "selectedColor": "#ffd524",
     "borderStyle": "white",
     "color": "#000",
-    "backgroundColor": "#f6f6f6",
+    "backgroundColor": "#FFFFFF",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "首页"
+        "text": "首页",
+        "iconPath": "static/bottomIcon/index1.png",
+        "selectedIconPath": "static/bottomIcon/index2.png"
       },
       {
         "pagePath": "pages/search/search",
-        "text": "搜索"
+        "text": "搜索",
+        "iconPath": "static/bottomIcon/sousuo1.png",
+        "selectedIconPath": "static/bottomIcon/sousuo2.png"
       },
       {
         "pagePath": "pages/classify/classify",
-        "text": "分类"
+        "text": "分类",
+        "iconPath": "static/bottomIcon/fenlei1.png",
+        "selectedIconPath": "static/bottomIcon/fenlei2.png"
       },
       {
         "pagePath": "pages/my/my",
-        "text": "我的"
+        "text": "我的",
+        "iconPath": "static/bottomIcon/wode1.png",
+        "selectedIconPath": "static/bottomIcon/wode2.png"
       }
     ]
   },
   "usingComponents": {
     "common-title": "/components/common/common-title",
-    "divider": "/components/common/divider"
+    "divider": "/components/common/divider",
+    "none-text": "/components/common/none-text"
   },
-  "sitemapLocation": "sitemap21.json"
+  "sitemapLocation": "sitemap79.json"
 }

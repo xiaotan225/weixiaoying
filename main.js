@@ -9,13 +9,15 @@ Vue.config.productionTip = false
 // 引入全局组件
 import divider from "@/components/common/divider.vue"
 import commonTitle from "@/components/common/common-title.vue"
+import noneText from "@/components/common/none-text.vue"
 Vue.component('commonTitle',commonTitle)
 Vue.component('divider',divider)
+Vue.component('noneText',noneText)
 
 
 // 引入API接口
-import api from '@/common/lib/api.js'
-Vue.prototype.Api = api
+import * as api  from "@/common/lib/api.js"
+Vue.prototype.$api = api
 
 // 引入request库
 import $H from '@/common/lib/request.js';
@@ -31,7 +33,7 @@ Vue.prototype.$H = $H
 Vue.prototype.$U = $U
 
 // 时间函数
- import $T from './common/lib/time.js';
+import $T from './common/lib/time.js';
 Vue.prototype.$T = $T
 
 // //生成二维码

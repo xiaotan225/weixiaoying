@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "common-list-fill": "/components/common/common-list-fill"
+    "common-list-fill": "/components/common/common-list-fill",
+    "helang-card-swiper": "/components/helang-cardSwiper/helang-cardSwiper"
   }
 }

@@ -1,4 +1,5 @@
 <template>
+	<!-- 弹窗消息 -->
 	<view class="pop-up-container " :class="isShow?'show':''">
 		<view class="d-flex a-center j-center height-000" @tap.stop="close">
 

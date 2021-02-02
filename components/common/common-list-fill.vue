@@ -5,13 +5,16 @@
 			
 			<view class="video-item d-flex flex-column" @tap="toDetails(item,index)"  v-for="(item,index) in videoList" :key="index">
 				<view class="width-000 position-relative"  style="height: 90%;">
-					<image class="width-000 height-000" :src="item.src" mode=""></image>
+					
+						<!-- <easy-loadimage mode="" :imageSrc="item.vod_pic"></easy-loadimage> -->
+						<image @load="load" @error="error"  class="width-000 height-000" :src="item.vod_pic" mode=""></image>
+					
 					<view class="position-absolute score d-flex a-center j-center" style="">
-						{{item.score.toFixed(1)}}
+						{{item.vod_score}}
 					</view>
 				</view>
-				<view class="text-center width-000" style="margin-top: 5rpx;">
-					{{item.name}}
+				<view class="text-center width-000" style="margin-top: 5rpx;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+					{{item.vod_name}}
 				</view>
 			</view>
 		
@@ -20,61 +23,47 @@
 </template>
 
 <script>
+	import easyLoadimage from '@/components/easy-loadimage/easy-loadimage.vue'
 	export default {
+		components:{
+			easyLoadimage
+		},
+		props:{
+			// 视频列表数据
+			videoList:{
+				type:Array,
+				default:()=>[]
+			}
+		},
 		data(){
 			return {
 				temparr:[],
-				videoList:[
-					{
-						src:'/static/demo.jpg',
-						name:'花木兰',
-						score:9.0
-					},
-					{
-						src:'/static/demo.jpg',
-						name:'花木兰',
-						score:9.0
-					},
-					{
-						src:'/static/demo.jpg',
-						name:'花木兰',
-						score:9.5
-					},
-					{
-						src:'/static/demo.jpg',
-						name:'花木兰',
-						score:9.0
-					},
-					{
-						src:'/static/demo.jpg',
-						name:'花木兰',
-						score:9.0
-					},
-					{
-						src:'/static/demo.jpg',
-						name:'花木兰',
-						score:9.0
-					}
-				]
+				 scrollTop:0
 			}
 		},
-		props:{
-		
-		
-		},
+		  onPageScroll({scrollTop}) {
+		            // 传入scrollTop值并触发所有easy-loadimage组件下的滚动监听事件
+		            this.scrollTop = scrollTop;
+		 },
 		mounted() {
 			this.videoList.forEach((item,index)=>{
 				this.temparr.push(parseInt(index) + 2)
 			})
-			console.log(this.temparr)
+			// setTimeout(()=>{
+				
+			// },)
 		},
 		methods:{
+			load(e){
+				// console.log(e,'load')
+			},
+			error(e){
+				// console.log(e,'error')
+			},
 			toDetails(item,index){
 				this.$U.navTo('/pages/common/video-details?item='+JSON.stringify(item))
 			},
 			toMake(){
-			
-			
 				uni.navigateTo({
 					url:"/pages/common/promptly-make"
 				})

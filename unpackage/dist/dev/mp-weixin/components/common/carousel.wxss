@@ -1,7 +1,6 @@
 
 .swiper{
 	/* height: 267rpx; */
-	-webkit-border-radius: 5rpx;
-	        border-radius: 5rpx;
+	border-radius: 5rpx;
 }
 

@@ -4,10 +4,10 @@
 		<view v-if="showhead" class="main-border-color d-flex a-center j-sb"
 		:class="getHeadClass">
 			<slot name="title">
-				<text v-if="headTitle" class="font-md text-dark default"
-				:class="headTitleWeight?'headTitleWeight':''">{{headTitle}}</text>
+				<text v-if="headTitle" class="font-md text-dark default "
+				:class="headTitleWeight?'headTitleWeight':''" >{{headTitle}}</text>
 			</slot>
-			<slot name="right"></slot>
+			<slot name="right" ></slot>
 		</view>
 		<!-- body -->
 		<view :class="getBodyClass" :style="bodyStyle">
@@ -68,6 +68,7 @@
 </script>
 
 <style>
+	
 	.headTitleWeight{
 		
 		font-size: 37rpx;
@@ -78,4 +79,5 @@
 	.default{
 		
 	}
+	
 </style>

@@ -2,8 +2,7 @@
 .list-cont .item{
 	font-size: 30rpx;
 	background: rgb(116, 144, 208);
-	-webkit-border-radius: 50rpx;
-	        border-radius: 50rpx;
+	border-radius: 50rpx;
 	padding: 10rpx 20rpx;
 	color: #fff;
 }

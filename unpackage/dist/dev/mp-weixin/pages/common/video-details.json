@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "common-list-fill": "/components/common/common-list-fill"
+    "common-list-fill": "/components/common/common-list-fill",
+    "pop-up-model": "/components/common/pop-up-model"
   }
 }

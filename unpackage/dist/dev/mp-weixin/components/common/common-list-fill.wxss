@@ -15,7 +15,6 @@
 	width: 56rpx;
 	height: 32rpx;
 	font-size: 20rpx;
-	-webkit-border-radius: 0 10rpx 0 10rpx;
 	border-radius: 0 0rpx 10rpx 0rpx;
 	background: rgb(105, 133, 253);
 	color: #fff;

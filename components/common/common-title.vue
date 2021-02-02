@@ -1,36 +1,59 @@
 <template>
+	<!-- 头部导航栏 -->
 	<view>
-	<!-- #ifdef MP-WEIXIN -->
-	<view class="" :style="'height:'+navHeight+'px; line-height: '+navHeightLine+'px'">
-		
-	</view>
-	<view @tap="backTap" :class="themeBg?'theme-bg':''" class="width-000 position-fixed top-0 z-index-1" :style="'height:'+navHeight+'px; line-height: '+navHeightLine+'px'">
-		
-		<view class="d-flex a-center">
-			<view v-show="isShowIcon" class="iconfont iconyoujiantou1 font-weight-700 position-absolute" style="left: 10rpx; font-size: 37rpx;color: #fff;">
+		<!-- #ifdef MP-WEIXIN -->
+		<view class="" :style="'height:'+navHeight+'px; line-height: '+navHeightLine+'px'">
 
-			</view>
-			<view class=" defaulTtitle" :class="titleClass" style="width: 100%;" :style="right?'text-align: left;width: 100%;margin-left:50rpx':center?'text-align: center;':''">
-				{{title}}
+		</view>
+		<view @tap="backTap" :class="themeBg?'theme-bg':''" class="width-000 position-fixed top-0 z-index-1" :style="'height:'+navHeight+'px; line-height: '+navHeightLine+'px'">
+
+			<view class="d-flex a-center">
+				<view v-show="isShowIcon" class="iconfont iconyoujiantou1 font-weight-700 position-absolute" style="left: 10rpx; font-size: 37rpx;color: #fff;">
+
+				</view>
+				<view class=" defaulTtitle" :class="titleClass" style="width: 100%;" :style="right?'text-align: left;width: 100%;margin-left:50rpx':center?'text-align: center;':''">
+					{{title}}
+				</view>
 			</view>
 		</view>
-	</view>
 
-	<!-- #endif -->
+		<!-- #endif -->
 
 
-	<!-- #ifdef H5 -->
-	<view @tap="backTap" :class="themeBg?'theme-bg':''" class="width-000  position-relative" :style="'height:'+navHeight+'px; line-height: '+navHeightLine+'px'">
-		<view class="d-flex a-center">
-			<view v-show="isShowIcon" class="iconfont iconzuojiantou font-weight-700 position-absolute" style="left: 10rpx; font-size: 37rpx;color: #fff;">
-
-			</view>
-			<view class="ml-2 defaulTtitle " style="width: 100%;" :style="right?'text-align: left;width: 100%;':center?'text-align: center;':''">
-				{{title}}
+		<!-- #ifdef H5 -->
+		<view class="" :style="'height:'+navHeight+'px; line-height: '+navHeightLine+'px'">
+		
+		</view>
+		<view @tap="backTap" :class="themeBg?'theme-bg':''" class="width-000 position-fixed top-0 z-index-1" :style="'height:'+navHeight+'px; line-height: '+navHeightLine+'px'">
+		
+			<view class="d-flex a-center">
+				<view v-show="isShowIcon" class="iconfont iconyoujiantou1 font-weight-700 position-absolute" style="left: 10rpx; font-size: 37rpx;color: #fff;">
+		
+				</view>
+				<view class=" defaulTtitle" :class="titleClass" style="width: 100%;" :style="right?'text-align: left;width: 100%;margin-left:50rpx':center?'text-align: center;':''">
+					{{title}}
+				</view>
 			</view>
 		</view>
-	</view>
-	<!-- #endif -->
+		<!-- #endif -->
+		
+		<!-- #ifdef APP-PLUS -->
+		<view class="" :style="'height:'+90+'px; line-height: '+120+'px'">
+		
+		</view>
+		<view @tap="backTap" :class="themeBg?'theme-bg':''" class="width-000 position-fixed top-0 z-index-1" :style="'height:'+90+'px; line-height: '+120+'px'">
+		
+			<view class="d-flex a-center">
+				<view v-show="isShowIcon" class="iconfont iconyoujiantou1 font-weight-700 position-absolute" style="left: 10rpx; font-size: 37rpx;color: #fff;">
+		
+				</view>
+				
+				<view class=" defaulTtitle" :class="titleClass" style="width: 100%;" :style="right?'text-align: left;width: 100%;margin-left:50rpx':center?'text-align: center;':''">
+					{{title}}
+				</view>
+			</view>
+		</view>
+		<!-- #endif -->
 
 
 
@@ -45,8 +68,8 @@
 	export default {
 
 		props: {
-			titleClass:{
-				
+			titleClass: {
+
 			},
 			// 默认背景
 			themeBg: {
@@ -81,17 +104,28 @@
 				navHeightLine: 0
 			}
 		},
+		
+		created() {
+			
+			
+		},
 		async mounted() {
-			// 标题和胶囊对齐在一个水平线上
-			var menu = wx.getMenuButtonBoundingClientRect()
-			var system = await wx.getSystemInfo()
-			// console.log(menu,'胶囊')
-			// console.log(system,'系统')
-			this.navHeight = system.statusBarHeight + menu.height + (menu.top - system.statusBarHeight) * 1
-			this.navHeightLine = this.navHeight * 1.5
-			this.navHeight += 10
-			console.log(system.statusBarHeight, menu.height)
-			// console.log(this.navHeight)
+			// #ifdef MP-WEIXIN 
+				// 标题和胶囊对齐在一个水平线上
+				var menu = wx.getMenuButtonBoundingClientRect()
+				var system = await wx.getSystemInfo()
+				// console.log(menu,'胶囊')
+				// console.log(system,'系统')
+				this.navHeight = system.statusBarHeight + menu.height + (menu.top - system.statusBarHeight) * 1
+				this.navHeightLine = this.navHeight * 1.6
+				this.navHeight += 10
+				this.$store.commit('setNavHeight',this.navHeight)
+				// console.log(this.navHeight)
+			// #endif
+			// #ifdef H5
+				this.navHeight = this.navHeightLine =  50
+			// #endif
+
 		},
 		methods: {
 			backTap() {

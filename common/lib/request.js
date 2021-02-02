@@ -4,13 +4,16 @@ export default {
 	
 	// 全局配置
 	common:{
-		baseUrl:"http://140.143.225.152",
-		// baseUrl:"http://127.0.0.1",
+		// baseUrl:"http://192.168.43.95:3000",
+		// baseUrl:"http://192.168.1.101:3000",
+		// baseUrl:"http://42.192.125.82:3000",
+		baseUrl:"http://127.0.0.1:3000",
 		// baseUrl:"http://apis.cdjsw.cn/mock/15",
 		
 		header:{
 			// 'Content-Type':'application/json;charset=UTF-8',
-			'Content-Type':'application/x-www-form-urlencoded',
+			'content-type': 'application/json' 
+			// 'Content-Type':'application/x-www-form-urlencoded',
 		},
 		data:{},
 		method:'GET',
@@ -31,7 +34,7 @@ export default {
 		
 		// token,需要上传token
 		if (options.token) {
-			options.header.token = $store.state.user.token
+			options.header.token =$store.state.user.token
 			// 二次验证是否登录
 			if (options.checkToken && !options.header.token) {
 				uni.showToast({
@@ -61,23 +64,25 @@ export default {
 						return res(result)
 					}
 					// 服务端失败
-					// if(result.data.statue !== "success"){		
-					// 	//console.log(result);
-					// 	if (options.toast !== false) {
-					// 		uni.showToast({
-					// 			title: result.data.msg || '服务端失败',
-					// 			icon: 'none'
-					// 		});
-					// 	}
-					// 	return rej(result.data) 
-					// }
-					// 成功
-					// let data = result.data.data
-					//console.log(result);
-					// if(result.data.statue == "success"){
-						
-						res(result.data)
-					// }
+					if(result.statusCode != "200"){		
+						//console.log(result);
+						if (options.toast !== false) {
+							uni.showToast({
+								title: result.data.msg || '服务端失败',
+								icon: 'none'
+							});
+						}
+					}else{
+						if(result.data.code != 1){
+							uni.showToast({
+								title:result.data.msg,
+								icon:"none"
+							})
+							res(result.data)
+							return
+						}
+					}
+					res(result.data)
 				},
 				fail: (error) => {
 					uni.hideLoading()

@@ -2,7 +2,108 @@ import req from './request.js'
 
 
 
-// 首页搜索
-export let getSearch =  (options)  => {
-  return req.get('/search/', options)
+// 首页轮播图
+export let getslideshow = (options)  => {
+  return req.get('/slideshow', options)
 }
+
+// 获取首页公告
+export let notice = (options)  => {
+  return req.get('/notice', options)
+}
+
+
+// 获取首页更多热门
+export let indexClassify = (options)  => {
+  return req.get('/indexClassify', options)
+}
+
+
+// 获取视频详情
+export let getVideoDatails = (options)  => {
+  return req.get('/getVideoDatails', options)
+}
+
+
+// 特殊视频播放地址（后缀名）
+export let getURL = (options)  => {
+  return req.get('/getURL', options)
+}
+// 搜索视频
+export let getSearch = (options)  => {
+  return req.get('/search', options)
+}
+
+// 获取视频分类选项
+export let getvodClassify = (options)  => {
+  return req.get('/getvodClassify', options)
+}
+
+// 视频类型筛选查询
+export let getvodClassifyList = (options)  => {
+  return req.get('/getvodClassifyList', options)
+}
+
+// 微信授权登录
+export let wxUserLogin = (options)  => {
+  return req.post('/api/wxuser/login', options)
+}
+
+
+// 用户收藏影片
+export let collectVod = (options)  => {
+  return req.post('/api/wxuser/collectVod', options,{
+	  token:true
+  })
+}
+
+
+// 获取是否用户收藏改影片
+export let isCollectVod = (options)  => {
+  return req.get('/api/wxuser/isCollectVod', options,{
+	  token:true
+  })
+}
+
+
+// 获取用户收藏影片和播放记录
+export let getCollectVod = (options)  => {
+  return req.get('/api/wxuser/getCollectVod', options,{
+	  token:true
+  })
+}
+
+
+// 反馈问题
+export let feedbackIssue = (options)  => {
+  return req.post('/api/wxuser/feedbackIssue', options,{
+	  token:true
+  })
+}
+
+// 热门搜索获取
+export let hotSearch = (options)  => {
+  return req.get('/hotSearch', options)
+}
+
+// 热门搜索获取
+export let test = (options)  => {
+  return req.get('/test', options)
+}
+
+
+
+
+
+
+
+
+
+
+
+/*  
+export default {
+	 getslideshow(options) {
+	  return req.get('/slideshow', options)
+	}
+}*/

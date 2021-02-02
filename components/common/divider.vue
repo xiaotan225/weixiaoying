@@ -9,6 +9,6 @@
 	.divider{
 		
 		height: 10rpx;
-		background: #803667;
+		background: #efefef;
 	}
 </style>

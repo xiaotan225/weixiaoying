@@ -16,9 +16,7 @@
 	height: 70rpx;
 	width: 100%;
 	
-	-webkit-border-radius: 50rpx;
-	
-	        border-radius: 50rpx;
+	border-radius: 50rpx;
 	background: #fff;
 }
 

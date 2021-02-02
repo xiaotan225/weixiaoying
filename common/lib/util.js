@@ -16,6 +16,27 @@ export default {
 			return true
 		}
 	},
+	// 数据加载更多
+	moreLoad(data){
+		if(data.length <= 0){
+			this.textLoad = this.txtLoad
+			return
+		}
+		if(this.page > 1){
+			this.videoList.push(...data)
+			
+			return false
+		}
+		return true
+		
+	},
+	// 消息弹窗
+	showToast(title,icon = 'none'){
+		uni.showToast({
+			title:title,
+			icon:icon
+		})
+	},
 	// 返回上一页
 	backTap() {
 		uni.navigateBack({
