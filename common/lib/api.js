@@ -86,9 +86,16 @@ export let hotSearch = (options)  => {
   return req.get('/hotSearch', options)
 }
 
-// 热门搜索获取
+// // 热门搜索获取
 export let test = (options)  => {
   return req.get('/test', options)
+}
+
+
+
+// 获取豆瓣评分
+export let getScoreVod = (options)  => {
+  return req.get('/getScoreVod', options)
 }
 
 

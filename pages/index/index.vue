@@ -6,6 +6,7 @@
 			<commonTitle :defaultSty="false" :isShowIcon="false" :center="true" title="微小影"></commonTitle>
 		</view>
 		<!-- 导航栏 -->
+		
 		<!-- 轮播图 -->
 		<view class="">
 			<helangCardSwiper :list="listImg" :vodList="vodList"></helangCardSwiper>
@@ -53,7 +54,9 @@
 			</view>
 		</view>
 
-
+		<view class="" style="height: 100rpx;">
+			
+		</view>
 		<!-- <view class="px-2">
 			<card class="mx-3" headTitle="热门电视剧" :headTitleWeight="true">
 				<view @click="likeTap('热门电视剧')" slot="right" class="font-md text-muted pr-1 d-flex a-center">

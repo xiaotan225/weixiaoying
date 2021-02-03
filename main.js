@@ -6,6 +6,7 @@ Vue.prototype.$store = store
 
 Vue.config.productionTip = false
 
+
 // 引入全局组件
 import divider from "@/components/common/divider.vue"
 import commonTitle from "@/components/common/common-title.vue"

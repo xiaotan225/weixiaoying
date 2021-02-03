@@ -45,8 +45,7 @@
 				
 			// 	}
 			// });
-			
-			
+				
 			
 			
 			
@@ -62,6 +61,7 @@
 				var data = await this.$api.getvodClassify()
 				this.$store.commit('setVodClassifyList',data)
 			},
+			
 		}
 	}
 </script>

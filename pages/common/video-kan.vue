@@ -11,7 +11,7 @@
 
 			<video id="myVideo" style="height: 353rpx;width: 100%;" controls="controls" show-casting-button="true" page-gesture
 			 play-btn-position="center" enable-play-gesture :object-fit="fill" @play="play" @loadedmetadata="loadedmetadata"
-			 @waiting="waiting" @error="error" @timeupdate="timeupdate" @controlstoggle="controlstoggle" @fullscreenclick="fullscreenclick"
+			 @waiting="waiting" @timeupdate="timeupdate" @controlstoggle="controlstoggle" @fullscreenclick="fullscreenclick"
 			 @fullscreenchange="fullscreenchange" :title="item.vod_name" :src="playOrigin[collectCurrent].src">
 				<cover-view>
 					<view class="font-36 color-fff position-absolute test" style="z-index: 9999; top: 80%;left: 50%;transform: translate(-50%,-50%);">
@@ -40,13 +40,11 @@
 					<view v-show="isShowControl">
 						<view class="d-flex a-center">
 
-							<!-- :style="fill == 'fill'?'':'transform: rotate(180deg);'"  -->
 							<view @tap="speed('jian')" class="position-absolute" style=" right: 60%;top: 50%;transform: translate(-50%,-50%);">
 								<view class="iconfont iconkuaijin color-fff mr-1 " style="font-size: 70rpx;  transform: rotate(180deg);">
 
 								</view>
 							</view>
-							<!-- :style="fill == 'fill'?'':'transform: rotate(-180deg);'" -->
 							<view @tap="speed('jia')" class="iconfont iconkuaijin1 color-fff  position-absolute" style="font-size: 80rpx; left: 72%;top: 50%;transform: translate(-50%,-50%);">
 
 							</view>
@@ -85,13 +83,11 @@
 			<view v-show="isShowControl">
 				<view class="d-flex a-center">
 
-					<!-- :style="fill == 'fill'?'':'transform: rotate(180deg);'"  -->
 					<view @tap="speed('jian')" class="position-absolute" style=" right: 60%;top: 50%;transform: translate(-50%,-50%);">
 						<view class="iconfont iconkuaijin color-fff mr-1 " style="font-size: 70rpx;  transform: rotate(180deg);">
 
 						</view>
 					</view>
-					<!-- :style="fill == 'fill'?'':'transform: rotate(-180deg);'" -->
 					<view @tap="speed('jia')" class="iconfont iconkuaijin1 color-fff  position-absolute" style="font-size: 80rpx; left: 72%;top: 50%;transform: translate(-50%,-50%);">
 
 					</view>
@@ -143,10 +139,10 @@
 									{{playbackRateList[playbackRateIndex]}}x
 								</view>
 							</view>
-					
+
 						</view>
 					</view>
-				
+
 					<view class="iconfont " style="font-size: 52rpx;" v-if="index != 1" :class="item.src">
 
 					</view>
@@ -190,9 +186,12 @@
 		<view class="px-3">
 
 			<view class="d-flex a-center" style="overflow: auto;">
-				<view @tap="anthology(item,index)" :class="collectCurrent==index?'playSourceCurrentYes':'playSourceCurrentNo'"
+				<view v-if="item.title" @tap="anthology(item,index)" :class="collectCurrent==index?'playSourceCurrentYes':'playSourceCurrentNo'"
 				 class=" py-1 mr-2 theme-border-r10 playSourceCurrent1" v-for="(item,index) in playOrigin" :key="index">
-					{{item.title}}
+					<view class="" >
+						{{item.title}}
+					</view>
+					
 				</view>
 			</view>
 		</view>
@@ -351,7 +350,7 @@
 <script>
 	import commonListFill from "@/components/common/common-list-fill.vue";
 	import popUpModel from "@/components/common/pop-up-model.vue";
-
+	import Hls from "@/common/lib/hls.min.js";
 	export default {
 		components: {
 			commonListFill,
@@ -359,6 +358,7 @@
 		},
 		data() {
 			return {
+				// 操作选项列表
 				optList: [
 					// {
 					// 	name: '分享提速',
@@ -383,26 +383,35 @@
 				],
 				item: {},
 				playSourceCurrent: 0,
+				// 线路
 				playSource: [
-					'线路1',
-					'线路2',
-					'线路3',
+
 				],
 				collectCurrent: 0,
 				optCollect: {
 
 				},
+				// 播放来源
 				playOrigin: [],
-				videoDatails: {},
+				videoDatails: {
+					vod_cont: [],
+					vod_content: []
+				},
 				tempVodCont: '',
 				isShow: false,
 				isCollect: false,
 				videoContext: {},
+				// 视频加载字
 				VodLoadText: '正在解析影片请稍等',
+				// 是否显示视频控件
 				isShowControl: false,
+				// 视频是否填充
 				fill: 'contain',
+				// 倍速播放索引
 				playbackRateIndex: 2,
+				// 倍速设置选项列表
 				playbackRateList: ['0.5', '0.8', '1.0', '1.2', '1.5', '2.0'],
+				// 视频当前播放时间
 				currentTimeVod: 0
 
 			}
@@ -414,7 +423,7 @@
 					token: this.$store.state.user.token,
 				}
 			},
-			
+
 		},
 		onReady: function(res) {
 			this.videoContext = uni.createVideoContext('myVideo')
@@ -423,6 +432,7 @@
 		onLoad(e) {
 			// item={"type_id":1,"vod_actor":"塞思·麦克法兰,马克·沃尔伯格,阿曼达·塞弗里德,杰西卡·巴斯","vod_hits":1,"vod_id":26378,"vod_level":1,"vod_name":"泰迪熊2","vod_pic":"https://img.yongjiu7.com/upload/vod/2019-01-17/15477307180.jpg","vod_remarks":"BD高清","vod_score":0,"vod_year":"2015"}&__id__=2
 			this.item = JSON.parse(e.item)
+			// 获取视频详情资源
 			this.getVideoDatails()
 			this.isCollectVod()
 
@@ -432,26 +442,29 @@
 			// console.log(videoContext)
 			//  videoContext.play();
 
+			// var video = document.createElement('myVideo')
+			
+
+
 		},
 		methods: {
 			opt(item, index) {
 				if (index == 0) {
+					// 选集列表
 					this.$refs.popUpModel.open()
 
 				} else if (index == 1) {
-
+					// 倍速播放
 				} else if (index == 2) {
-					wx.setClipboardData({
+					// 链接播放（复制链接） H5（没有处理）
+					uni.setClipboardData({
 						data: this.playOrigin[this.collectCurrent].src,
 						success(res) {
 							wx.getClipboardData({
-								success(res) {
-								}
+								success(res) {}
 							})
 						}
 					})
-				} else if (index == 3) {
-
 				}
 			},
 			// 快进按钮
@@ -471,14 +484,12 @@
 			},
 			// 设置倍速播放
 			playbackRate() {
-				console.log(this.playbackRateIndex, this.playbackRateList.length)
 				if (this.playbackRateIndex == this.playbackRateList.length - 1) {
 					this.playbackRateIndex = 0
 					this.videoContext.playbackRate(Number(this.playbackRateList[this.playbackRateIndex]))
 					return
 				}
 				this.playbackRateIndex++
-				console.log(this.playbackRateList[this.playbackRateIndex])
 				this.videoContext.playbackRate(Number(this.playbackRateList[this.playbackRateIndex]))
 			},
 			// 视频是否填充
@@ -563,9 +574,10 @@
 			// 选集
 			async anthology(item, index) {
 				this.collectCurrent = index
-				if (this.playSourceCurrent > 0) return
-
-				this.getURL(item)
+				if(this.playSource[this.playSourceCurrent].indexOf('3u8') == -1){
+					// url 特殊处理 返回 m3u8格式视频
+					this.getURL(this.playOrigin[this.collectCurrent])
+				}
 
 
 			},
@@ -585,11 +597,15 @@
 			},
 			// 分解URL播放地址
 			resolveURL(type) {
-				var tempDataVodType = this.videoDatails.vod_play_url.split('$$$')
-				tempDataVodType.forEach((item, index) => {
+				// 获取URL
+				var tempDataVodTypeURL = this.videoDatails.vod_play_url.split('$$$')
+				// 根据视频类型做 不同的 切割 URL
+				tempDataVodTypeURL.forEach((item, index) => {
 					if (type == 1) {
+						// 电影
 						var sourceItem = item.split('$')
 					} else if (type == 2 || type == 3 || type == 4) {
+						// 电视剧 // 综艺  // 动漫 
 						var sourceItem1 = item.split('#')
 						var sourceItemJoin = sourceItem1.join('$')
 						var sourceItem = sourceItemJoin.split('$')
@@ -604,7 +620,9 @@
 							return item
 						}
 					})
+					// 创建选集数据列表
 					this.optCollect["playOrigin" + index] = []
+					// url和name全部push到 选集数据列表
 					urls.forEach((item2, index2) => {
 						this.optCollect["playOrigin" + index].push({
 							title: names[index2],
@@ -614,6 +632,7 @@
 
 				})
 				this.playOrigin = this.optCollect['playOrigin' + this.playSourceCurrent]
+				
 				// setInterval(()=>{
 				// 	var test =  this.videoContext.play()
 				// 	console.log(test)
@@ -627,8 +646,12 @@
 				})
 				this.videoDatails = data.data[0]
 				this.videoDatails.vod_cont = this.tempVodCont = data.data[0].vod_content.slice(0, 100)
+				// 播放源（解析线路）
 				this.playSource = this.videoDatails.vod_play_from.split('$$$')
+				/* 0: "kuyun"
+1: 					1:"ckm3u8" */
 				var videoTypeId = this.videoDatails.type_id
+				
 				if (videoTypeId == 1) {
 					// 电影
 					this.resolveURL(1)
@@ -638,16 +661,30 @@
 					this.resolveURL(2)
 
 				} else if (videoTypeId == 3) {
-					// 综艺
+					// 综艺 
 					this.resolveURL(3)
 
 				} else if (videoTypeId == 4) {
 					// 动漫
 					this.resolveURL(4)
 				}
-
-				if (this.playSourceCurrent > 0) return
-				this.getURL(this.playOrigin[this.collectCurrent])
+				
+				if(this.playSource[this.playSourceCurrent].indexOf('3u8') == -1){
+					// url 特殊处理 返回 m3u8格式视频
+					this.getURL(this.playOrigin[this.collectCurrent])
+				}
+				// var playSourceStr = this.playSource.join(',')
+				// for(var i=0; i<this.playSource.length; i++){
+				// 	if(this.playSource[i].indexOf('3u8') == -1){
+				// 		console.log(this.playSource[i])
+				// 		
+				// 		return
+				// 	}
+				// }
+				
+				// if (this.playSourceCurrent > 0) {
+				// 	this.getURL(this.playOrigin[this.collectCurrent])
+				// }
 
 
 			}
@@ -661,10 +698,11 @@
 	#button {
 		display: inline-block;
 	}
-	
+
 	button::after {
 		border: none !important;
 	}
+
 	.playSourceCurrent {
 		color: rgb(246, 187, 49);
 		font-size: 30rpx;
@@ -690,12 +728,13 @@
 
 	.playSourceCurrentNo {
 		background: rgb(222, 222, 222);
-		
+
 	}
 
 	button::after {
-	    border: none !important;
+		border: none !important;
 	}
+
 	.test {
 		background-image: -webkit-linear-gradient(left, #ff0, #dd524d 25%, #bdcd34 50%, #dd524d 75%, #ff0);
 		-webkit-text-fill-color: transparent;

@@ -21,14 +21,24 @@
 					<view class="color-red font-25 mb-1">
 						{{videoDatails.vod_remarks || '未知'}}
 					</view>
-					<view class="font-27 mb-1">
-						类型：{{filterVoList[0].genres || '未知'}}
+					<view class="font-27 mb-1 d-flex a-center">
+						<view class="">
+							类型：
+						</view>
+						<view class="" v-if="!filterVoList.genres">
+							未知
+						</view>
+						<view class="" v-else v-for="(item,index) in filterVoList.genres" :key="index">
+							{{item || '未知'}}{{index >= filterVoList.genres.length-1?'':','}}
+						</view>
 					</view>
 					<view class="font-27 mb-1 vod_cont">
 						演员：{{videoDatails.vod_actor || '未知'}}
 					</view>
 					<view class="font-27 mb-2">
-						{{filterVoList[0].year || '未知'}} / {{videoDatails.vod_area || '未知'}} / {{filterVoList[0].directors[0].name || '未知'}}
+						{{filterVoList.year || '未知'}} / {{videoDatails.vod_area || '未知'}} /  {{filterVoList.directors[0].name || '未知' }} 
+						<!--  -->
+						<!---->
 					</view>
 					<view v-if="isShowKan" class="d-flex a-center  operate">
 						<view @tap="share" class="mr-2 d-flex a-center">
@@ -54,9 +64,9 @@
 				</view>
 			</view>
 			<view class="mt-5 px-2 d-flex j-sb a-center mx-2 theme-border-r10" style="height: 150rpx;background: rgb(148, 169, 191);">
-				<view v-show="filterVoList[0].rating.value" class="d-flex a-center font-weight-600 font-33 " style="color: rgb(244, 209, 119);">
+				<view v-if="filterVoList.rating.value" class="d-flex a-center font-weight-600 font-33 " style="color: rgb(244, 209, 119);">
 					<view class="mr-2 font-weight-600 font-33 ">
-						评分：{{filterVoList[0].rating.value}}
+						评分：{{filterVoList.rating.value}}
 					</view>
 					<view class="font-weight-600 font-33 d-flex a-center">
 						<view :class="item == 3?'font-36 iconai65':item == 1?'font-40 iconwujiaoxing1':'iconwujiaoxing3'" class="font-33 iconfont "
@@ -65,7 +75,7 @@
 						</view>
 					</view>
 				</view>
-				<view v-show="!filterVoList[0].rating.value" class="d-flex a-center font-weight-600 font-33 " style="color: rgb(244, 209, 119);">
+				<view v-show="!filterVoList.rating.value" class="d-flex a-center font-weight-600 font-33 " style="color: rgb(244, 209, 119);">
 					暂无评分
 				</view>
 
@@ -113,6 +123,9 @@
 					</view>
 				</view>
 			</view>
+		
+		
+		
 		</view>
 
 		<!-- 影视介绍 -->
@@ -145,7 +158,7 @@
 							{{videoDatails.vod_name}}
 						</view>
 						<view class="mb-1 font-30">
-							类型：{{filterVoList[0].genres || '未知'}}
+							类型：{{filterVoList.genres || '未知'}}
 						</view>
 						<view class="mb-1 font-30 xianzhi1">
 							演员：{{videoDatails.vod_actor || '未知'}}
@@ -200,16 +213,27 @@
 		data() {
 			return {
 				item: {},
-				videoDatails: {},
+				// 影片详情数据
+				videoDatails: {
+					vod_cont:[],
+					vod_content:[]
+				},
+				// 影片推荐列表
 				videoList: [],
+				// 是否展开和收起（影片介绍）
 				isShow: false,
+				// 零时 影片介绍
 				tempVodCont: '',
-				filterVoList: [],
+				// 豆瓣评分数据
+				filterVoList: {
+					directors: [{}],
+					rating:{value:0}
+				},
+				// 评分处理数据
 				newArr: [],
 				imagePath: '',
 				canvasHidden: '',
 				tempImgVod: '',
-				isshow:false
 			}
 		},
 		computed:{
@@ -219,57 +243,57 @@
 		},
 		onLoad(e) {
 			// this.$refs.popUpModel.open()
-
+				
 			this.item = JSON.parse(e.item)
 			this.getVideoDatails()
 			var _this = this
-			// 获取豆瓣视频数据
-			uni.request({
-				url: 'https://frodo.douban.com/api/v2/search',
-				data: {
-					apiKey: "054022eaeae0b00e0fc068c0c0a2102a",
-					q: this.item.vod_name
-				},
-				method: "GET",
-				success(res) {
-					_this.filterVoList = res.data.subjects.filter(item => {
-						return item.title == _this.item.vod_name
-					})
-					console.log(_this.filterVoList)
-					var star_count = _this.filterVoList[0].rating.star_count
-					if (String(star_count).indexOf('.') != -1) {
-						// 小数
-						var intSatr = parseInt(star_count)
-
-						for (var i = 0; i < 5; i++) {
-							if (i < intSatr) {
-								_this.newArr.push(1)
-							} else if (i <= intSatr) {
-								_this.newArr.push(3)
-							} else {
-								_this.newArr.push(2)
-							}
-
-						}
-					} else {
-						// 整数
-						var intSatr = parseInt(star_count)
-						console.log(intSatr)
-						for (var i = 0; i < 5; i++) {
-							if (i < intSatr) {
-								_this.newArr.push(1)
-							} else {
-								_this.newArr.push(2)
-							}
-
-						}
-
-					}
-
+			// 获取豆瓣视频数据（评分）
+			this.$api.getScoreVod({
+				vod_name:this.item.vod_name
+			}).then(res=>{
+				// 找到对应的视频数据
+				var filterVoList = res.data.subjects.filter(item => {
+					return item.title == _this.item.vod_name
+				})
+				if(filterVoList.length <= 0){
+					// 没有找到对应视频数据 （没有评分）
+					_this.filterVoList = res.data.subjects[0]
+					_this.filterVoList.directors = res.data.directors
+				}else{
+					_this.filterVoList = filterVoList[0]
 				}
+				// 评分数 做页面 处理
+				var star_count =_this.filterVoList.rating.star_count || []
+				if (String(star_count).indexOf('.') != -1) {
+					// 小数
+					var intSatr = parseInt(star_count)
+							
+					for (var i = 0; i < 5; i++) {
+						if (i < intSatr) {
+							_this.newArr.push(1)
+						} else if (i <= intSatr) {
+							_this.newArr.push(3)
+						} else {
+							_this.newArr.push(2)
+						}
+							
+					}
+				} else {
+					// 整数
+					var intSatr = parseInt(star_count)
+					for (var i = 0; i < 5; i++) {
+						if (i < intSatr) {
+							_this.newArr.push(1)
+						} else {
+							_this.newArr.push(2)
+						}
+							
+					}
+							
+				}
+					
 			})
-		},
-		mounted() {
+		
 		
 		},
 		// 分享
@@ -281,7 +305,6 @@
 				content: this.videoDatails.vod_name,
 				desc: '免费观看' + this.videoDatails.vod_name,
 				success: res => {
-					console.info(res)
 				}
 			}
 		},
@@ -305,7 +328,7 @@
 				context.setFontSize(15);
 				context.setFillStyle('#000000');
 				context.setTextAlign('left');
-				context.fillText('类型：' + this.filterVoList[0].genres || '未知', 162, 95);
+				context.fillText('类型：' + this.filterVoList.genres || '未知', 162, 95);
 				context.stroke();
 				// 演员
 				context.setFontSize(15);
@@ -476,9 +499,10 @@
 				var data = await this.$api.getVideoDatails({
 					vodid: this.item.vod_id
 				})
-				this.isshow = data.isshow
 				this.videoDatails = data.data[0]
+				// 影片介绍
 				this.videoDatails.vod_cont = this.tempVodCont = data.data[0].vod_content.slice(0, 100)
+				// 为你推荐视频列表
 				this.videoList = data.list
 
 				uni.getImageInfo({

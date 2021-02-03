@@ -46,9 +46,23 @@
 		
 		},
 		computed:{
+			// #ifdef H5 
 			navHeight(){
-				return this.$store.state.navHeight - 10
+				return this.$store.state.navHeight + 70
 			}
+			// #endif
+			// #ifdef APP-PLUS-NVUE
+			navHeight(){
+				return this.$store.state.navHeight + 70
+			}
+			// #endif
+			
+			// #ifdef MP-WEIXIN 
+				navHeight(){
+					return this.$store.state.navHeight - 10
+				}
+			// #endif
+		
 		},
 		mounted() {
 			

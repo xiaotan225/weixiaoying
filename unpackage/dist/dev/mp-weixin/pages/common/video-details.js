@@ -130,7 +130,20 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 8));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var commonListFill = function commonListFill() {__webpack_require__.e(/*! require.ensure | components/common/common-list-fill */ "components/common/common-list-fill").then((function () {return resolve(__webpack_require__(/*! @/components/common/common-list-fill.vue */ 125));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var popUpModel = function popUpModel() {__webpack_require__.e(/*! require.ensure | components/common/pop-up-model */ "components/common/pop-up-model").then((function () {return resolve(__webpack_require__(/*! @/components/common/pop-up-model.vue */ 151));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 8));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var commonListFill = function commonListFill() {__webpack_require__.e(/*! require.ensure | components/common/common-list-fill */ "components/common/common-list-fill").then((function () {return resolve(__webpack_require__(/*! @/components/common/common-list-fill.vue */ 126));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var popUpModel = function popUpModel() {__webpack_require__.e(/*! require.ensure | components/common/pop-up-model */ "components/common/pop-up-model").then((function () {return resolve(__webpack_require__(/*! @/components/common/pop-up-model.vue */ 152));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -332,16 +345,27 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       item: {},
-      videoDatails: {},
+      // 影片详情数据
+      videoDatails: {
+        vod_cont: [],
+        vod_content: [] },
+
+      // 影片推荐列表
       videoList: [],
+      // 是否展开和收起（影片介绍）
       isShow: false,
+      // 零时 影片介绍
       tempVodCont: '',
-      filterVoList: [],
+      // 豆瓣评分数据
+      filterVoList: {
+        directors: [{}],
+        rating: { value: 0 } },
+
+      // 评分处理数据
       newArr: [],
       imagePath: '',
       canvasHidden: '',
-      tempImgVod: '',
-      isshow: false };
+      tempImgVod: '' };
 
   },
   computed: {
@@ -355,53 +379,53 @@ __webpack_require__.r(__webpack_exports__);
     this.item = JSON.parse(e.item);
     this.getVideoDatails();
     var _this = this;
-    // 获取豆瓣视频数据
-    uni.request({
-      url: 'https://frodo.douban.com/api/v2/search',
-      data: {
-        apiKey: "054022eaeae0b00e0fc068c0c0a2102a",
-        q: this.item.vod_name },
+    // 获取豆瓣视频数据（评分）
+    this.$api.getScoreVod({
+      vod_name: this.item.vod_name }).
+    then(function (res) {
+      // 找到对应的视频数据
+      var filterVoList = res.data.subjects.filter(function (item) {
+        return item.title == _this.item.vod_name;
+      });
+      if (filterVoList.length <= 0) {
+        // 没有找到对应视频数据 （没有评分）
+        _this.filterVoList = res.data.subjects[0];
+        _this.filterVoList.directors = res.data.directors;
+      } else {
+        _this.filterVoList = filterVoList[0];
+      }
+      // 评分数 做页面 处理
+      var star_count = _this.filterVoList.rating.star_count || [];
+      if (String(star_count).indexOf('.') != -1) {
+        // 小数
+        var intSatr = parseInt(star_count);
 
-      method: "GET",
-      success: function success(res) {
-        _this.filterVoList = res.data.subjects.filter(function (item) {
-          return item.title == _this.item.vod_name;
-        });
-        console.log(_this.filterVoList);
-        var star_count = _this.filterVoList[0].rating.star_count;
-        if (String(star_count).indexOf('.') != -1) {
-          // 小数
-          var intSatr = parseInt(star_count);
-
-          for (var i = 0; i < 5; i++) {
-            if (i < intSatr) {
-              _this.newArr.push(1);
-            } else if (i <= intSatr) {
-              _this.newArr.push(3);
-            } else {
-              _this.newArr.push(2);
-            }
-
+        for (var i = 0; i < 5; i++) {
+          if (i < intSatr) {
+            _this.newArr.push(1);
+          } else if (i <= intSatr) {
+            _this.newArr.push(3);
+          } else {
+            _this.newArr.push(2);
           }
-        } else {
-          // 整数
-          var intSatr = parseInt(star_count);
-          console.log(intSatr);
-          for (var i = 0; i < 5; i++) {
-            if (i < intSatr) {
-              _this.newArr.push(1);
-            } else {
-              _this.newArr.push(2);
-            }
 
+        }
+      } else {
+        // 整数
+        var intSatr = parseInt(star_count);
+        for (var i = 0; i < 5; i++) {
+          if (i < intSatr) {
+            _this.newArr.push(1);
+          } else {
+            _this.newArr.push(2);
           }
 
         }
 
-      } });
+      }
 
-  },
-  mounted: function mounted() {
+    });
+
 
   },
   // 分享
@@ -413,7 +437,6 @@ __webpack_require__.r(__webpack_exports__);
       content: this.videoDatails.vod_name,
       desc: '免费观看' + this.videoDatails.vod_name,
       success: function success(res) {
-        console.info(res);
       } };
 
   },
@@ -437,7 +460,7 @@ __webpack_require__.r(__webpack_exports__);
       context.setFontSize(15);
       context.setFillStyle('#000000');
       context.setTextAlign('left');
-      context.fillText('类型：' + this.filterVoList[0].genres || false, 162, 95);
+      context.fillText('类型：' + this.filterVoList.genres || false, 162, 95);
       context.stroke();
       // 演员
       context.setFontSize(15);
@@ -608,9 +631,10 @@ __webpack_require__.r(__webpack_exports__);
                   _this3.$api.getVideoDatails({
                     vodid: _this3.item.vod_id }));case 3:data = _context2.sent;
 
-                _this3.isshow = data.isshow;
                 _this3.videoDatails = data.data[0];
+                // 影片介绍
                 _this3.videoDatails.vod_cont = _this3.tempVodCont = data.data[0].vod_content.slice(0, 100);
+                // 为你推荐视频列表
                 _this3.videoList = data.list;
 
                 uni.getImageInfo({
@@ -618,7 +642,7 @@ __webpack_require__.r(__webpack_exports__);
                   success: function success(res) {
                     _this.tempImgVod = res.path;
                     _this.formSubmit();
-                  } });case 9:case "end":return _context2.stop();}}}, _callee2);}))();
+                  } });case 8:case "end":return _context2.stop();}}}, _callee2);}))();
 
 
 
