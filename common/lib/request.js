@@ -4,8 +4,8 @@ export default {
 	
 	// 全局配置
 	common:{
-		baseUrl:"http://192.168.43.95:3000",
-		// baseUrl:"http://192.168.1.108:3000",
+		// baseUrl:"http://192.168.43.95:3000",
+		baseUrl:"http://192.168.1.105:3000",
 		// baseUrl:"http://42.192.125.82:3000",
 		// baseUrl:"http://127.0.0.1:3000",
 		// baseUrl:"http://apis.cdjsw.cn/mock/15",
@@ -31,6 +31,7 @@ export default {
 		options.data = options.data || this.common.data
 		options.method = options.method || this.common.method
 		options.dataType = options.dataType || this.common.dataType
+	
 		
 		// token,需要上传token
 		if (options.token) {
@@ -57,7 +58,9 @@ export default {
 			// 请求中...
 			uni.request({
 				...options,
+				withCredentials:true,
 				success: (result) => {
+					console.log(result)
 					uni.hideLoading()
 					// 返回原始数据
 					if(options.native){

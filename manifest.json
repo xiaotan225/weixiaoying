@@ -79,5 +79,9 @@
     },
     "uniStatistics" : {
         "enable" : false
+    },
+    "h5" : {
+        "title" : "weixiaoshi",
+        "domain" : "42.192.125.82"
     }
 }

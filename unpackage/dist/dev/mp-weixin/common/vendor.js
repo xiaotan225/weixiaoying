@@ -3775,6 +3775,7 @@ var index = {
     // 微信授权登陆
     wxLogin: function wxLogin(_ref, callack) {var commit = _ref.commit;
       var systemInfo = uni.getSystemInfoSync();
+
       // 获取用户信息
       uni.login({
         provider: 'weixin',
@@ -3823,7 +3824,7 @@ var index = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.getScoreVod = exports.test = exports.hotSearch = exports.feedbackIssue = exports.getCollectVod = exports.isCollectVod = exports.collectVod = exports.wxUserLogin = exports.getvodClassifyList = exports.getvodClassify = exports.getSearch = exports.getURL = exports.getVideoDatails = exports.indexClassify = exports.notice = exports.getslideshow = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! ./request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.Hregister = exports.h5AuthCode = exports.getScoreVod = exports.test = exports.hotSearch = exports.feedbackIssue = exports.getCollectVod = exports.isCollectVod = exports.collectVod = exports.wxUserLogin = exports.getvodClassifyList = exports.getvodClassify = exports.getSearch = exports.getURL = exports.getVideoDatails = exports.indexClassify = exports.notice = exports.getslideshow = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! ./request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 
 
@@ -3924,6 +3925,18 @@ exports.test = test;var getScoreVod = function getScoreVod(options) {
 };
 
 
+// H5邮箱验证码获取
+exports.getScoreVod = getScoreVod;var h5AuthCode = function h5AuthCode(options) {
+  return _request.default.post('/api/wxuser/h5AuthCode', options, {
+    withCredentials: true });
+
+};
+
+// H5账号注册
+exports.h5AuthCode = h5AuthCode;var Hregister = function Hregister(options) {
+  return _request.default.post('/api/wxuser/register', options);
+};
+
 
 
 
@@ -3938,7 +3951,7 @@ exports.test = test;var getScoreVod = function getScoreVod(options) {
    	 getslideshow(options) {
    	  return req.get('/slideshow', options)
    	}
-   }*/exports.getScoreVod = getScoreVod;
+   }*/exports.Hregister = Hregister;
 
 /***/ }),
 
@@ -3956,10 +3969,10 @@ var _default = {
 
   // 全局配置
   common: {
-    baseUrl: "http://192.168.43.95:3000",
-    // baseUrl:"http://192.168.1.108:3000",
+    // baseUrl:"http://192.168.43.95:3000",
+    // baseUrl:"http://192.168.43.95:3000",
     // baseUrl:"http://42.192.125.82:3000",
-    // baseUrl:"http://127.0.0.1:3000",
+    baseUrl: "http://127.0.0.1:3000",
     // baseUrl:"http://apis.cdjsw.cn/mock/15",
 
     header: {
@@ -3983,6 +3996,7 @@ var _default = {
     options.data = options.data || this.common.data;
     options.method = options.method || this.common.method;
     options.dataType = options.dataType || this.common.dataType;
+
 
     // token,需要上传token
     if (options.token) {
@@ -4009,7 +4023,9 @@ var _default = {
       // 请求中...
       uni.request(_objectSpread(_objectSpread({},
       options), {}, {
+        withCredentials: true,
         success: function success(result) {
+          console.log(result);
           uni.hideLoading();
           // 返回原始数据
           if (options.native) {
@@ -10244,6 +10260,20 @@ internalMixin(Vue);
       }
       return false;
     },
+    // 邮箱
+    isEmail: function isEmail(emailInput) {
+      var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+      if (!myreg.test(emailInput)) {
+        console.log('asdf');
+        uni.showToast({
+          title: "请输入正确的邮箱地址",
+          icon: "none" });
+
+        return true;
+      } else {
+        return false;
+      }
+    },
     // 非空判断
     isEmpty: function isEmpty(txt, alert) {
       if (/^\s*$/g.test(txt)) {
@@ -10257,7 +10287,9 @@ internalMixin(Vue);
     },
     // 身份证
     isIdentity: function isIdentity(code) {
-      if (!/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/.test(code)) {
+      if (!
+      /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/.
+      test(code)) {
         uni.showToast({
           title: '请输入正确的身份证',
           icon: "none" });

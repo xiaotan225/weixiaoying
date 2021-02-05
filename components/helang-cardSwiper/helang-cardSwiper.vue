@@ -51,7 +51,7 @@
 				return this.$store.state.navHeight + 70
 			}
 			// #endif
-			// #ifdef APP-PLUS-NVUE
+			// #ifdef APP-PLUS
 			navHeight(){
 				return this.$store.state.navHeight + 70
 			}

@@ -99,6 +99,28 @@ export let getScoreVod = (options)  => {
 }
 
 
+// H5邮箱验证码获取
+export let h5AuthCode = (options)  => {
+  return req.post('/api/wxuser/h5AuthCode', options)
+}
+
+// H5账号注册
+export let Hregister = (options)  => {
+  return req.post('/api/wxuser/register', options)
+}
+
+// H5登录
+export let h5login = (options)  => {
+  return req.post('/api/wxuser/h5login', options)
+}
+
+// H5获取用户
+export let geth5User = (options)  => {
+  return req.post('/api/wxuser/geth5User', options,{
+	  token:true
+  })
+}
+
 
 
 

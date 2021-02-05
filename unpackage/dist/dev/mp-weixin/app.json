@@ -8,7 +8,9 @@
     "pages/my/feedback-issue",
     "pages/common/video-list",
     "pages/common/video-details",
-    "pages/common/video-kan"
+    "pages/common/video-kan",
+    "pages/my/login/login",
+    "pages/my/register/register"
   ],
   "subPackages": [],
   "window": {
@@ -55,5 +57,5 @@
     "divider": "/components/common/divider",
     "none-text": "/components/common/none-text"
   },
-  "sitemapLocation": "sitemap47.json"
+  "sitemapLocation": "sitemap10.json"
 }

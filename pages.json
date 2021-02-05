@@ -72,8 +72,23 @@
 				
 				
 			}
+		},
+		{
+			// H5登录
+			"path": "pages/my/login/login",
+			"style": {
+				
+				
+			}
+		},
+		{
+			// H5注册
+			"path": "pages/my/register/register",
+			"style": {
+				
+				
+			}
 		}
-		
 		
 		
 	],

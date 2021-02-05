@@ -134,6 +134,7 @@
 				return {
 					info: this.$store.state.user.userInfo,
 					token: this.$store.state.user.token,
+					isWx:this.$store.state.user.isWx
 				}
 			}
 		},
@@ -143,13 +144,27 @@
 			// },500)
 		},
 		onShow() {
-			var tempTime = setInterval(() => {
-				if (this.userInfo.token || this.num >= 6) {
-					this.getCollectVod()
-					clearInterval(tempTime)
-				}
-				this.num++
-			}, 500)
+			console.log(this.userInfo.isWx)
+			if(this.userInfo.isWx){
+				// 微信环境
+				var tempTime = setInterval(() => {
+					if (this.userInfo.token || this.num >= 6) {
+						this.getCollectVod()
+						clearInterval(tempTime)
+					}
+					this.num++
+				}, 500)
+				return
+			}
+			
+			
+			// H5环境
+			console.log(this.userInfo.token)
+			if(!this.userInfo.token){
+				uni.navigateTo({
+					url:"/pages/my/login/login"
+				})
+			}
 
 		},
 		methods: {
@@ -177,7 +192,7 @@
 				console.log(e)
 			},
 			login() {
-				this.$store.dispatch('wxLogin',this.getCollectVod)
+				this.$store.dispatch('wxLogin')
 				// 获取用户信息
 				// uni.login({
 				// 	provider: 'weixin',
