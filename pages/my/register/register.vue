@@ -70,7 +70,7 @@
 	
 		<view class="d-flex j-center a-center mt-5">
 			<view class="position-relative" style="box-sizing: border-box; border-radius: 50rpx; width: 651rpx;height: 98rpx;">
-				<input type="passowrd" class="pl-5" style=" font-size: 35rpx;box-sizing: border-box; border-radius: 50rpx; width: 651rpx;height: 98rpx;border: 1rpx solid #B0AFB5;"
+				<input type="password" class="pl-5" style=" font-size: 35rpx;box-sizing: border-box; border-radius: 50rpx; width: 651rpx;height: 98rpx;border: 1rpx solid #B0AFB5;"
 				 v-model="user.passowrd" placeholder="请输入密码" />
 				<view class="position-absolute" style="top: -20rpx;left: 50rpx;">
 					<view class="bgffff text-center" style="width: 80rpx;height: 30rpx;font-size: 28rpx;font-family: PingFang SC;font-weight: 400;color: #89878D;">
@@ -119,7 +119,7 @@
 				verifyTime: 60,
 				// 用户表单
 				user: {
-					mail: "2646397614@qq.com",
+					mail: "",
 					verifyCode: "",
 					passowrd:""
 				},

@@ -1,6 +1,11 @@
 <template>
 	<!-- 登录 -->
 	<view class="position-relative">
+		<!-- 导航栏 -->
+		<!-- <view class="width-000 ">
+			<commonTitle :defaultSty="false" :isShowIcon="true" :right="true" title="111"></commonTitle>
+		</view> -->
+		<!-- 导航栏 -->
 		<!-- 头部标题 -->
 		<view class="position-absolute width-000 height-400 d-flex j-center flex-column" style="background-image: linear-gradient(rgb(66, 93, 255),rgb(255, 255, 255));">
 			<view class="ml-3 color-fff" style="font-size: 66rpx;font-family: PingFang SC;font-weight: 400;line-height: 44rpx;">
@@ -64,9 +69,15 @@
 		
 		</view>
 
-		<view class="d-flex j-center" style="margin-top: 200rpx;" @tap="HLogin">
-			<view class="btn-login d-flex a-center j-center">
+		<view class="d-flex j-center a-center" style="margin-top: 200rpx;">
+			<view class="mr-3"  @tap="toUserLogin('wang')">
+				忘记密码
+			</view>
+			<view class="btn-login d-flex a-center j-center"  @tap="HLogin">
 				登录
+			</view>
+			<view class="ml-3" @tap="toUserLogin('zhu')">
+				注册
 			</view>
 		</view>
 			<view class="d-flex j-center a-center mt-3">
@@ -96,7 +107,7 @@
 		data() {
 			return {
 				user: {
-					mail: "2646397614@qq.com",
+					mail: "",
 					password:""
 				},
 			}
@@ -105,6 +116,21 @@
 			
 		},
 		methods: {
+			toUserLogin(type){
+				if(type == 'wang'){
+					uni.showToast({
+						title:"待开发",
+						icon:"none"
+					})
+					// uni.navigateTo({
+					// 	url:""
+					// })
+				}else{
+					uni.navigateTo({
+						url:"/pages/my/register/register"
+					})
+				}
+			},
 			// h5登录
 			async HLogin() {
 				var isMobile = this.$U.reg.isEmail(this.user.mail)

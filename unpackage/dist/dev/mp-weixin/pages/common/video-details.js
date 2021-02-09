@@ -460,7 +460,12 @@ __webpack_require__.r(__webpack_exports__);
       context.setFontSize(15);
       context.setFillStyle('#000000');
       context.setTextAlign('left');
-      context.fillText('类型：' + this.filterVoList.genres || false, 162, 95);
+      console.log(this.filterVoList);
+      if (this.filterVoList) {
+        context.fillText('类型：' + this.filterVoList.genres || false, 162, 95);
+      } else {
+        context.fillText('类型：' + '未知', 162, 95);
+      }
       context.stroke();
       // 演员
       context.setFontSize(15);

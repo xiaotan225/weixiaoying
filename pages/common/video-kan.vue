@@ -429,6 +429,12 @@
 			this.videoContext = uni.createVideoContext('myVideo')
 
 		},
+		computed:{
+			isShowKan(){
+				// return this.$store.state.vodClassify.isShow
+				return false
+			}
+		},
 		onLoad(e) {
 			// item={"type_id":1,"vod_actor":"塞思·麦克法兰,马克·沃尔伯格,阿曼达·塞弗里德,杰西卡·巴斯","vod_hits":1,"vod_id":26378,"vod_level":1,"vod_name":"泰迪熊2","vod_pic":"https://img.yongjiu7.com/upload/vod/2019-01-17/15477307180.jpg","vod_remarks":"BD高清","vod_score":0,"vod_year":"2015"}&__id__=2
 			this.item = JSON.parse(e.item)

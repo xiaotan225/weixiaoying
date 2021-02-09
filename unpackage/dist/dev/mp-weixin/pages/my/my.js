@@ -97,25 +97,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var l0 = !(_vm.videoList.length <= 0)
-    ? _vm.__map(_vm.videoList, function(item, index) {
-        var $orig = _vm.__get_orig(item)
-
-        var g0 = item.vod_score.toFixed(1)
-        return {
-          $orig: $orig,
-          g0: g0
-        }
-      })
-    : null
-  _vm.$mp.data = Object.assign(
-    {},
-    {
-      $root: {
-        l0: l0
-      }
-    }
-  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -149,7 +130,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 8));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var commonListFill = function commonListFill() {__webpack_require__.e(/*! require.ensure | components/common/common-list-fill */ "components/common/common-list-fill").then((function () {return resolve(__webpack_require__(/*! @/components/common/common-list-fill.vue */ 142));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 8));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var commonListFill = function commonListFill() {__webpack_require__.e(/*! require.ensure | components/common/common-list-fill */ "components/common/common-list-fill").then((function () {return resolve(__webpack_require__(/*! @/components/common/common-list-fill.vue */ 142));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
 
 
 
@@ -284,7 +266,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     userInfo: function userInfo() {
       return {
         info: this.$store.state.user.userInfo,
-        token: this.$store.state.user.token };
+        token: this.$store.state.user.token,
+        isWx: this.$store.state.user.isWx };
 
     } },
 
@@ -294,13 +277,25 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     // },500)
   },
   onShow: function onShow() {var _this = this;
-    var tempTime = setInterval(function () {
-      if (_this.userInfo.token || _this.num >= 6) {
-        _this.getCollectVod();
-        clearInterval(tempTime);
-      }
-      _this.num++;
-    }, 500);
+    if (this.userInfo.isWx) {
+      // 微信环境
+      var tempTime = setInterval(function () {
+        if (_this.userInfo.token || _this.num >= 6) {
+          _this.getCollectVod();
+          clearInterval(tempTime);
+        }
+        _this.num++;
+      }, 500);
+      return;
+    }
+
+
+    // H5环境
+    if (!this.userInfo.token) {
+      uni.navigateTo({
+        url: "/pages/my/login/login" });
+
+    }
 
   },
   methods: {
@@ -317,7 +312,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     },
     // 问题反馈
     toFeedbackIssue: function toFeedbackIssue() {
-      console.log('asdf');
       this.$U.navTo('/pages/my/feedback-issue');
     },
     // 我的收藏
@@ -325,10 +319,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       this.$U.navTo('/pages/my/collect');
     },
     authorLogin: function authorLogin(e) {
-      console.log(e);
     },
     login: function login() {
-      this.$store.dispatch('wxLogin', this.getCollectVod);
+      this.$store.dispatch('wxLogin');
       // 获取用户信息
       // uni.login({
       // 	provider: 'weixin',
@@ -383,6 +376,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

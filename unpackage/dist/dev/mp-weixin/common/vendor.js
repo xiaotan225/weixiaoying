@@ -801,7 +801,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_NAME":"weixiaoshi","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"weixiaoshi","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -3755,7 +3755,8 @@ var index = {
   state: {
     // 登录状态
     userInfo: '',
-    token: '' },
+    token: '',
+    isWx: false },
 
   mutations: {
     // 初始化登录状态
@@ -3773,9 +3774,14 @@ var index = {
 
   actions: {
     // 微信授权登陆
-    wxLogin: function wxLogin(_ref, callack) {var commit = _ref.commit;
-      var systemInfo = uni.getSystemInfoSync();
 
+    wxLogin: function wxLogin(_ref,
+
+
+    callack) {var commit = _ref.commit,state = _ref.state;
+      state.isWx = true;
+      var systemInfo = uni.getSystemInfoSync();
+      commit('initUser');
       // 获取用户信息
       uni.login({
         provider: 'weixin',
@@ -3799,6 +3805,7 @@ var index = {
 
                                     // this.getCollectVod()
                                   } else {
+                                    state.userInfo = '';
                                     uni.setStorageSync('userInfo', '');
                                     uni.setStorageSync('token', '');
                                   }case 4:case "end":return _context.stop();}}}, _callee);}));function success(_x2) {return _success2.apply(this, arguments);}return success;}() });case 2:case "end":return _context2.stop();}}}, _callee2);}));function success(_x) {return _success.apply(this, arguments);}return success;}() });
@@ -3824,7 +3831,7 @@ var index = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.Hregister = exports.h5AuthCode = exports.getScoreVod = exports.test = exports.hotSearch = exports.feedbackIssue = exports.getCollectVod = exports.isCollectVod = exports.collectVod = exports.wxUserLogin = exports.getvodClassifyList = exports.getvodClassify = exports.getSearch = exports.getURL = exports.getVideoDatails = exports.indexClassify = exports.notice = exports.getslideshow = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! ./request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.geth5User = exports.h5login = exports.Hregister = exports.h5AuthCode = exports.getScoreVod = exports.test = exports.hotSearch = exports.feedbackIssue = exports.getCollectVod = exports.isCollectVod = exports.collectVod = exports.wxUserLogin = exports.getvodClassifyList = exports.getvodClassify = exports.getSearch = exports.getURL = exports.getVideoDatails = exports.indexClassify = exports.notice = exports.getslideshow = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! ./request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 
 
@@ -3927,14 +3934,24 @@ exports.test = test;var getScoreVod = function getScoreVod(options) {
 
 // H5邮箱验证码获取
 exports.getScoreVod = getScoreVod;var h5AuthCode = function h5AuthCode(options) {
-  return _request.default.post('/api/wxuser/h5AuthCode', options, {
-    withCredentials: true });
-
+  return _request.default.post('/api/wxuser/h5AuthCode', options);
 };
 
 // H5账号注册
 exports.h5AuthCode = h5AuthCode;var Hregister = function Hregister(options) {
   return _request.default.post('/api/wxuser/register', options);
+};
+
+// H5登录
+exports.Hregister = Hregister;var h5login = function h5login(options) {
+  return _request.default.post('/api/wxuser/h5login', options);
+};
+
+// H5获取用户
+exports.h5login = h5login;var geth5User = function geth5User(options) {
+  return _request.default.post('/api/wxuser/geth5User', options, {
+    token: true });
+
 };
 
 
@@ -3951,7 +3968,7 @@ exports.h5AuthCode = h5AuthCode;var Hregister = function Hregister(options) {
    	 getslideshow(options) {
    	  return req.get('/slideshow', options)
    	}
-   }*/exports.Hregister = Hregister;
+   }*/exports.geth5User = geth5User;
 
 /***/ }),
 
@@ -3970,9 +3987,9 @@ var _default = {
   // 全局配置
   common: {
     // baseUrl:"http://192.168.43.95:3000",
-    // baseUrl:"http://192.168.43.95:3000",
-    // baseUrl:"http://42.192.125.82:3000",
-    baseUrl: "http://127.0.0.1:3000",
+    // baseUrl:"http://192.168.1.105:3000",
+    baseUrl: "https://xiaotan123.xyz",
+    // baseUrl:"http://127.0.0.1:3000",
     // baseUrl:"http://apis.cdjsw.cn/mock/15",
 
     header: {
@@ -4025,7 +4042,6 @@ var _default = {
       options), {}, {
         withCredentials: true,
         success: function success(result) {
-          console.log(result);
           uni.hideLoading();
           // 返回原始数据
           if (options.native) {
@@ -9645,7 +9661,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_NAME":"weixiaoshi","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"weixiaoshi","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -9666,14 +9682,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_NAME":"weixiaoshi","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"weixiaoshi","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_NAME":"weixiaoshi","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"weixiaoshi","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -9759,7 +9775,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_NAME":"weixiaoshi","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"weixiaoshi","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));

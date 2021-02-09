@@ -4,7 +4,7 @@
 		<view class="my-2 mx-2" style="width: 715rpx; box-sizing: border-box; border-radius: 15rpx; background: rgb(245, 245, 245);">
 			<view class="d-flex p-2" style="width: 100%;">
 				<view  style="height: 300rpx;width: 100px;margin-right: 75rpx;" class="">
-					<image class="width-000 height-000 theme-border-r10"  :src="item.vod_pic" mode=""></image>
+					<image @load="load" class="width-000 height-000 theme-border-r10"  :src="item.vod_pic" mode=""></image>
 				</view>
 				<view class="" style="width: 60%; box-sizing: border-box;">
 					<view class="font-36 py-2" style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;color: rgb(129, 129, 129);">
@@ -69,6 +69,9 @@
 			}
 		},
 		methods:{
+			load(e){
+				console.log(e)
+			},
 			// 删除
 			del(item,index){
 				if(this.type == 2){

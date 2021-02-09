@@ -40,7 +40,7 @@
 						<!--  -->
 						<!---->
 					</view>
-					<view v-if="isShowKan" class="d-flex a-center  operate">
+					<view  class="d-flex a-center  operate">
 						<view @tap="share" class="mr-2 d-flex a-center">
 
 							<button data-name="shareBtn" class="d-flex a-center j-center" open-type="share" style="height: 60rpx; background: rgb(244, 156, 54); width: 100%;text-align: left; padding: 0px;position: none;font-size: 27rpx;">
@@ -328,7 +328,12 @@
 				context.setFontSize(15);
 				context.setFillStyle('#000000');
 				context.setTextAlign('left');
-				context.fillText('类型：' + this.filterVoList.genres || '未知', 162, 95);
+				console.log(this.filterVoList)
+				if(this.filterVoList){
+					context.fillText('类型：' + this.filterVoList.genres || '未知', 162, 95);
+				}else{
+					context.fillText('类型：' + '未知', 162, 95);
+				}
 				context.stroke();
 				// 演员
 				context.setFontSize(15);

@@ -241,6 +241,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
     this.notice();
 
+
+
+
     // console.log(this.citySelect[this.citySelectCurrent].chid)
   },
   methods: {

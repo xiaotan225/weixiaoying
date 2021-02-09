@@ -241,7 +241,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
         list: [] },
 
       {
-        name: "动漫",
+        name: "综艺",
         no_thing: "no_receiving",
         msg: "暂无数据",
         list: [{
@@ -251,7 +251,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
       {
-        name: "综艺",
+        name: "动漫",
         no_thing: "no_comment",
         msg: "暂无数据",
         list: [] }] };

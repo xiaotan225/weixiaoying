@@ -46,7 +46,8 @@
 							<view class="width-000 position-relative" style="height: 160rpx">
 								<image class="width-000 height-000" style="width: 110rpx;" :src="item.vod_pic" mode=""></image>
 								<view class="position-absolute score d-flex a-center j-center" style="">
-									{{item.vod_score.toFixed(1)}}
+									<!-- {{item.vod_score.toFixed(1)}} -->
+									{{item.vod_year}}
 								</view>
 							</view>
 							<view class="text-center width-000 font-22" style="width: 110rpx;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;margin-top: 5rpx;">
@@ -144,7 +145,6 @@
 			// },500)
 		},
 		onShow() {
-			console.log(this.userInfo.isWx)
 			if(this.userInfo.isWx){
 				// 微信环境
 				var tempTime = setInterval(() => {
@@ -159,7 +159,6 @@
 			
 			
 			// H5环境
-			console.log(this.userInfo.token)
 			if(!this.userInfo.token){
 				uni.navigateTo({
 					url:"/pages/my/login/login"
@@ -181,7 +180,6 @@
 			},
 			// 问题反馈
 			toFeedbackIssue() {
-				console.log('asdf')
 				this.$U.navTo('/pages/my/feedback-issue')
 			},
 			// 我的收藏
@@ -189,7 +187,6 @@
 				this.$U.navTo('/pages/my/collect')
 			},
 			authorLogin(e) {
-				console.log(e)
 			},
 			login() {
 				this.$store.dispatch('wxLogin')

@@ -140,6 +140,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 {
   components: {
     easyLoadimage: easyLoadimage },
@@ -154,24 +156,46 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       temparr: [],
+      tempVideoList: [],
       scrollTop: 0 };
 
   },
-  onPageScroll: function onPageScroll(_ref) {var scrollTop = _ref.scrollTop;
+  watch: {
+    videoList: function videoList(newVal, olaVal) {
+      this.tempVideoList = JSON.parse(JSON.stringify(newVal));
+    },
+    immediate: true,
+    deep: true },
+
+
+  computed: {},
+
+
+  onPageScroll: function onPageScroll(_ref)
+
+  {var scrollTop = _ref.scrollTop;
     // 传入scrollTop值并触发所有easy-loadimage组件下的滚动监听事件
     this.scrollTop = scrollTop;
   },
-  mounted: function mounted() {var _this = this;
+  created: function created() {var _this = this;
+    this.tempVideoList = JSON.parse(JSON.stringify(this.videoList));
     this.videoList.forEach(function (item, index) {
+      _this.tempVideoList[index].isShowImg = false;
       _this.temparr.push(parseInt(index) + 2);
     });
+
+  },
+  mounted: function mounted() {
+
     // setTimeout(()=>{
 
     // },)
   },
   methods: {
-    load: function load(e) {
-      // console.log(e,'load')
+    load: function load(e, item) {
+      item.isShowImg = true;
+      this.tempVideoList = Object.assign({}, this.tempVideoList);
+      // console.log(e, 'load')
     },
     error: function error(e) {
       // console.log(e,'error')

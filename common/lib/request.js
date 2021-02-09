@@ -5,8 +5,8 @@ export default {
 	// 全局配置
 	common:{
 		// baseUrl:"http://192.168.43.95:3000",
-		baseUrl:"http://192.168.1.105:3000",
-		// baseUrl:"http://42.192.125.82:3000",
+		// baseUrl:"http://192.168.1.105:3000",
+		baseUrl:"https://xiaotan123.xyz",
 		// baseUrl:"http://127.0.0.1:3000",
 		// baseUrl:"http://apis.cdjsw.cn/mock/15",
 		
@@ -60,7 +60,6 @@ export default {
 				...options,
 				withCredentials:true,
 				success: (result) => {
-					console.log(result)
 					uni.hideLoading()
 					// 返回原始数据
 					if(options.native){

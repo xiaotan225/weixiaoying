@@ -109,6 +109,9 @@
 
 			this.notice()
 
+
+			
+		
 			// console.log(this.citySelect[this.citySelectCurrent].chid)
 		},
 		methods: {
