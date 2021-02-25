@@ -5,10 +5,11 @@
 
 			<view class="video-item d-flex flex-column" @tap="toDetails(item,index)" v-for="(item,index) in tempVideoList" :key="index">
 				<view class="width-000 position-relative" style="height: 90%;">
-
-					<!-- <easy-loadimage mode="" :imageSrc="item.vod_pic"></easy-loadimage> -->
-					<image @load="load($event,item)" @error="error" class="width-000 height-000" :src="item.isShowImg?item.vod_pic:'../../static/loading.gif'"
-					 mode="aspectFit"></image>
+					<!-- <loadImage :realSrc="item.vod_pic"></loadImage> -->
+					<!-- <easy-loadimage mode="" imageSrc="../../static/demo.jpg"></easy-loadimage> -->
+					<!-- <image @load="load($event,item)" @error="error" class="width-000 height-000" :src="item.isShowImg?item.vod_pic:'../../static/loading.gif'"
+					 mode="aspectFit"></image> -->
+					 <loadImg :loadSrc="item.vod_pic"></loadImg>
 					<!-- <image  @load="load($event,item)" @error="error" class="width-000 height-000" :src="item.vod_pic" mode=""></image> -->
 					<!-- <image v-else  src="../../static/demo.jpg" class="width-000 height-000" mode=""></image> -->
 					<view class="position-absolute score d-flex a-center j-center" style="">
@@ -26,9 +27,13 @@
 
 <script>
 	import easyLoadimage from '@/components/easy-loadimage/easy-loadimage.vue'
+	import loadImage from '@/components/loadImage.vue'
+	import loadImg from '@/components/load-img.vue'
 	export default {
 		components: {
-			easyLoadimage
+			easyLoadimage,
+			loadImage,
+			loadImg
 		},
 		props: {
 			// 视频列表数据
@@ -39,14 +44,17 @@
 		},
 		data() {
 			return {
-				temparr: [],
 				tempVideoList: [],
 				scrollTop: 0
 			}
 		},
 		watch: {
 			videoList(newVal,olaVal){
+				let newArr =  JSON.parse(JSON.stringify(newVal))
+				// console.log(newArr)
 				this.tempVideoList =  JSON.parse(JSON.stringify(newVal))
+				// console.log(this.tempVideoList)
+				// this.tempVideoList.push()
 			},
 			immediate: true,
 			deep: true
@@ -65,7 +73,6 @@
 			this.tempVideoList =  JSON.parse(JSON.stringify(this.videoList))
 			this.videoList.forEach((item, index) => {
 				this.tempVideoList[index].isShowImg = false
-				this.temparr.push(parseInt(index) + 2)
 			})
 			
 		},
@@ -77,8 +84,11 @@
 		},
 		methods: {
 			load(e, item) {
-				item.isShowImg = true
-				this.tempVideoList = Object.assign({},this.tempVideoList)
+				if(!item.isShowImg){
+					item.isShowImg = true
+					this.tempVideoList = Object.assign([],this.tempVideoList)
+				}
+				
 				// console.log(e, 'load')
 			},
 			error(e) {

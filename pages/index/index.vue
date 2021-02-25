@@ -1,5 +1,6 @@
 <template>
 	<view class="">
+		
 		<!-- 导航栏 -->
 		<view class="width-000 ">
 			<!-- <commonTitle :defaultSty="false"  :isShowIcon="false" :right="true" title="微小视"></commonTitle> -->
@@ -146,8 +147,9 @@
 	}
 </script>
 
-<style>
+<style >
 	page {
 		/* background-color: rgb(121, 146, 252); */
 	}
+	
 </style>

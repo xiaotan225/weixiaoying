@@ -1,17 +1,104 @@
 <template>
 	<!-- 视频详情 -->
 	<view class="">
-		<!-- 导航栏 -->
-		<view class="width-000 ">
-			<commonTitle :defaultSty="false" :isShowIcon="true" :right="true" :title="item.vod_name"></commonTitle>
-		</view>
-		<!-- 导航栏 -->
+	
 		<!-- 视频 -->
-		<view class="" >
-			<videoElement @playbackRateVod="playbackRateVod" ref="videoElement" :playbackRateList="playbackRateList" :src="playOrigin[collectCurrent].src"></videoElement>
+		<view class="position-relative" style="height: 353rpx;width: 100%;">
+
+			<video id="myVideo"  style="height: 353rpx;width: 100%;" controls="controls" show-casting-button="true" page-gesture
+			 play-btn-position="center" enable-play-gesture :object-fit="fill" @play="play" @loadedmetadata="loadedmetadata"
+			 @waiting="waiting" @timeupdate="timeupdate" @controlstoggle="controlstoggle" @fullscreenclick="fullscreenclick"
+			 @fullscreenchange="fullscreenchange" :title="item.vod_name" :src="playOrigin[collectCurrent].src">
+				<cover-view>
+					<view class="font-36 color-fff position-absolute test" style="z-index: 9999; top: 80%;left: 50%;transform: translate(-50%,-50%);">
+						{{VodLoadText}}
+					</view>
+					<view v-show="isShowControl" class="position-absolute" style="right: 30rpx;top: 40%;transform: translateY(-50%);">
+						<view @tap="fillTap" class="d-flex a-center">
+							<view :style="fill == 'fill'?'':'transform: rotate(180deg);'" class="iconfont iconright color-fff mr-1 font-22">
+
+							</view>
+							<view :style="fill == 'fill'?'':'transform: rotate(-180deg);'" class="iconfont icondown-jiantou-right color-fff font-22">
+
+							</view>
+						</view>
+					</view>
+					<view v-show="isShowControl" class="position-absolute" style="right: 10rpx;top: 62%;transform: translateY(-50%);">
+						<view @tap="playbackRate" class="d-flex a-center">
+							<view style="opacity: 0.8;font-size: 70rpx;" class="position-relative iconfont iconbeisu color-fff mr-1 ">
+								<view class="position-absolute font-22" style="right: -3rpx;top: 50%;transform: translate(-50%,-50%);">
+									{{playbackRateList[playbackRateIndex]}}x
+								</view>
+							</view>
+
+						</view>
+					</view>
+					<view v-show="isShowControl">
+						<view class="d-flex a-center">
+
+							<view @tap="speed('jian')" class="position-absolute" style=" right: 60%;top: 50%;transform: translate(-50%,-50%);">
+								<view class="iconfont iconkuaijin color-fff mr-1 " style="font-size: 70rpx;  transform: rotate(180deg);">
+
+								</view>
+							</view>
+							<view @tap="speed('jia')" class="iconfont iconkuaijin1 color-fff  position-absolute" style="font-size: 80rpx; left: 72%;top: 50%;transform: translate(-50%,-50%);">
+
+							</view>
+						</view>
+					</view>
+				</cover-view>
+
+			</video>
+
+			<!-- <view class="font-36 color-fff position-absolute test" style="z-index: 9999; top: 80%;left: 50%;transform: translate(-50%,-50%);">
+				{{VodLoadText}}
+			</view>
+			<view v-show="isShowControl" class="position-absolute" style="right: 30rpx;top: 40%;transform: translateY(-50%);">
+				<view @tap="fillTap" class="d-flex a-center">
+					<view :style="fill == 'fill'?'':'transform: rotate(180deg);'" class="iconfont iconright color-fff mr-1 font-22">
+
+					</view>
+					<view :style="fill == 'fill'?'':'transform: rotate(-180deg);'" class="iconfont icondown-jiantou-right color-fff font-22">
+
+					</view>
+				</view>
+			</view>
+
+			<view v-show="isShowControl" class="position-absolute" style="right: 10rpx;top: 62%;transform: translateY(-50%);">
+				<view @tap="playbackRate" class="d-flex a-center">
+					<view style="opacity: 0.8;font-size: 70rpx;" class="position-relative iconfont iconbeisu color-fff mr-1 ">
+						<view class="position-absolute font-22" style="right: -3rpx;top: 50%;transform: translate(-50%,-50%);">
+							{{playbackRateList[playbackRateIndex]}}x
+						</view>
+					</view>
+
+				</view>
+			</view>
+
+
+			<view v-show="isShowControl">
+				<view class="d-flex a-center">
+
+					<view @tap="speed('jian')" class="position-absolute" style=" right: 60%;top: 50%;transform: translate(-50%,-50%);">
+						<view class="iconfont iconkuaijin color-fff mr-1 " style="font-size: 70rpx;  transform: rotate(180deg);">
+
+						</view>
+					</view>
+					<view @tap="speed('jia')" class="iconfont iconkuaijin1 color-fff  position-absolute" style="font-size: 80rpx; left: 72%;top: 50%;transform: translate(-50%,-50%);">
+
+					</view>
+				</view>
+			</view>
+
+ -->
+
+
 		</view>
+
+
+
 		<!-- 视频 -->
-		
+
 
 		<!-- 视频标题内容 -->
 		<view class="px-3 mt-2">
@@ -72,7 +159,7 @@
 
 		</view>
 
-		
+
 		<!-- 选集 -->
 		<view class="px-3 d-flex a-center my-2">
 			<view class="d-flex a-center">
@@ -142,6 +229,7 @@
 
 		</view>
 		<!-- 影视介绍 -->
+
 		<popUpModel ref="popUpModel" :customStyle="'top:80%;width:100%'">
 
 			<view class="p-3">
@@ -258,17 +346,15 @@
 <script>
 	import commonListFill from "@/components/common/common-list-fill.vue";
 	import popUpModel from "@/components/common/pop-up-model.vue";
-	import videoElement from "@/components/video-element.vue";
+	import Hls from "@/common/lib/hls.min.js";
 	export default {
 		components: {
 			commonListFill,
-			popUpModel,
-			videoElement
+			popUpModel
 		},
 		data() {
 			return {
-				playbackRateList: ['0.5', '0.8', '1.0', '1.2', '1.5', '2.0'],
-				playbackRateIndex:0,
+				// isShowVod:false,
 				// 操作选项列表
 				optList: [
 					// {
@@ -312,10 +398,18 @@
 				isShow: false,
 				isCollect: false,
 				videoContext: {},
-				videoSrc:'',
-				isShowVideo:false
-				
-				
+				// 视频加载字
+				VodLoadText: '正在解析影片请稍等',
+				// 是否显示视频控件
+				isShowControl: false,
+				// 视频是否填充
+				fill: 'contain',
+				// 倍速播放索引
+				playbackRateIndex: 2,
+				// 倍速设置选项列表
+				playbackRateList: ['0.5', '0.8', '1.0', '1.2', '1.5', '2.0'],
+				// 视频当前播放时间
+				currentTimeVod: 0
 
 			}
 		},
@@ -328,7 +422,7 @@
 			},
 
 		},
-	
+		
 		computed:{
 			isShowKan(){
 				// return this.$store.state.vodClassify.isShow
@@ -338,30 +432,30 @@
 		onLoad(e) {
 			// item={"type_id":1,"vod_actor":"塞思·麦克法兰,马克·沃尔伯格,阿曼达·塞弗里德,杰西卡·巴斯","vod_hits":1,"vod_id":26378,"vod_level":1,"vod_name":"泰迪熊2","vod_pic":"https://img.yongjiu7.com/upload/vod/2019-01-17/15477307180.jpg","vod_remarks":"BD高清","vod_score":0,"vod_year":"2015"}&__id__=2
 			this.item = JSON.parse(e.item)
-			// 获取视频详情资源
-			this.getVideoDatails()
-			this.isCollectVod()
-
+			
+		},
+		onReady: function(res) {
+				this.isShowVod = true
+				this.videoContext = uni.createVideoContext('myVideo',this)
+			// console.log(this.videoContext)
+			
 		},
 		mounted() {
-		
 			// var videoContext = uni.createVideoContext('myvideo', this);
 			// console.log(videoContext)
 			//  videoContext.play();
 
 			// var video = document.createElement('myVideo')
-			this.playbackRateIndex = this.$refs.videoElement.$data.playbackRateIndex
-
-
+			
+			this.item={"type_id":1,"vod_actor":"汤姆·克鲁斯,亨利·卡维尔,文·瑞姆斯,西蒙·佩吉","vod_hits":1,"vod_id":77040,"vod_level":1,"vod_name":"碟中谍6：全面瓦解","vod_pic":"http://images.cnblogsc.com/pic/upload/vod/2018-07/15327072203.jpg","vod_remarks":"HD","vod_score":0,"vod_year":"2018","vod_area":"美国","isShowImg":true}
+			// 获取视频详情资源
+			this.getVideoDatails()
+			this.isCollectVod()
+			
+			
+		
 		},
 		methods: {
-			playbackRateVod(index){
-				this.playbackRateIndex = index
-			},
-			playbackRate(){
-				this.$refs.videoElement.playbackRate()
-				this.playbackRateIndex = this.$refs.videoElement.$data.playbackRateIndex
-			},
 			opt(item, index) {
 				if (index == 0) {
 					// 选集列表
@@ -380,6 +474,64 @@
 						}
 					})
 				}
+			},
+			// 快进按钮
+			speed(type) {
+				if (type == 'jia') {
+					this.videoContext.seek(this.currentTimeVod + 30)
+				} else {
+					this.videoContext.seek(this.currentTimeVod - 20)
+				}
+			},
+			fullscreenchange(e) {
+				console.log(e)
+			},
+			// 
+			fullscreenclick(e) {
+				console.log(e)
+			},
+			// 设置倍速播放
+			playbackRate() {
+				if (this.playbackRateIndex == this.playbackRateList.length - 1) {
+					this.playbackRateIndex = 0
+					this.videoContext.playbackRate(Number(this.playbackRateList[this.playbackRateIndex]))
+					return
+				}
+				this.playbackRateIndex++
+				this.videoContext.playbackRate(Number(this.playbackRateList[this.playbackRateIndex]))
+			},
+			// 视频是否填充
+			fillTap() {
+				if (this.fill == 'fill') {
+					this.fill = 'contain'
+				} else {
+					this.fill = 'fill'
+				}
+			},
+			// 是否显示控件
+			controlstoggle(e) {
+				if (!e.detail.show) {
+					this.isShowControl = false
+					return
+				}
+				this.isShowControl = true
+			},
+			timeupdate(e) {
+				this.VodLoadText = ''
+				this.currentTimeVod = e.detail.currentTime
+			},
+			// 播放出错
+			// error(e){
+			// 	this.VodLoadText = '播放出错，请切换解析模式'
+			// },
+			// 视频出现缓冲时触发
+			waiting(e) {
+				this.VodLoadText = '缓存中请稍等'
+			},
+			// 视频元数据加载完成时触发。event.detail = {width, height, duration}
+			loadedmetadata(e) {
+				this.videoContext.play()
+				this.VodLoadText = ''
 			},
 			// 点击播放
 			play(e) {},
@@ -443,7 +595,6 @@
 					url: item.src
 				})
 				this.playOrigin[this.collectCurrent].src = res.url
-				this.playOrigin = Object.assign({},this.playOrigin)
 
 			},
 			// 切换播放源
@@ -489,6 +640,7 @@
 
 				})
 				this.playOrigin = this.optCollect['playOrigin' + this.playSourceCurrent]
+				
 				// setInterval(()=>{
 				// 	var test =  this.videoContext.play()
 				// 	console.log(test)
@@ -504,7 +656,6 @@
 				this.videoDatails.vod_cont = this.tempVodCont = data.data[0].vod_content.slice(0, 100)
 				// 播放源（解析线路）
 				this.playSource = this.videoDatails.vod_play_from.split('$$$')
-				
 				/* 0: "kuyun"
 1: 					1:"ckm3u8" */
 				var videoTypeId = this.videoDatails.type_id
@@ -530,10 +681,6 @@
 					// url 特殊处理 返回 m3u8格式视频
 					this.getURL(this.playOrigin[this.collectCurrent])
 				}
-				
-				setTimeout(()=>{
-					this.isShowVideo = true
-				},3000)
 				// var playSourceStr = this.playSource.join(',')
 				// for(var i=0; i<this.playSource.length; i++){
 				// 	if(this.playSource[i].indexOf('3u8') == -1){

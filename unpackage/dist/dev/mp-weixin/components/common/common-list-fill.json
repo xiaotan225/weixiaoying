@@ -1,6 +1,8 @@
 {
   "component": true,
   "usingComponents": {
-    "easy-loadimage": "/components/easy-loadimage/easy-loadimage"
+    "easy-loadimage": "/components/easy-loadimage/easy-loadimage",
+    "load-image": "/components/loadImage",
+    "load-img": "/components/load-img"
   }
 }

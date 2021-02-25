@@ -16,6 +16,7 @@ Vue.component('divider',divider)
 Vue.component('noneText',noneText)
 
 
+
 // 引入API接口
 import * as api  from "@/common/lib/api.js"
 Vue.prototype.$api = api

@@ -128,7 +128,15 @@ export default {
 			commit,
 			state
 		}, callack) {
-
+			var currentHashPath = window.location.hash
+			var hashPathList = [{
+					url: '#/pages/my/login/login',
+					type: "tab"
+				},
+				{
+					url: '#/pages/my/register/register',
+				}
+			]
 			state.isWx = false
 			console.log(state.userInfo)
 			commit('initUser')
@@ -145,14 +153,26 @@ export default {
 				state.token = ''
 				uni.setStorageSync('userInfo', '')
 				uni.setStorageSync('token', '')
-				if ()
-					uni.switchTab({
-						url: "/pages/index/index"
-					})
+				hashPathList.forEach(item => {
+					if (item.url == currentHashPath) {
+						 let currentPath =  item.url.slice(1)
+						 if(item.type){
+							 uni.switchTab({
+							 	url: currentPath
+							 })
+						 }else{
+							 uni.navigateTo({
+							 	url:currentPath
+							 })
+						 }
+						
+					}
+				})
+		
 			}
-
+		
 		}
-
+		
 		// #endif
 	}
 }

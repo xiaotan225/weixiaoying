@@ -151,8 +151,8 @@
 				if(data.code == 1){
 					uni.setStorageSync('userInfo',JSON.stringify(data.result))
 					uni.setStorageSync('token',JSON.stringify(data.token))
-					console.log('asdfsd')
 					this.$store.dispatch('wxLogin')
+					// console.log(plus.navigator.setCookie("http://192.168.1.100:3000"))
 					uni.showToast({
 						title:"登录成功",
 						icon:"none"

@@ -12,7 +12,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 	state:{
 		txtLoad:'没有数据了',
-		navHeight:0
+		navHeight:0,
+		
 	},
 	mutations:{
 		// 初始化登录状态
