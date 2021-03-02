@@ -3,7 +3,7 @@
 	<view class="">
 
 		<!-- 导航栏 -->
-		
+
 		<view class="width-000 ">
 			<commonTitle @backTap="backTap" :defaultSty="false" :isShowIcon="true" :right="true" :title="item.vod_name"></commonTitle>
 		</view>
@@ -36,21 +36,33 @@
 						演员：{{videoDatails.vod_actor || '未知'}}
 					</view>
 					<view class="font-27 mb-2">
-						{{filterVoList.year || '未知'}} / {{videoDatails.vod_area || '未知'}} /  {{filterVoList.directors[0].name || '未知' }} 
+						{{filterVoList.year || '未知'}} / {{videoDatails.vod_area || '未知'}} / {{filterVoList.directors[0].name || '未知' }}
 						<!--  -->
 						<!---->
 					</view>
-					<view  class="d-flex a-center  operate">
-						<view @tap="share" class="mr-2 d-flex a-center">
+					<view class="d-flex a-center  operate">
+						<view class="mr-2 d-flex a-center">
 
+							<!-- #ifdef MP-WEIXIN -->
 							<button data-name="shareBtn" class="d-flex a-center j-center" open-type="share" style="height: 60rpx; background: rgb(244, 156, 54); width: 100%;text-align: left; padding: 0px;position: none;font-size: 27rpx;">
 								<view class="iconfont font-27 iconfenxiang mr-1">
-
+							
 								</view>
-								<view class="">
+								<view class="" >
 									分享
 								</view>
 							</button>
+							<!-- #endif -->
+							<!-- #ifdef APP-PLUS -->
+							<button @tap="invite" class="d-flex a-center j-center"  style="height: 60rpx; background: rgb(244, 156, 54); width: 100%;text-align: left; padding: 0px;position: none;font-size: 27rpx;">
+								<view class="iconfont font-27 iconfenxiang mr-1">
+
+								</view>
+								<view class="" @tap="invite">
+									分享
+								</view>
+							</button>
+							<!-- #endif -->
 						</view>
 						<view class="d-flex a-center" @tap="haibao">
 							<view class="iconfont  font-27 iconguangquan mr-1">
@@ -123,9 +135,9 @@
 					</view>
 				</view>
 			</view>
-		
-		
-		
+
+
+
 		</view>
 
 		<!-- 影视介绍 -->
@@ -215,8 +227,8 @@
 				item: {},
 				// 影片详情数据
 				videoDatails: {
-					vod_cont:[],
-					vod_content:[]
+					vod_cont: [],
+					vod_content: []
 				},
 				// 影片推荐列表
 				videoList: [],
@@ -227,7 +239,9 @@
 				// 豆瓣评分数据
 				filterVoList: {
 					directors: [{}],
-					rating:{value:0}
+					rating: {
+						value: 0
+					}
 				},
 				// 评分处理数据
 				newArr: [],
@@ -236,38 +250,38 @@
 				tempImgVod: '',
 			}
 		},
-		computed:{
-			isShowKan(){
+		computed: {
+			isShowKan() {
 				return this.$store.state.vodClassify.isShow
 			}
 		},
 		onLoad(e) {
 			// this.$refs.popUpModel.open()
-				
+
 			this.item = JSON.parse(e.item)
 			this.getVideoDatails()
 			var _this = this
 			// 获取豆瓣视频数据（评分）
 			this.$api.getScoreVod({
-				vod_name:this.item.vod_name
-			}).then(res=>{
+				vod_name: this.item.vod_name
+			}).then(res => {
 				// 找到对应的视频数据
 				var filterVoList = res.data.subjects.filter(item => {
 					return item.title == _this.item.vod_name
 				})
-				if(filterVoList.length <= 0){
+				if (filterVoList.length <= 0) {
 					// 没有找到对应视频数据 （没有评分）
 					_this.filterVoList = res.data.subjects[0]
 					_this.filterVoList.directors = res.data.directors
-				}else{
+				} else {
 					_this.filterVoList = filterVoList[0]
 				}
 				// 评分数 做页面 处理
-				var star_count =_this.filterVoList.rating.star_count || []
+				var star_count = _this.filterVoList.rating.star_count || []
 				if (String(star_count).indexOf('.') != -1) {
 					// 小数
 					var intSatr = parseInt(star_count)
-							
+
 					for (var i = 0; i < 5; i++) {
 						if (i < intSatr) {
 							_this.newArr.push(1)
@@ -276,7 +290,7 @@
 						} else {
 							_this.newArr.push(2)
 						}
-							
+
 					}
 				} else {
 					// 整数
@@ -287,14 +301,14 @@
 						} else {
 							_this.newArr.push(2)
 						}
-							
+
 					}
-							
+
 				}
-					
+
 			})
-		
-		
+
+
 		},
 		// 分享
 		onShareAppMessage(e) {
@@ -304,11 +318,97 @@
 				imageUrl: this.tempImgVod,
 				content: this.videoDatails.vod_name,
 				desc: '免费观看' + this.videoDatails.vod_name,
-				success: res => {
-				}
+				success: res => {}
 			}
 		},
 		methods: {
+			// 分享邀请App
+				invite() {
+					var _this = this
+					let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
+					let curRoute = routes[routes.length - 1].route //获取当前页面路由
+					let curParam = routes[routes.length - 1].options; //获取路由参数
+					let url = 'http://42.192.125.82/#/'+curRoute+ '?item=' + JSON.stringify(_this.item)
+					console.log(url)
+					uni.showActionSheet({
+						itemList: ['分享好友', '分享朋友圈', '取消'],
+						success: (res) => {
+							if (res.tapIndex == 0) {
+								uni.share({
+									provider: "weixin",
+									scene: "WXSceneSession",
+									type: 0,
+									href: url,
+									title: `邀请您一起看“${_this.item.vod_name}”`,
+									imageUrl: _this.videoDatails.vod_pic,
+									summary: _this.videoDatails.vod_cont,
+									// imageUrl: "/static/img1.jpg",
+									success: function(res) {
+										if (res.share == 'ok') {
+											uni.showToast({
+												title: "分享成功",
+												icon: "none"
+											})
+										} else {
+											uni.showToast({
+												title: "分享失败",
+												icon: "none"
+											})
+										}
+									},
+									fail: function(err) {
+										uni.showToast({
+											title: "分享失败",
+											icon: "none"
+										})
+										console.log("fail:" + JSON.stringify(err));
+									}
+								});
+				
+				
+							} else if (res.tapIndex == 1) {
+								uni.share({
+									provider: "weixin",
+									scene: "WXSceneSession",
+									type: 0,
+									href: url,
+									title: `邀请您一起看“${_this.item.vod_name}”`,
+									imageUrl: _this.videoDatails.vod_pic,
+									summary: _this.videoDatails.vod_cont,
+									// imageUrl: "/static/img1.jpg",
+									success: function(res) {
+										if (res.share == 'ok') {
+											uni.showToast({
+												title: "分享成功",
+												icon: "none"
+											})
+										} else {
+											uni.showToast({
+												title: "分享失败",
+												icon: "none"
+											})
+										}
+									},
+									fail: function(err) {
+										uni.showToast({
+											title: "分享失败",
+											icon: "none"
+										})
+										console.log("fail:" + JSON.stringify(err));
+									}
+								});
+												
+							
+							}
+						},
+						fail: function(res) {
+							console.log(res.errMsg);
+						}
+					});
+				
+				
+				},
+				
 			//将canvas转换为图片保存到本地，然后将图片路径传给image图片的src
 			createNewImg() {
 				var that = this;
@@ -328,10 +428,9 @@
 				context.setFontSize(15);
 				context.setFillStyle('#000000');
 				context.setTextAlign('left');
-				console.log(this.filterVoList)
-				if(this.filterVoList){
+				if (this.filterVoList) {
 					context.fillText('类型：' + this.filterVoList.genres || '未知', 162, 95);
-				}else{
+				} else {
 					context.fillText('类型：' + '未知', 162, 95);
 				}
 				context.stroke();

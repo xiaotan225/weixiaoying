@@ -26,13 +26,9 @@
 </template>
 
 <script>
-	import easyLoadimage from '@/components/easy-loadimage/easy-loadimage.vue'
-	import loadImage from '@/components/loadImage.vue'
 	import loadImg from '@/components/load-img.vue'
 	export default {
 		components: {
-			easyLoadimage,
-			loadImage,
 			loadImg
 		},
 		props: {

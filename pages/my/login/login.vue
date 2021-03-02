@@ -69,14 +69,14 @@
 		
 		</view>
 
-		<view class="d-flex j-center a-center" style="margin-top: 200rpx;">
-			<view class="mr-3"  @tap="toUserLogin('wang')">
+		<view class="d-flex j-sb a-center" style="margin-top: 200rpx;">
+			<view class="pl-2"  @tap="toUserLogin('wang')">
 				忘记密码
 			</view>
-			<view class="btn-login d-flex a-center j-center"  @tap="HLogin">
+			<view class=" btn-login d-flex a-center j-center"  @tap="HLogin">
 				登录
 			</view>
-			<view class="ml-3" @tap="toUserLogin('zhu')">
+			<view class="pr-4" @tap="toUserLogin('zhu')">
 				注册
 			</view>
 		</view>

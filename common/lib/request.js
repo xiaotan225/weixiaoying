@@ -6,8 +6,8 @@ export default {
 	common:{
 		// baseUrl:"http://192.168.43.95:3000",
 		// baseUrl:"http://192.168.1.105:3000",
-		// baseUrl:"https://xiaotan123.xyz",
-		baseUrl:'http://192.168.1.102:3001',
+		baseUrl:"http://42.192.125.82:8081",
+		// baseUrl:'http://192.168.1.102:3001',
 		// baseUrl:"http://192.168.1.106:3000",
 		// baseUrl:"http://apis.cdjsw.cn/mock/15",
 		

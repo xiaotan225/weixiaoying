@@ -337,6 +337,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 {
   components: {
     commonListFill: commonListFill,
@@ -359,7 +371,9 @@ __webpack_require__.r(__webpack_exports__);
       // 豆瓣评分数据
       filterVoList: {
         directors: [{}],
-        rating: { value: 0 } },
+        rating: {
+          value: 0 } },
+
 
       // 评分处理数据
       newArr: [],
@@ -436,11 +450,97 @@ __webpack_require__.r(__webpack_exports__);
       imageUrl: this.tempImgVod,
       content: this.videoDatails.vod_name,
       desc: '免费观看' + this.videoDatails.vod_name,
-      success: function success(res) {
-      } };
+      success: function success(res) {} };
 
   },
   methods: {
+    // 分享邀请App
+    invite: function invite() {
+      var _this = this;
+      var routes = getCurrentPages(); // 获取当前打开过的页面路由数组
+      var curRoute = routes[routes.length - 1].route; //获取当前页面路由
+      var curParam = routes[routes.length - 1].options; //获取路由参数
+      var url = 'http://42.192.125.82/#/' + curRoute + '?item=' + JSON.stringify(_this.item);
+      console.log(url);
+      uni.showActionSheet({
+        itemList: ['分享好友', '分享朋友圈', '取消'],
+        success: function success(res) {
+          if (res.tapIndex == 0) {
+            uni.share({
+              provider: "weixin",
+              scene: "WXSceneSession",
+              type: 0,
+              href: url,
+              title: "\u9080\u8BF7\u60A8\u4E00\u8D77\u770B\u201C".concat(_this.item.vod_name, "\u201D"),
+              imageUrl: _this.videoDatails.vod_pic,
+              summary: _this.videoDatails.vod_cont,
+              // imageUrl: "/static/img1.jpg",
+              success: function success(res) {
+                if (res.share == 'ok') {
+                  uni.showToast({
+                    title: "分享成功",
+                    icon: "none" });
+
+                } else {
+                  uni.showToast({
+                    title: "分享失败",
+                    icon: "none" });
+
+                }
+              },
+              fail: function fail(err) {
+                uni.showToast({
+                  title: "分享失败",
+                  icon: "none" });
+
+                console.log("fail:" + JSON.stringify(err));
+              } });
+
+
+
+          } else if (res.tapIndex == 1) {
+            uni.share({
+              provider: "weixin",
+              scene: "WXSceneSession",
+              type: 0,
+              href: url,
+              title: "\u9080\u8BF7\u60A8\u4E00\u8D77\u770B\u201C".concat(_this.item.vod_name, "\u201D"),
+              imageUrl: _this.videoDatails.vod_pic,
+              summary: _this.videoDatails.vod_cont,
+              // imageUrl: "/static/img1.jpg",
+              success: function success(res) {
+                if (res.share == 'ok') {
+                  uni.showToast({
+                    title: "分享成功",
+                    icon: "none" });
+
+                } else {
+                  uni.showToast({
+                    title: "分享失败",
+                    icon: "none" });
+
+                }
+              },
+              fail: function fail(err) {
+                uni.showToast({
+                  title: "分享失败",
+                  icon: "none" });
+
+                console.log("fail:" + JSON.stringify(err));
+              } });
+
+
+
+          }
+        },
+        fail: function fail(res) {
+          console.log(res.errMsg);
+        } });
+
+
+
+    },
+
     //将canvas转换为图片保存到本地，然后将图片路径传给image图片的src
     createNewImg: function createNewImg() {
       var that = this;
@@ -460,7 +560,6 @@ __webpack_require__.r(__webpack_exports__);
       context.setFontSize(15);
       context.setFillStyle('#000000');
       context.setTextAlign('left');
-      console.log(this.filterVoList);
       if (this.filterVoList) {
         context.fillText('类型：' + this.filterVoList.genres || false, 162, 95);
       } else {

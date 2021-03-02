@@ -114,9 +114,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var easyLoadimage = function easyLoadimage() {__webpack_require__.e(/*! require.ensure | components/easy-loadimage/easy-loadimage */ "components/easy-loadimage/easy-loadimage").then((function () {return resolve(__webpack_require__(/*! @/components/easy-loadimage/easy-loadimage.vue */ 181));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var loadImage = function loadImage() {__webpack_require__.e(/*! require.ensure | components/loadImage */ "components/loadImage").then((function () {return resolve(__webpack_require__(/*! @/components/loadImage.vue */ 188));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var loadImg = function loadImg() {__webpack_require__.e(/*! require.ensure | components/load-img */ "components/load-img").then((function () {return resolve(__webpack_require__(/*! @/components/load-img.vue */ 193));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default2 =
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var loadImg = function loadImg() {__webpack_require__.e(/*! require.ensure | components/load-img */ "components/load-img").then((function () {return resolve(__webpack_require__(/*! @/components/load-img.vue */ 181));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default2 =
 
 
 
@@ -147,8 +145,6 @@ __webpack_require__.r(__webpack_exports__);
 
 {
   components: {
-    easyLoadimage: easyLoadimage,
-    loadImage: loadImage,
     loadImg: loadImg },
 
   props: {

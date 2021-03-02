@@ -2,18 +2,17 @@
 	<!-- 视频详情 -->
 	<view class="">
 		<!-- 导航栏 -->
-		<view class="width-000 ">
-			<commonTitle :defaultSty="false" :isShowIcon="true" :right="true" :title="item.vod_name"></commonTitle>
+		<view class="width-000 " v-if="isShowVideo">
+			<commonTitle  :defaultSty="false" :isShowIcon="true" :right="true" :title="item.vod_name"></commonTitle>
 		</view>
 		<!-- 导航栏 -->
 		<!-- 视频 -->
-		<view class="" >
+		<view class="" v-if="isShowVideo">
 			<videoElement @playbackRateVod="playbackRateVod" ref="videoElement" :playbackRateList="playbackRateList" :src="playOrigin[collectCurrent].src"></videoElement>
 		</view>
 		<!-- 视频 -->
 		
-
-		<!-- 视频标题内容 -->
+<!-- 视频标题内容 -->
 		<view class="px-3 mt-2">
 			<view class="d-flex a-center j-sb">
 				<view class="d-flex">
@@ -194,7 +193,6 @@
 						共12集
 					</view>
 					<view class="iconfont iconyoujiantou ml-1" style="color: rgb(255, 113, 68);">
-
 					</view>
 				</view>
 			</view>
@@ -292,7 +290,7 @@
 						src: 'iconkefu1'
 					}
 				],
-				item: {},
+				item: "",
 				playSourceCurrent: 0,
 				// 线路
 				playSource: [
@@ -313,9 +311,9 @@
 				isCollect: false,
 				videoContext: {},
 				videoSrc:'',
-				isShowVideo:false
+				isShowVideo:false,
 				
-				
+				index:""
 
 			}
 		},
@@ -337,21 +335,21 @@
 		},
 		onLoad(e) {
 			// item={"type_id":1,"vod_actor":"塞思·麦克法兰,马克·沃尔伯格,阿曼达·塞弗里德,杰西卡·巴斯","vod_hits":1,"vod_id":26378,"vod_level":1,"vod_name":"泰迪熊2","vod_pic":"https://img.yongjiu7.com/upload/vod/2019-01-17/15477307180.jpg","vod_remarks":"BD高清","vod_score":0,"vod_year":"2015"}&__id__=2
-			this.item = JSON.parse(e.item)
+			let item = e.item
+			this.item = JSON.parse(item)
 			// 获取视频详情资源
 			this.getVideoDatails()
 			this.isCollectVod()
 
 		},
 		mounted() {
-		
 			// var videoContext = uni.createVideoContext('myvideo', this);
 			// console.log(videoContext)
 			//  videoContext.play();
 
 			// var video = document.createElement('myVideo')
-			this.playbackRateIndex = this.$refs.videoElement.$data.playbackRateIndex
-
+			// this.playbackRateIndex = this.$refs.videoElement.$data.playbackRateIndex
+			// console.log(this)
 
 		},
 		methods: {
@@ -530,10 +528,13 @@
 					// url 特殊处理 返回 m3u8格式视频
 					this.getURL(this.playOrigin[this.collectCurrent])
 				}
-				
+				// 防止H5+ 视频播放地址拿不到报错
 				setTimeout(()=>{
 					this.isShowVideo = true
-				},3000)
+					console.log(this.isShowVideo)
+				},300)
+				
+				console.log(this.playOrigin[this.collectCurrent].src)
 				// var playSourceStr = this.playSource.join(',')
 				// for(var i=0; i<this.playSource.length; i++){
 				// 	if(this.playSource[i].indexOf('3u8') == -1){
