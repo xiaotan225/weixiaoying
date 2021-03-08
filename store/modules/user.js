@@ -15,6 +15,7 @@ export default {
 				userInfo = JSON.parse(userInfo)
 				state.userInfo = userInfo
 				state.token = JSON.parse(token)
+				console.log(state)
 			}
 
 		},

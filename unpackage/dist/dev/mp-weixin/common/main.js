@@ -172,7 +172,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     this.$store.dispatch('wxLogin');
     // 获取用户信息
     // var systemInfo =  uni.getSystemInfoSync()
-    // console.log(systemInfo)
     // uni.login({
     // 	provider: 'weixin',
     // 	success: async (loginRes) => {

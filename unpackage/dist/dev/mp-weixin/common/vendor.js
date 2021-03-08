@@ -8760,9 +8760,7 @@ new _vuex.default.Store({
 
 
   mutations: {
-    // 初始化登录状态
     setNavHeight: function setNavHeight(state, data) {
-      console.log(data);
       state.navHeight = data;
       console.log(state.navHeight);
 
@@ -9911,6 +9909,7 @@ var index = {
         userInfo = JSON.parse(userInfo);
         state.userInfo = userInfo;
         state.token = JSON.parse(token);
+        console.log(state);
       }
 
     } },

@@ -16,9 +16,7 @@ export default new Vuex.Store({
 		
 	},
 	mutations:{
-		// 初始化登录状态
 		setNavHeight(state,data){
-			console.log(data)
 			state.navHeight = data
 			console.log(state.navHeight)
 		

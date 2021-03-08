@@ -1,6 +1,6 @@
 <template>
 	<view class="width-000 height-000">
-		<image v-show="!isLoad"  :src="loadSrc" class="width-000 height-000" @load="load($event)" mode="" @error="error"></image>
+		<image v-show="!isLoad"  :src="_loadSrc" class="width-000 height-000" @load="load($event)" mode="" @error="error"></image>
 		<image v-if="isLoad" class="width-000 height-000" src="../static/loading.gif" mode="aspectFill"></image>
 	</view>
 </template>
@@ -15,18 +15,29 @@
 		},
 		data(){
 			return {
-				isLoad:true
+				isLoad:true,
+				errorImgSrc:'/static/loadfail.png',
+				_loadSrc:''
 			}
 		},
-		mounted() {
-			
+		watch:{
+			loadSrc(newVal,oldVal){
+				this.isLoad = true
+				this._loadSrc = newVal
+				// console.log(newVal,oldVal)
+			}
 		},
+		created() {
+				this._loadSrc = this.loadSrc
+		},
+	
 		methods:{
 			load(e) {
 				this.isLoad = false
 			},
 			error(e) {
-				// console.log(e,'error')
+				this.isLoad = false
+				this._loadSrc = this.errorImgSrc
 			},
 		}
 	}
