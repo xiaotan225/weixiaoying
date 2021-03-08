@@ -1,6 +1,6 @@
 <template>
 	<view class="width-000 height-000">
-		<image   :src="loadSrc" class="width-000 height-000" @load="load($event)" mode="" @error="error"></image>
+		<image v-show="!isLoad"  :src="loadSrc" class="width-000 height-000" @load="load($event)" mode="" @error="error"></image>
 		<image v-if="isLoad" class="width-000 height-000" src="../static/loading.gif" mode="aspectFill"></image>
 	</view>
 </template>
@@ -19,6 +19,7 @@
 			}
 		},
 		mounted() {
+			
 		},
 		methods:{
 			load(e) {

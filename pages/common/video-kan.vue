@@ -496,12 +496,14 @@
 			// 获取视频详情
 			async getVideoDatails() {
 				var data = await this.$api.getVideoDatails({
-					vodid: this.item.vod_id
+					vodid:this.item.vod_id
 				})
+				// console.log(data)
 				this.videoDatails = data.data[0]
 				this.videoDatails.vod_cont = this.tempVodCont = data.data[0].vod_content.slice(0, 100)
 				// 播放源（解析线路）
 				this.playSource = this.videoDatails.vod_play_from.split('$$$')
+				console.log(this.videoDatails.vod_play_from)
 				
 				/* 0: "kuyun"
 1: 					1:"ckm3u8" */
