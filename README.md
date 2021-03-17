@@ -14,7 +14,7 @@ app：正在兼容
 #### 程序启动
 
 ```
-git clone https://github.com/xiaotan225/music_vue_demo.git
+git clone https://github.com/xiaotan225/weixiaoying.git
 ```
  # ★Star
  如果你有好的意见或建议，欢迎给我们提 issue ，为优化此项目贡献力量。
