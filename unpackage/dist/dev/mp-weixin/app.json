@@ -56,5 +56,6 @@
     "common-title": "/components/common/common-title",
     "divider": "/components/common/divider",
     "none-text": "/components/common/none-text"
-  }
+  },
+  "sitemapLocation": "sitemap48.json"
 }

@@ -146,8 +146,8 @@
 			<view class="p-3">
 
 				<view class="d-flex a-center flex-wrap" style="">
-					<view @tap="anthology(item,index)" :class="collectCurrent==index?'playSourceCurrentYes':'playSourceCurrentNo'"
-					 class="mb-2 py-1 mr-2 theme-border-r10 playSourceCurrent1" v-for="(item,index) in playOrigin" :key="index">
+					<view @tap="anthology(item,index)" style="width: 22.7%;margin: 0 15rpx 15rpx 0;" :class="collectCurrent==index?'playSourceCurrentYes':'playSourceCurrentNo'"
+					 class="theme-border-r10 playSourceCurrent2" v-for="(item,index) in playOrigin" :key="index">
 						{{item.title}}
 					</view>
 				</view>
@@ -581,7 +581,13 @@
 		padding: 20rpx 30rpx;
 		white-space: nowrap;
 	}
-
+	.playSourceCurrent2{
+		width: 25%;
+		height: 80rpx;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 	.playSourceCurrentYes {
 		background: rgb(255, 204, 64);
 

@@ -3,14 +3,6 @@
 
 		onLaunch: function() {
 			console.log('App Launch')
-
-
-
-
-
-
-
-
 			// 获取视频分类选项
 			this.getvodClassify()
 			this.$store.dispatch('wxLogin')

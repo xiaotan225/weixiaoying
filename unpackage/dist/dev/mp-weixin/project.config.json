@@ -12,23 +12,26 @@
   "compileType": "miniprogram",
   "libVersion": "",
   "appid": "wxa702505b20ac8583",
-  "projectname": "weixiaoshi",
+  "projectname": "weixiaoying",
   "condition": {
-    "search": {
-      "current": -1,
-      "list": []
-    },
-    "conversation": {
-      "current": -1,
+    "plugin": {
       "list": []
     },
     "game": {
-      "current": -1,
+      "list": []
+    },
+    "gamePlugin": {
       "list": []
     },
     "miniprogram": {
-      "current": -1,
-      "list": []
+      "list": [
+        {
+          "name": "pages/common/video-kan",
+          "pathName": "pages/common/video-kan",
+          "query": "item={\"type_id\":4,\"vod_actor\":\"\",\"vod_hits\":1,\"vod_id\":64162,\"vod_level\":0,\"vod_name\":\"妖神记\",\"vod_pic\":\"http://images.cnblogsc.com/pic/upload/vod/2017-09-05/150459932216.jpg\",\"vod_remarks\":\"完结\",\"vod_score\":0,\"vod_year\":\"2017\",\"vod_area\":\"大陆\"}",
+          "scene": null
+        }
+      ]
     }
   }
 }

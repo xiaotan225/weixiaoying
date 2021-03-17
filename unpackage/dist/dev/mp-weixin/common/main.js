@@ -159,14 +159,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
   onLaunch: function onLaunch() {
     console.log('App Launch');
-
-
-
-
-
-
-
-
     // 获取视频分类选项
     this.getvodClassify();
     this.$store.dispatch('wxLogin');
