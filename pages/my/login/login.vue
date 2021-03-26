@@ -147,7 +147,6 @@
 				var data = await this.$api.h5login({
 					...this.user
 				})
-				console.log(data)
 				if(data.code == 1){
 					uni.setStorageSync('userInfo',JSON.stringify(data.result))
 					uni.setStorageSync('token',JSON.stringify(data.token))

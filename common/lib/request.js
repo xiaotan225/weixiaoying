@@ -5,7 +5,7 @@ export default {
 	// 全局配置
 	common:{
 		baseUrl:"http://42.192.125.82:8081",
-		// baseUrl:"http://127.0.0.1:3001",
+		// baseUrl:"http://192.168.1.187:8081",
 		
 		header:{
 			// 'Content-Type':'application/json;charset=UTF-8',
@@ -55,6 +55,7 @@ export default {
 			// 请求中...
 			uni.request({
 				...options,
+				
 				withCredentials:true,
 				success: (result) => {
 					uni.hideLoading()

@@ -162,6 +162,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     // 获取视频分类选项
     this.getvodClassify();
     this.$store.dispatch('wxLogin');
+
     // 获取用户信息
     // var systemInfo =  uni.getSystemInfoSync()
     // uni.login({

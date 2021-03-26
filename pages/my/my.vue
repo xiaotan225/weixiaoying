@@ -145,7 +145,6 @@
 			// },500)
 		},
 		onShow() {
-			if(this.userInfo.isWx){
 				// 微信环境
 				var tempTime = setInterval(() => {
 					if (this.userInfo.token || this.num >= 6) {
@@ -154,10 +153,9 @@
 					}
 					this.num++
 				}, 500)
-				return
-			}
 			
-			
+			// console.log(this.userInfo)
+			// console.log(uni.getStorageSync('userInfo'))
 			// H5环境
 			if(!this.userInfo.token){
 				uni.navigateTo({

@@ -87,7 +87,6 @@ export default {
 				}
 			]
 			state.isWx = false
-			console.log(state.userInfo)
 			commit('initUser')
 			// 获取用户信息
 			var data = await api.geth5User({
@@ -129,7 +128,6 @@ export default {
 			commit,
 			state
 		}, callack) {
-			var currentHashPath = window.location.hash
 			var hashPathList = [{
 					url: '#/pages/my/login/login',
 					type: "tab"
@@ -139,7 +137,6 @@ export default {
 				}
 			]
 			state.isWx = false
-			console.log(state.userInfo)
 			commit('initUser')
 			// 获取用户信息
 			var data = await api.geth5User({
@@ -154,21 +151,6 @@ export default {
 				state.token = ''
 				uni.setStorageSync('userInfo', '')
 				uni.setStorageSync('token', '')
-				hashPathList.forEach(item => {
-					if (item.url == currentHashPath) {
-						 let currentPath =  item.url.slice(1)
-						 if(item.type){
-							 uni.switchTab({
-							 	url: currentPath
-							 })
-						 }else{
-							 uni.navigateTo({
-							 	url:currentPath
-							 })
-						 }
-						
-					}
-				})
 		
 			}
 		
