@@ -124,7 +124,6 @@ export let geth5User = (options)  => {
 
 // H5登录
 export let getTodayVodList = (options)  => {
-	console.log('asdfsdf')
   return req.get('/getTodayVodList', options)
 }
 

@@ -1,6 +1,5 @@
 <template>
 	<view class="">
-		
 		<!-- 导航栏 -->
 		<view class="width-000 ">
 			<!-- <commonTitle :defaultSty="false"  :isShowIcon="false" :right="true" title="微小视"></commonTitle> -->
@@ -58,6 +57,8 @@
 		<view class="" style="height: 100rpx;">
 			
 		</view>
+		
+		
 		<!-- <view class="px-2">
 			<card class="mx-3" headTitle="热门电视剧" :headTitleWeight="true">
 				<view @click="likeTap('热门电视剧')" slot="right" class="font-md text-muted pr-1 d-flex a-center">
@@ -99,7 +100,24 @@
 
 				],
 				vodList:[],
-				noticeList:[]
+				noticeList:[],
+				testList:[{
+					name:'asdfs',
+					id:'1',
+					pic:'asdfs'
+				},
+				{
+					name:'asdfsd',
+					id:'2',
+					pic:'asdfs'
+				},
+				{
+					name:'11111',
+					id:'3',
+					pic:'asdfs'
+				}
+				],
+				testCurrent:0,
 			}
 		},
 		onLoad() {
@@ -109,13 +127,21 @@
 			this.indexClassify()
 
 			this.notice()
-
+			
+			let lishiArr = uni.getStorageSync('lishi')
+			if (lishiArr) {
+				
+			} else {
+				uni.setStorageSync('lishi', JSON.stringify([]))
+			}
+			
 
 			
 		
 			// console.log(this.citySelect[this.citySelectCurrent].chid)
 		},
 		methods: {
+			
 			async notice(){
 				var data = await this.$api.notice()
 				this.noticeList =data.data
