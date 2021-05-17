@@ -28,9 +28,10 @@ app：基本完成
 
 ## 效果图
 #### 小程序和H5已上线
-#### H5传送门：https://www.xiaotan123.xyz
+#### H5传送门：https://www.xiaotan123.xyz  如果不能正常显示请使用qq浏览器
 #### 小程序个人开发功能限制太多，无法完全上线。如若喜欢可以克隆项目自己运行看看
-![gh_0b9926b49434_1280.jpg](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e1ca240a1d0e497e9adfb48abcc0efd8~tplv-k3u1fbpfcp-watermark.image)
+
+![gh_0b9926b49434_430.jpg](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a1eb3eb3f6514118b12a9da7ee4bd407~tplv-k3u1fbpfcp-watermark.image)
 
 ![Snipaste_2021-05-17_21-55-33.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c9e6550cfa0a43509af137f1a4420074~tplv-k3u1fbpfcp-watermark.image)
 
