@@ -8,11 +8,11 @@
 		<!-- 头部标题 -->
 
 		<view class="px-2 pt-2">
-			<view class="" style="font-size: 32rpx;font-family: PingFang SC;font-weight: bold;color: #2E7DFF;">
+			<view :style="theme.color" class="" style="font-size: 32rpx;font-family: PingFang SC;font-weight: bold;color: #2E7DFF;">
 				反馈类型
 			</view>
 			<view class="d-flex flex-wrap mt-2">
-				<view class="d-flex a-center j-center mr-5 mb-3" @tap="currTab(item,index)" :class="current == index?'current':'currentNo'" v-for="(item,index) in tabList"
+				<view  class="d-flex a-center j-center mr-5 mb-3 fankType currentNo" @tap="currTab(item,index)" :style="current == index?theme.bgColor+';color:#fff':''" v-for="(item,index) in tabList"
 				 :key="index">
 					{{item}}
 				</view>
@@ -23,7 +23,7 @@
 
 		<view class="px-2 mb-4 mt-4">
 			<view class="d-flex a-center mt-2">
-				<text class="mr-2" style="font-size: 32rpx;font-family: PingFang SC;font-weight: bold;color: #2E7DFF;"> 请提供相关问题图片</text>
+				<text class="mr-2" style="font-size: 32rpx;font-family: PingFang SC;font-weight: bold;" :style="theme.color"> 请提供相关问题图片</text>
 				<!-- <text class="font-25 theme-color-hui">(最多6张图不超过20m)</text> -->
 			</view>
 			<!-- 请提供相关问题图片 -->
@@ -55,7 +55,7 @@
 
 		<divider></divider>
 		<view class="px-2 mb-4">
-			<view class="commTitle mt-2">
+			<view class="commTitle mt-2" :style="theme.color">
 				问题描述
 			</view>
 			<view class="position-relative" >
@@ -68,20 +68,20 @@
 		
 		<divider></divider>
 		<view class="px-2">
-			<view class="commTitle mt-2">
+			<view class="commTitle mt-2" :style="theme.color">
 				联系方式
 			</view>
 			<view class="position-relative" >
 				<input type="text"  v-model="data.phone" class="pl-3 mt-2" placeholder="请输入您的联系方式" style="height: 80rpx;background: #F2F2F2;"/>
 			</view>
 		</view>
-		
-		<view class="d-flex a-center j-center mt-3" @tap="authau_fk">
-			<view class="d-flex a-center j-center mb-3" style="background: linear-gradient(180deg, rgb(104, 132, 253), rgb(89, 115, 217));font-size: 32rpx;font-family: PingFang SC;font-weight: bold;color: #FFFFFF;width: 690rpx;height: 80rpx;border-radius: 40px;">
+		<!-- background: linear-gradient(180deg, rgb(104, 132, 253), rgb(89, 115, 217)) -->
+		<view  class="d-flex a-center j-center mt-3" @tap="authau_fk">
+			<view :style="theme.bgColor" class="d-flex a-center j-center mb-3" style="font-size: 32rpx;font-family: PingFang SC;font-weight: bold;color: #FFFFFF;width: 690rpx;height: 80rpx;border-radius: 40px;">
 				提交
 			</view>
 		</view>
-
+			<load></load>
 	</view>
 
 
@@ -117,6 +117,9 @@
 					user:this.$store.state.user.userInfo,
 					token:this.$store.state.user.token,
 				}
+			},
+			theme(){
+				return this.$store.state.theme
 			}
 		},
 		methods:{
@@ -263,15 +266,6 @@
 	}
 
 	.currentNo {
-		width: 160rpx;
-		height: 60rpx;
-		background: #F2F2F2;
-		border-radius: 10rpx;
-
-
-		font-size: 27rpx;
-		font-family: PingFang SC;
-		font-weight: 400;
-		color: #666666;
+		width: 160rpx;height: 60rpx;background: #F2F2F2;border-radius: 10rpx;font-size: 27rpx;font-family: PingFang SC;font-weight: 400;color: #666666;
 	}
 </style>

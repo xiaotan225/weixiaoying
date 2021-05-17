@@ -1,22 +1,51 @@
 
+.header-nav-box {
+		justify-items: flex-end;
+		-webkit-box-align: end;
+		-webkit-align-items: flex-end;
+		        align-items: flex-end;
+		padding-bottom: 15px;
+		box-sizing: border-box;
+		height: 100%;
+		/* transition: background 0.8s ease-in 0.3s,color 0.6s ease-out 0.3s; */
+		-webkit-transition:all 0.5s ease-out;
+		transition:all 0.5s ease-out;
+}
+.header-nav-box1 {
+		
+		box-sizing: border-box;
+		height: 100%;
+		/* transition: background 0.8s ease-in 0.3s,color 0.6s ease-out 0.3s; */
+		-webkit-transition:all 0.5s ease-out;
+		transition:all 0.5s ease-out;
+}
+	/* 淡入-从上 */
+@-webkit-keyframes fadeinT{
+0%{opacity:0;-webkit-transform:translateY(-100px);}
+100%{opacity:1;-webkit-transform:translateY(0);}
+}
+@keyframes fadeinT{
+0%{opacity:0;-webkit-transform:translateY(-100px);transform:translateY(-100px);}
+100%{opacity:1;-webkit-transform:translateY(0);transform:translateY(0);}
+}
 .defaulTtitle {
-	font-size: 37rpx;
-	font-family: PingFang SC;
-	font-weight: bold;
-	color: #FFFFFF;
+		font-size: 37rpx;
+		font-family: PingFang SC;
+		font-weight: bold;
+		color: #FFFFFF;
 }
 .icon-backTap {
-	font-size: 50rpx;
+		font-size: 50rpx;
 }
 .top-title-h5 {
-	padding: 20rpx 10rpx;
-	background-color: #fff;
+		padding: 20rpx 10rpx;
+		background-color: #fff;
 }
 .top-title {
-	background-color: #fff;
-	line-height: 150rpx;
+		background-color: #fff;
+		line-height: 150rpx;
 }
 .top-title .title {
-	position: relative;
+		position: relative;
 }
 

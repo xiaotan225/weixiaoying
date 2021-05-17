@@ -34,6 +34,7 @@ export default{
 	},
 	// 人性化时间格式
 	gettime(shorttime){
+		console.log(shorttime.toString().length)
 		shorttime=shorttime.toString().length<13 ? shorttime*1000 : shorttime;
 		let now = (new Date()).getTime();
 		let cha = (now-parseInt(shorttime))/1000;
@@ -45,7 +46,7 @@ export default{
 			return this.dateFormat(new Date(shorttime),"{Mon}月{DD}日 {A} {t}:{ii}");
 		} else {
 			// 隔年 显示完整日期+时间
-			return this.dateFormat(new Date(shorttime),"{Y}-{MM}-{DD} {A} {t}:{ii}");
+			return this.dateFormat(new Date(shorttime),"{hh} {Mon} {DD}");
 		}
 	},
 	
@@ -72,8 +73,8 @@ export default{
 		dateObj["ii"] = this.parseNumber(dateObj["i"]);
 		dateObj["s"] = date.getSeconds();
 		dateObj["ss"] = this.parseNumber(dateObj["s"]);
-	 
 		while(rStr.test(formatStr)) {
+			
 			formatStr = formatStr.replace(rStr, dateObj[RegExp.$1]);
 		}
 		return formatStr;

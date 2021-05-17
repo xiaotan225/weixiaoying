@@ -2,7 +2,10 @@
 	<!-- 个人中心-我的 -->
 	<view class="">
 		<view class="position-relative" style="width: 100%;height: 430rpx;z-index: 9999;">
-			<image class="width-000 height-000 position-absolute " style="z-index: 1;" src="../../static/my/gzh.jpg" mode=""></image>
+			<image class="width-000 height-000 position-absolute " style="z-index: 1;" src="../../static/images/bg.jpg" mode=""></image>
+			<view v-if="userInfo.info.nick_name" class="" style="position: absolute; transform: translate(-50%,-50%);left: 52%;top: 84%;z-index: 999;color: #fff;">
+				越努力，越幸运~
+			</view>
 			<view v-if="userInfo.token" class="d-flex a-center j-center flex-column position-absolute mt-2 site">
 				<view class=" " style="width: 130rpx;height: 130rpx;">
 					<image class="width-000 height-000" style="border-radius: 50%;" :src="userInfo.info.avatar_url" mode=""></image>
@@ -44,8 +47,9 @@
 					<view class="d-flex  video-list pt-2 pb-2">
 						<view class="video-item d-flex flex-column" @tap="toDetails(item,index)" v-for="(item,index) in videoList" :key="index">
 							<view class="width-000 position-relative" style="height: 160rpx">
-								<image class="width-000 height-000" style="width: 110rpx;" :src="item.vod_pic" mode=""></image>
-								<view class="position-absolute score d-flex a-center j-center" style="">
+								<loadImg :loadSrc="item.vod_pic"></loadImg>
+								<!-- <image class="width-000 height-000" style="width: 110rpx;" :src="item.vod_pic" mode=""></image> -->
+								<view :style="theme.bgColor" class="position-absolute score d-flex a-center j-center" style="">
 									<!-- {{item.vod_score.toFixed(1)}} -->
 									{{item.vod_year}}
 								</view>
@@ -87,6 +91,19 @@
 
 				</view>
 			</view>
+			<view @tap="toZhuti" class="d-flex a-center j-sb px-2 height-100 " style="border-bottom: 1rpx solid #ebebeb;">
+				<view class="d-flex a-center">
+					<view class="iconfont iconzhuti mr-2 font-30">
+			
+					</view>
+					<view class="color-hui " style="font-size: 32rpx;">
+						我的主题
+					</view>
+				</view>
+				<view class="iconfont iconyoujiantou font-30">
+			
+				</view>
+			</view>
 			<view @tap="toFeedbackIssue" class="d-flex a-center j-sb px-2 height-100 " style="border-bottom: 1rpx solid #ebebeb;">
 				<view class="d-flex a-center">
 					<view class="iconfont iconfankuiyijian mr-2 font-30">
@@ -115,14 +132,17 @@
 				</view>
 			</view>
 		</view>
+		<load></load>
 	</view>
 </template>
 
 <script>
 	import commonListFill from "@/components/common/common-list-fill.vue";
+	import loadImg from '@/components/load-img.vue'
 	export default {
 		components: {
-			commonListFill
+			commonListFill,
+			loadImg
 		},
 		data() {
 			return {
@@ -131,11 +151,14 @@
 			}
 		},
 		computed: {
+			theme(){
+					return this.$store.state.theme
+			},
 			userInfo() {
 				return {
 					info: this.$store.state.user.userInfo,
 					token: this.$store.state.user.token,
-					isWx:this.$store.state.user.isWx
+					isWx: this.$store.state.user.isWx
 				}
 			}
 		},
@@ -145,26 +168,40 @@
 			// },500)
 		},
 		onShow() {
-				// 微信环境
-				var tempTime = setInterval(() => {
-					if (this.userInfo.token || this.num >= 6) {
-						this.getCollectVod()
-						clearInterval(tempTime)
-					}
-					this.num++
-				}, 500)
-			
+			// 微信环境
+			var tempTime = setInterval(() => {
+				if (this.userInfo.token || this.num >= 6) {
+					this.getCollectVod()
+					clearInterval(tempTime)
+				}
+				this.num++
+			}, 500)
 			// console.log(this.userInfo)
 			// console.log(uni.getStorageSync('userInfo'))
 			// H5环境
-			if(!this.userInfo.token){
+			// #ifdef H5
+			if (!this.userInfo.token) {
 				uni.navigateTo({
-					url:"/pages/my/login/login"
+					url: "/pages/my/login/login"
 				})
 			}
+			// #endif
+			
+			// #ifdef APP-PLUS
+			if (!this.userInfo.token) {
+				uni.navigateTo({
+					url: "/pages/my/login/login"
+				})
+			}
+			// #endif
+
+
 
 		},
 		methods: {
+			toZhuti(){
+				this.$U.navTo('/pages/my/theme')
+			},
 			// 视频详情
 			toDetails(item, index) {
 				this.$U.navTo('/pages/common/video-details?item=' + JSON.stringify(item))
@@ -184,9 +221,10 @@
 			toCollect() {
 				this.$U.navTo('/pages/my/collect')
 			},
-			authorLogin(e) {
-			},
+			authorLogin(e) {},
 			login() {
+
+
 				this.$store.dispatch('wxLogin')
 				// 获取用户信息
 				// uni.login({

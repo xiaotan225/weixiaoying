@@ -2,5 +2,22 @@
 page {
 	/* background-color: rgb(121, 146, 252); */
 }
-
+.load-video-text {
+	color: #fff;
+	background-image: -webkit-linear-gradient(left, #ff0, #dd524d 25%, #bdcd34 50%, #dd524d 75%, #ff0);
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+	-webkit-background-size: 200% 100%;
+	-webkit-animation: masked-animation 3s infinite linear;
+	border: 0;
+	font-size: 30rpx;
+}
+@-webkit-keyframes masked-animation {
+0% {
+		background-position: 0 0
+}
+to {
+		background-position: -100% 0
+}
+}
 

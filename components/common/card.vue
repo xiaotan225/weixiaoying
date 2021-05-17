@@ -4,7 +4,7 @@
 		<view v-if="showhead" class="main-border-color d-flex a-center j-sb"
 		:class="getHeadClass">
 			<slot name="title">
-				<text v-if="headTitle" class="font-md text-dark default "
+				<text v-if="headTitle" class="font-md text-dark default load-video-text"
 				:class="headTitleWeight?'headTitleWeight':''" >{{headTitle}}</text>
 			</slot>
 			<slot name="right" ></slot>
@@ -79,5 +79,24 @@
 	.default{
 		
 	}
+	.load-video-text {
+		color: #fff;
+		background-image: -webkit-linear-gradient(left, #ff0, #dd524d 25%, #bdcd34 50%, #dd524d 75%, #ff0);
+		-webkit-text-fill-color: transparent;
+		-webkit-background-clip: text;
+		-webkit-background-size: 200% 100%;
+		-webkit-animation: masked-animation 3s infinite linear;
+		border: 0;
 	
+	}
+	
+	@-webkit-keyframes masked-animation {
+		0% {
+			background-position: 0 0
+		}
+	
+		to {
+			background-position: -100% 0
+		}
+	}
 </style>

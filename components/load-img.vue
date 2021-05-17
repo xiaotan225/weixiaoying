@@ -1,12 +1,15 @@
 <template>
 	<view class="width-000 height-000">
-		<image v-show="!isLoad"  :src="_loadSrc" class="width-000 height-000" @load="load($event)" mode="" @error="error"></image>
-		<image v-if="isLoad" class="width-000 height-000" src="../static/loading.gif" mode="aspectFill"></image>
+		<image style="border-radius: 10rpx" v-show="!isLoad"  :src="_loadSrc" class="width-000 height-000" @load="load($event)" mode="" @error="error"></image>
+		<view class="d-flex a-center j-center" v-show="isLoad"  style="border-radius: 10rpx; width: 100%;height: 100%;border: 1px solid rgb(229 229 229)">
+			<image  style="width: 120rpx;height: 120rpx;"  src="../static/loading.gif" mode="aspectFill"></image>
+		</view>
 	</view>
 </template>
 
 <script>
 	export default {
+		name:"loadImg",
 		props:{
 			loadSrc:{
 				type:String,

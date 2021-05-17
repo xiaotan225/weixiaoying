@@ -9,9 +9,9 @@
 		<!-- 导航栏 -->
 		<view class="height-000">
 			<view class="d-flex bg-white a-center font-md text-muted border-top border-bottom border-light-secondary" style="position: fixed;z-index: 9999999999999999999999999999999;width: 100%;">
-				<view style="width: 25%;height: 100rpx;" class="flex-1 d-flex a-center j-center text-dark " v-for="(item,index) in tabList"
+				<view style="width: 25%;height: 100rpx;" class="flex-1 d-flex a-center j-center text-dark "  v-for="(item,index) in tabList"
 				 :key="index" @tap="tabarTab(index)">
-					<view class="py-1  d-flex a-center j-center" :class="tabIndex == index ? 'border-bottom-primary-5 text-primary' : ''">{{item.name}}</view>
+					<view class="py-1  d-flex a-center j-center" :style="tabIndex == index ? theme.color : ''">{{item.name}}</view>
 				</view>
 			</view>
 			<view class="" style="height: 100rpx;">
@@ -21,7 +21,7 @@
 			<view class=" mt-2">
 				<!-- 视频类型 -->
 				<view class="vod-type">
-					<view class="vod-type-item" @tap="curTabClassIndex(item,index,'currentIndex1')" :class="tabClassIndex.currentIndex1==index?'current':''"
+					<view class="vod-type-item" @tap="curTabClassIndex(item,index,'currentIndex1')" :style="tabClassIndex.currentIndex1==index?theme.color:''"
 					 v-for="(item,index) in tabClassList[tabIndex].class" :key="index">
 						{{item}}
 					</view>
@@ -29,7 +29,7 @@
 				<!-- 视频类型 -->
 				<!-- 视频地区 -->
 				<view class="vod-type">
-					<view class="vod-type-item" @tap="curTabClassIndex(item,index,'currentIndex2')" :class="tabClassIndex.currentIndex2==index?'current':''"
+					<view class="vod-type-item" @tap="curTabClassIndex(item,index,'currentIndex2')" :style="tabClassIndex.currentIndex2==index?theme.color:''"
 					 v-for="(item,index) in tabClassList[tabIndex].area" :key="index">
 						{{item}}
 					</view>
@@ -37,7 +37,7 @@
 				<!-- 视频地区 -->
 				<!-- 视频时间 -->
 				<view class="vod-type">
-					<view class="vod-type-item" @tap="curTabClassIndex(item,index,'currentIndex3')" :class="tabClassIndex.currentIndex3==index?'current':''"
+					<view class="vod-type-item" @tap="curTabClassIndex(item,index,'currentIndex3')" :style="tabClassIndex.currentIndex3==index?theme.color:''"
 					 v-for="(item,index) in tabClassList[tabIndex].year" :key="index">
 						{{item}}
 					</view>
@@ -72,14 +72,20 @@
 
 
 		</view>
+	
+		<load></load>
+	
 	</view>
+
+
 </template>
 
 <script>
 	import commonListFill from "@/components/common/common-list-fill.vue";
 	export default {
 		components: {
-			commonListFill
+			commonListFill,
+			
 		},
 		data() {
 			return {
@@ -139,6 +145,9 @@
 			tabClassList() {
 				return this.$store.state.vodClassify.vodClassifyList
 			},
+			theme(){
+					return this.$store.state.theme
+			},
 			Contheight() {
 				if(this.videoList.length <= 0){
 					return 500
@@ -163,11 +172,11 @@
 			var vod_class = this.tabClassList[this.tabIndex].class[this.tabClassIndex.currentIndex1] || '全部'
 			var vod_area = this.tabClassList[this.tabIndex].area[this.tabClassIndex.currentIndex2] || '全部'
 			var vod_year = this.tabClassList[this.tabIndex].year[this.tabClassIndex.currentIndex3] || '全部'
-			this.getvodClassifyList(true,this.type_id, vod_class, vod_area, vod_year,page)
+			this.getvodClassifyList(true,this.type_id, vod_class, vod_area, vod_year,page,15,true)
 		},
 		methods: {
 			// 视频类型筛选查询
-			async getvodClassifyList(isMorel,type_id, vod_class, vod_area, vod_year,cur_page,page_size=15) {
+			async getvodClassifyList(isMorel,type_id, vod_class, vod_area, vod_year,cur_page,page_size=15,isJia) {
 				var data = await this.$api.getvodClassifyList({
 					type_id: type_id,
 					vod_class: vod_class,
@@ -175,6 +184,8 @@
 					vod_year: vod_year,
 					cur_page:cur_page,
 					page_size:page_size
+				},{
+					isJia
 				})
 				this.$U.moreLoad.call(this, data.result) ? this.videoList = data.result : ''
 				if(!isMorel){

@@ -58,7 +58,7 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "wxa702505b20ac8583",
+        "appid" : "wxbba6d20f630eedde",
         "setting" : {
             "urlCheck" : false,
             "es6" : true,
@@ -81,6 +81,6 @@
     },
     "h5" : {
         "title" : "weixiaoying",
-        "domain" : "http://42.192.125.82/"
+        "domain" : "www.xiaotan123.xyz"
     }
 }

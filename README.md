@@ -1,13 +1,50 @@
 # 介绍
 
 ## 微小影（第三方影视）
+<li>
+    uniapp影视项目
+</li>
+<li>
+小程序：基本完成、
+H5：基本完成、
+app：基本完成
+</li>
+<li>
+    已完成页面：首页、搜索、分类、详情、播放页、我的页（H5页面登录）、历史、收藏、反馈，我的主题
+</li>
 
-```
-使用技术栈：uniapp
-小程序：基本完成
-H5：正在兼容
-app：正在兼容
-```
+## 本次更新
+
+<li>
+   添加用户可以切换主题颜色 
+</li>
+<li>
+   加载动画修改和视频列表页面美感优化
+</li>
+<li>
+   详情页使用动态模糊背景图添加美观
+</li>
+
+
+## 效果图
+#### 小程序和H5已上线
+#### H5传送门：https://www.xiaotan123.xyz
+#### 小程序个人开发功能限制太多，无法完全上线。如若喜欢可以克隆项目自己运行看看
+![gh_0b9926b49434_1280.jpg](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e1ca240a1d0e497e9adfb48abcc0efd8~tplv-k3u1fbpfcp-watermark.image)
+
+![Snipaste_2021-05-17_21-55-33.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c9e6550cfa0a43509af137f1a4420074~tplv-k3u1fbpfcp-watermark.image)
+
+
+![Snipaste_2021-05-17_21-56-16.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2159f53a77c74c248c3b361e4b2e3c47~tplv-k3u1fbpfcp-watermark.image)
+
+![Snipaste_2021-05-17_21-56-29.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/02e9df6151464cb58fe25867d69b038c~tplv-k3u1fbpfcp-watermark.image)
+
+
+![Snipaste_2021-05-17_21-58-26.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b5a5e8b3a474491b80aa1ce8f7ed1caf~tplv-k3u1fbpfcp-watermark.image)
+
+![Snipaste_2021-05-17_21-58-38.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/27afc30eb66d4c18af37ad33bc21dc7c~tplv-k3u1fbpfcp-watermark.image)
+
+![b619fb60-8725-11eb-a70f-75caa4ec34fc_2.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1607c66cdd444175be9110822a523182~tplv-k3u1fbpfcp-watermark.image)
 
 ### 如何使用
 

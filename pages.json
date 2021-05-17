@@ -4,93 +4,98 @@
 			// 首页
 			"path": "pages/index/index",
 			"style": {
-				
-				
+
+
 			}
-			
+
 		},
 		{
 			// 搜索
 			"path": "pages/search/search",
 			"style": {
-				
-				
+
+
 			}
 		},
 		{
 			// 分类
 			"path": "pages/classify/classify",
 			"style": {
-				
-				
+
+
 			}
 		},
 		{
 			// 我的
 			"path": "pages/my/my",
 			"style": {
-				
-				
+
+
 			}
 		},
 		{
 			// 我的收藏
 			"path": "pages/my/collect",
 			"style": {
-				
-				
+
+
 			}
 		},
 		{
 			// 问题反馈
 			"path": "pages/my/feedback-issue",
 			"style": {
-				
-				
+
+
 			}
 		},
 		{
 			// 视频列表热门
 			"path": "pages/common/video-list",
 			"style": {
-				
-				
+
+
 			}
 		},
 		{
 			// 视频详情
 			"path": "pages/common/video-details",
 			"style": {
-				
-				
+			
+
 			}
 		},
 		{
 			// 视频看
 			"path": "pages/common/video-kan",
 			"style": {
-				
-				
+
+
 			}
 		},
 		{
 			// H5登录
-			"path": "pages/my/login/login",
-			"style": {
-				
-				
-			}
+			"path": "pages/my/login/login"
+			
 		},
 		{
 			// H5注册
 			"path": "pages/my/register/register",
 			"style": {
-				
-				
+
+
+			}
+		},
+		{
+			// 主题
+			"path": "pages/my/theme",
+			"style": {
+		
+		
 			}
 		}
-		
-		
+
+
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
@@ -104,11 +109,10 @@
 		"borderStyle": "white",
 		"color": "#000",
 		"backgroundColor": "#FFFFFF",
-		"list": [
-			{
+		"list": [{
 				"pagePath": "pages/index/index",
 				"text": "首页",
-				"iconPath":"static/bottomIcon/index1.png",
+				"iconPath": "static/bottomIcon/index1.png",
 				"selectedIconPath": "static/bottomIcon/index2.png"
 			},
 			{
@@ -129,9 +133,9 @@
 				"iconPath": "static/bottomIcon/wode1.png",
 				"selectedIconPath": "static/bottomIcon/wode2.png"
 			}
-			
+
 		]
 	}
-	
-	
+
+
 }

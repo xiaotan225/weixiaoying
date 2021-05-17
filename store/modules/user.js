@@ -15,7 +15,9 @@ export default {
 				userInfo = JSON.parse(userInfo)
 				state.userInfo = userInfo
 				state.token = JSON.parse(token)
-				console.log(state)
+			}else{
+				state.userInfo = ""
+				state.token = ""
 			}
 
 		},
@@ -32,14 +34,13 @@ export default {
 			var systemInfo = uni.getSystemInfoSync()
 			commit('initUser')
 			// 获取用户信息
-			uni.login({
-				provider: 'weixin',
-				success: async (loginRes) => {
-					var code = loginRes.code
-					uni.getUserInfo({
+			wx.getUserProfile({
+				desc: '用户授权',
+				success:  (infoRes) => {
+					uni.login({
 						provider: 'weixin',
-						lang: "zh_CN",
-						success: async (infoRes) => {
+						success: async (loginRes) => {
+							var code = loginRes.code
 							var data = await api.wxUserLogin({
 								code: loginRes.code,
 								userInfo: infoRes.userInfo,
@@ -58,13 +59,16 @@ export default {
 								uni.setStorageSync('userInfo', '')
 								uni.setStorageSync('token', '')
 							}
+
+
 						}
 					});
 
 
-
 				}
 			});
+
+
 
 
 		}
@@ -103,17 +107,17 @@ export default {
 				uni.setStorageSync('token', '')
 				hashPathList.forEach(item => {
 					if (item.url == currentHashPath) {
-						 let currentPath =  item.url.slice(1)
-						 if(item.type){
-							 uni.switchTab({
-							 	url: currentPath
-							 })
-						 }else{
-							 uni.navigateTo({
-							 	url:currentPath
-							 })
-						 }
-						
+						let currentPath = item.url.slice(1)
+						if (item.type) {
+							uni.switchTab({
+								url: currentPath
+							})
+						} else {
+							uni.navigateTo({
+								url: currentPath
+							})
+						}
+
 					}
 				})
 
@@ -151,11 +155,11 @@ export default {
 				state.token = ''
 				uni.setStorageSync('userInfo', '')
 				uni.setStorageSync('token', '')
-		
+
 			}
-		
+
 		}
-		
+
 		// #endif
 	}
 }

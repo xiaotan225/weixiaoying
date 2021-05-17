@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import App from './App'
 import store from "./store"
-
 Vue.prototype.$store = store
 
 Vue.config.productionTip = false
@@ -11,9 +10,12 @@ Vue.config.productionTip = false
 import divider from "@/components/common/divider.vue"
 import commonTitle from "@/components/common/common-title.vue"
 import noneText from "@/components/common/none-text.vue"
+import load from "@/components/load.vue";
 Vue.component('commonTitle',commonTitle)
 Vue.component('divider',divider)
 Vue.component('noneText',noneText)
+Vue.component('load',load)
+Vue.prototype.isShowLoad = false
 
 
 
@@ -37,11 +39,10 @@ Vue.prototype.$U = $U
 // 时间函数
 import $T from './common/lib/time.js';
 Vue.prototype.$T = $T
-
+console.log($T.gettime(new Date()))
 // //生成二维码
 // import $Q from './common/lib/qrcode.js'
 // Vue.prototype.$Q = $Q
-
 
 // 权限跳转
 Vue.prototype.navigateTo = (options)=>{

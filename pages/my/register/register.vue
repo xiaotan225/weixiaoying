@@ -107,7 +107,7 @@
 			</view>
 		</view>
 	 -->
-
+	<load></load>
 	</view>
 </template>
 

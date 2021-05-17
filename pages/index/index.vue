@@ -1,5 +1,6 @@
 <template>
 	<view class="">
+		<load></load>
 		<!-- 导航栏 -->
 		<view class="width-000 ">
 			<!-- <commonTitle :defaultSty="false"  :isShowIcon="false" :right="true" title="微小视"></commonTitle> -->
@@ -42,10 +43,10 @@
 			<view class="mt-2">
 				<card :headTitle="item.type_name" :headTitleWeight="true">
 					<view @click="likeTap(item)" slot="right" class="font-md text-muted pr-1 d-flex a-center">
-						<view class="">
+						<view class="load-video-text">
 							查看更多
 						</view>
-						<view class="iconfont iconyoujiantou"></view>
+						<view class="iconfont iconyoujiantou load-video-text"></view>
 					</view>
 				</card>
 			</view>
@@ -101,23 +102,6 @@
 				],
 				vodList:[],
 				noticeList:[],
-				testList:[{
-					name:'asdfs',
-					id:'1',
-					pic:'asdfs'
-				},
-				{
-					name:'asdfsd',
-					id:'2',
-					pic:'asdfs'
-				},
-				{
-					name:'11111',
-					id:'3',
-					pic:'asdfs'
-				}
-				],
-				testCurrent:0,
 			}
 		},
 		onLoad() {
@@ -128,12 +112,7 @@
 
 			this.notice()
 			
-			let lishiArr = uni.getStorageSync('lishi')
-			if (lishiArr) {
-				
-			} else {
-				uni.setStorageSync('lishi', JSON.stringify([]))
-			}
+			
 			
 
 			
@@ -159,7 +138,10 @@
 				var data = await this.$api.getslideshow()
 				var tempImgArr = []
 				data.data.forEach((item,index)=>{
-					tempImgArr.push(item.vod_pic)
+					tempImgArr.push({
+						isLoad:true,
+						src:item.vod_pic
+					})
 				})
 				this.vodList = data.data
 				this.listImg = tempImgArr
@@ -177,5 +159,25 @@
 	page {
 		/* background-color: rgb(121, 146, 252); */
 	}
+	.load-video-text {
+		color: #fff;
+		background-image: -webkit-linear-gradient(left, #ff0, #dd524d 25%, #bdcd34 50%, #dd524d 75%, #ff0);
+		-webkit-text-fill-color: transparent;
+		-webkit-background-clip: text;
+		-webkit-background-size: 200% 100%;
+		-webkit-animation: masked-animation 3s infinite linear;
+		border: 0;
+		font-size: 30rpx;
 	
+	}
+	
+	@-webkit-keyframes masked-animation {
+		0% {
+			background-position: 0 0
+		}
+	
+		to {
+			background-position: -100% 0
+		}
+	}
 </style>

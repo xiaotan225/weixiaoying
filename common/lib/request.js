@@ -1,11 +1,14 @@
 import $store from '@/store/index.js'
+import Vue from 'vue'
 //promise调用方式
 export default {
 	
 	// 全局配置
 	common:{
-		baseUrl:"http://42.192.125.82:8081",
-		// baseUrl:"http://192.168.1.187:8081",
+		// baseUrl:"http://42.192.125.82:8081",
+		baseUrl:"https://xiaotan123.xyz",
+		// baseUrl:"http://127.0.0.1:8081",
+		// baseUrl:"http://192.168.0.110:8081",
 		
 		header:{
 			// 'Content-Type':'application/json;charset=UTF-8',
@@ -48,17 +51,25 @@ export default {
 		// 请求
 		return new Promise((res,rej)=>{
 			// 请求之前... todo
-			uni.showLoading({
-				title:'加载中...',
-				mask:true,
-			})
+			// uni.showLoading({
+			// 	title:'加载中...',
+			// 	mask:true,
+			// })
 			// 请求中...
+			// Vue.prototype.isShowLoad = true
+			if(!options.isJia){
+				$store.state.isShowLoad = true
+			}else{
+				$store.state.isShowLoad1 = true
+			}
 			uni.request({
 				...options,
-				
 				withCredentials:true,
 				success: (result) => {
-					uni.hideLoading()
+					$store.state.isShowLoad = false
+					$store.state.isShowLoad1 = false
+					// uni.hideLoading()
+					// Vue.prototype.isShowLoad = false
 					// 返回原始数据
 					if(options.native){
 						return res(result)
@@ -85,7 +96,9 @@ export default {
 					res(result.data)
 				},
 				fail: (error) => {
-					uni.hideLoading()
+					// uni.hideLoading()
+					$store.state.isShowLoad = false
+					$store.state.isShowLoad1 = false
 					uni.showToast({
 						title: error.errMsg || '请求失败',
 						icon: 'none'

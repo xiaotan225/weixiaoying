@@ -10,13 +10,14 @@
     "pages/common/video-details",
     "pages/common/video-kan",
     "pages/my/login/login",
-    "pages/my/register/register"
+    "pages/my/register/register",
+    "pages/my/theme"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "white",
     "navigationStyle": "custom",
-    "navigationBarTitleText": "微小视",
+    "navigationBarTitleText": "微小影",
     "navigationBarBackgroundColor": "#5B2549",
     "backgroundColor": "#5B2549"
   },
@@ -55,7 +56,8 @@
   "usingComponents": {
     "common-title": "/components/common/common-title",
     "divider": "/components/common/divider",
-    "none-text": "/components/common/none-text"
+    "none-text": "/components/common/none-text",
+    "load": "/components/load"
   },
-  "sitemapLocation": "sitemap4.json"
+  "sitemapLocation": "sitemap64.json"
 }

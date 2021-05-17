@@ -2,58 +2,45 @@
 	export default {
 
 		onLaunch: function() {
-			console.log('App Launch')
 			// 获取视频分类选项
 			this.getvodClassify()
-			this.$store.dispatch('wxLogin')
+			// this.$store.dispatch('wxLogin')
+			let token = uni.getStorageSync('token')
+			let setThemeBg = uni.getStorageSync('setThemeBg')
+			if(setThemeBg){
+				this.$store.commit('setThemeBg',JSON.parse(setThemeBg))
+			}
 			
-			// 获取用户信息
-			// var systemInfo =  uni.getSystemInfoSync()
-			// uni.login({
-			// 	provider: 'weixin',
-			// 	success: async (loginRes) => {
-			// 		var code = loginRes.code
-			// 		uni.getUserInfo({
-			// 			provider: 'weixin',
-			// 			lang:"zh_CN",
-			// 			success: async (infoRes)=> {
-			// 				var data = await this.$api.wxUserLogin({
-			// 					code: loginRes.code,
-			// 					userInfo:infoRes.userInfo,
-			// 					mobile:systemInfo.model +' - ' + systemInfo.system
-			// 				})
-			// 				if(data.code == 1){
-			// 					uni.setStorageSync('userInfo',JSON.stringify(data.result))
-			// 					uni.setStorageSync('token',JSON.stringify(data.token))
-			// 					this.$store.commit('initUser')
-			// 				}else{
-			// 					uni.setStorageSync('userInfo','')
-			// 					uni.setStorageSync('token','')
-			// 				}
-			// 			}
-			// 		});
-
-
-
-			// 	}
-			// });
-
-
+			if(token){
+				this.getwxuser(token)
+			}
+			
 
 
 		},
-		onShow: function() {
-			console.log('App Show')
+		onShow: function(e) {
 		},
 		onHide: function() {
-			console.log('App Hide')
 		},
-		methods: {
+		methods:{
 			async getvodClassify() {
 				var data = await this.$api.getvodClassify()
 				this.$store.commit('setVodClassifyList', data)
 			},
-
+			
+			async getwxuser(token){
+				var data = await this.$api.getwxuser({
+					token:token.replace(/\"/g,'')
+				})
+				if(data.code == 1){
+					uni.setStorageSync('userInfo', JSON.stringify(data.result))
+					uni.setStorageSync('token', JSON.stringify(data.token))
+					this.$store.commit('initUser')
+				}else{
+					uni.setStorageSync('userInfo', '')
+					uni.setStorageSync('token', '')
+				}
+			}
 		}
 	}
 </script>
@@ -63,9 +50,13 @@
 	@import "/static/alfont/iconfont.css";
 	/* 官方ui库 */
 	@import "/common/uni.css";
-
+	
 	/* UI基础库 */
 	@import "/common/zcm-main.css";
 	/* 公共样式 */
 	@import "/common/common.css";
+</style>
+
+<style lang="scss">
+	@import "/common/theme.scss";
 </style>

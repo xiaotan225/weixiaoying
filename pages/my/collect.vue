@@ -3,11 +3,11 @@
 		<view class="">
 			<commonTitle :defaultSty="false"  :isShowIcon="true" :right="true" title="我的收藏"></commonTitle>
 		</view>
-		<view class="" style="height: 35rpx; background: rgb(104, 132, 253);">
+		<view class="" :style="theme.bgColor" style="height: 35rpx;">
 			
 		</view>
 		<view class="position-relative" style="top: -15rpx;">
-			<view class="top-nav d-flex pt-2 a-center j-center">
+			<view  class="top-nav d-flex pt-2 a-center j-center">
 				<view class="top-nav-cont  d-flex a-center j-center">
 					<view @tap="cutTab(1)" :class="isCollect == 1?'active':''" class="d-flex a-center width-300  j-center" style="height: 70rpx;">
 						<view class="iconfont iconshijian">
@@ -34,6 +34,7 @@
 		<view class="text-center font-30" v-if="list.length <= 0">
 			暂无{{isCollect == 1?'历史':'收藏'}}
 		</view>
+		<load></load>
 	</view>
 </template>
 
@@ -49,6 +50,11 @@
 				list:[
 					
 				]
+			}
+		},
+		computed:{
+			theme(){
+				return this.$store.state.theme
 			}
 		},
 		onLoad() {

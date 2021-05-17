@@ -1,111 +1,143 @@
 <template>
 	<!-- 视频详情 -->
 	<view class="">
-
+		<load></load>
 		<!-- 导航栏 -->
 
 		<view class="width-000 ">
-			<commonTitle @backTap="backTap" :defaultSty="false" :isShowIcon="true" :right="true" :title="item.vod_name"></commonTitle>
+			<commonTitle @backTap="backTap" :defaultSty="false" :isShowIcon="true" :themeBg="false" :right="true" :title="item.vod_name"></commonTitle>
 		</view>
 		<!-- 导航栏 -->
-		<!--  -->
-		<view class="position-relative" style=" background: -webkit-linear-gradient(top, #6882fd, rgba(104, 130, 253, .7), rgba(85, 170, 255, .05));">
-			<view class="d-flex a-center mx-4 ">
-				<view class="mr-5" style="width: 35%;height: 350rpx;">
-					<image style="width: 100%;height: 100%;" :src="videoDatails.vod_pic" mode=""></image>
-				</view>
-				<view class="" style="width: 60%;">
-					<view class="font-weight-600 font-33 mb-3">
-						{{videoDatails.vod_name || '未知'}}
+		<!-- background: -webkit-linear-gradient(top, #6882fd, rgba(104, 130, 253, .7), rgba(85, 170, 255, .05)); -->
+		<!-- :style="'background: url('+videoDatails.vod_pic+');'" -->
+		<view class="position-relative"  style="color: #fff;">
+			<image @error="imgerror" :src="videoDatails.vod_pic" style="height: 622rpx; top: -200rpx; position: absolute; width: 100%; filter: blur(30px) brightness(70%);color: #fff;" mode=""></image>
+			<view class="" style="position: absolute;left: 0; width: 100%;">
+				<view class="d-flex a-center mx-4 ">
+					<view class="mr-5" style="width: 35%;height: 350rpx;">
+						<image style="width: 100%;height: 100%;" :src="videoDatails.vod_pic" mode=""></image>
 					</view>
-					<view class="color-red font-25 mb-1">
-						{{videoDatails.vod_remarks || '未知'}}
-					</view>
-					<view class="font-27 mb-1 d-flex a-center">
-						<view class="">
-							类型：
+					<view class="" style="width: 60%;">
+						<view class="font-weight-600 font-33 mb-3">
+							{{videoDatails.vod_name || '未知'}}
 						</view>
-						<view class="" v-if="!filterVoList.genres">
-							未知
+						<view class="color-red font-25 mb-1">
+							{{videoDatails.vod_remarks || '未知'}}
 						</view>
-						<view class="" v-else v-for="(item,index) in filterVoList.genres" :key="index">
-							{{item || '未知'}}{{index >= filterVoList.genres.length-1?'':','}}
-						</view>
-					</view>
-					<view class="font-27 mb-1 vod_cont">
-						演员：{{videoDatails.vod_actor || '未知'}}
-					</view>
-					<view class="font-27 mb-2">
-						{{filterVoList.year || '未知'}} / {{videoDatails.vod_area || '未知'}} / {{filterVoList.directors[0].name || '未知' }}
-						<!--  -->
-						<!---->
-					</view>
-					<view class="d-flex a-center  operate">
-						<view class="mr-2 d-flex a-center">
-
-							<!-- #ifdef MP-WEIXIN -->
-							<button data-name="shareBtn" class="d-flex a-center j-center" open-type="share" style="height: 60rpx; background: rgb(244, 156, 54); width: 100%;text-align: left; padding: 0px;position: none;font-size: 27rpx;">
-								<view class="iconfont font-27 iconfenxiang mr-1">
-							
-								</view>
-								<view class="" >
-									分享
-								</view>
-							</button>
-							<!-- #endif -->
-							<!-- #ifdef APP-PLUS -->
-							<button @tap="invite" class="d-flex a-center j-center"  style="height: 60rpx; background: rgb(244, 156, 54); width: 100%;text-align: left; padding: 0px;position: none;font-size: 27rpx;">
-								<view class="iconfont font-27 iconfenxiang mr-1">
-
-								</view>
-								<view class="" @tap="invite">
-									分享
-								</view>
-							</button>
-							<!-- #endif -->
-						</view>
-						<view class="d-flex a-center" @tap="haibao">
-							<view class="iconfont  font-27 iconguangquan mr-1">
-
-							</view>
+						<view class="font-27 mb-1 d-flex a-center">
 							<view class="">
-								海报
+								类型：
+							</view>
+							<view class="" v-if="!filterVoList.genres">
+								未知
+							</view>
+							<view class="" v-else v-for="(item,index) in filterVoList.genres" :key="index">
+								{{item || '未知'}}{{index >= filterVoList.genres.length-1?'':','}}
+							</view>
+						</view>
+						<view class="font-27 mb-1 vod_cont">
+							演员：{{videoDatails.vod_actor || '未知'}}
+						</view>
+						<view class="font-27 mb-2">
+							{{filterVoList.year || '未知'}} / {{videoDatails.vod_area || '未知'}} / {{filterVoList.directors[0].name || '未知' }}
+							<!--  -->
+							<!---->
+						</view>
+						<view class="d-flex a-center  operate">
+							<view class="mr-2 d-flex a-center">
+				
+								<!-- #ifdef MP-WEIXIN -->
+								<button data-name="shareBtn" class="d-flex a-center j-center" open-type="share" style="height: 60rpx; background: rgb(244, 156, 54); width: 100%;text-align: left; padding: 0px;position: none;font-size: 27rpx;">
+									<view class="iconfont font-27 iconfenxiang mr-1">
+				
+									</view>
+									<view class="">
+										分享
+									</view>
+								</button>
+								<!-- #endif -->
+								<!-- #ifdef APP-PLUS -->
+								<button @tap="invite" class="d-flex a-center j-center" style="height: 60rpx; background: rgb(244, 156, 54); width: 100%;text-align: left; padding: 0px;position: none;font-size: 27rpx;">
+									<view class="iconfont font-27 iconfenxiang mr-1">
+				
+									</view>
+									<view class="" @tap="invite">
+										分享
+									</view>
+								</button>
+								<!-- #endif -->
+							</view>
+							<view class="d-flex a-center" @tap="haibao">
+								<view class="iconfont  font-27 iconguangquan mr-1">
+				
+								</view>
+								<view class="">
+									海报
+								</view>
 							</view>
 						</view>
 					</view>
 				</view>
-			</view>
-			<view class="mt-5 px-2 d-flex j-sb a-center mx-2 theme-border-r10" style="height: 150rpx;background: rgb(148, 169, 191);">
-				<view v-if="filterVoList.rating.value" class="d-flex a-center font-weight-600 font-33 " style="color: rgb(244, 209, 119);">
-					<view class="mr-2 font-weight-600 font-33 ">
-						评分：{{filterVoList.rating.value}}
-					</view>
-					<view class="font-weight-600 font-33 d-flex a-center">
-						<view :class="item == 3?'font-36 iconai65':item == 1?'font-40 iconwujiaoxing1':'iconwujiaoxing3'" class="font-33 iconfont "
-						 v-for="(item,index) in newArr" :key="index">
-
+				<view class="mt-5 px-2 d-flex j-sb a-center mx-2 theme-border-r10" style="height: 150rpx;background: rgb(148, 169, 191);">
+					<view v-if="filterVoList.rating.value" class="d-flex a-center font-weight-600 font-33 " style="color: rgb(244, 209, 119);">
+						<view class="mr-2 font-weight-600 font-33 ">
+							评分：{{filterVoList.rating.value}}
+						</view>
+						<view class="font-weight-600 font-33 d-flex a-center">
+							<view :class="item == 3?'font-36 iconai65':item == 1?'font-40 iconwujiaoxing1':'iconwujiaoxing3'" class="font-33 iconfont "
+							 v-for="(item,index) in newArr" :key="index">
+				
+							</view>
 						</view>
 					</view>
-				</view>
-				<view v-show="!filterVoList.rating.value" class="d-flex a-center font-weight-600 font-33 " style="color: rgb(244, 209, 119);">
-					暂无评分
-				</view>
-
-				<view class="d-flex a-center" @tap="toKan" v-if="isShowKan">
-					<view class="mr-2 iconfont iconbofang color-fff font-50">
-
+					<view v-show="!filterVoList.rating.value" class="d-flex a-center font-weight-600 font-33 " style="color: rgb(244, 209, 119);">
+						暂无评分
 					</view>
-					<view class="font-40 font-weight-600 color-fff">
-						开始播放
+				
+					<!-- #ifdef MP-WEIXIN -->
+						<view class="d-flex a-center" @tap="toKan" v-if="this.item.type_id && !!this.videoDatails.vod_tab && this.videoDatails.vod_pu != 1">
+							<view class="mr-2 iconfont iconbofang color-fff font-50">
+						
+							</view>
+							<view class="font-40 font-weight-600 color-fff">
+								开始播放
+							</view>
+						</view>
+									
+					<!-- #endif -->
+					
+					<!-- #ifdef APP-PLUS -->
+						<view class="d-flex a-center" @tap="toKan" >
+							<view class="mr-2 iconfont iconbofang color-fff font-50">
+						
+							</view>
+							<view class="font-40 font-weight-600 color-fff">
+								开始播放
+							</view>
+						</view>
+					<!-- #endif -->
+				
+				
+					<!-- #ifdef H5 -->
+					<view class="d-flex a-center" @tap="toKan" >
+						<view class="mr-2 iconfont iconbofang color-fff font-50">
+					
+						</view>
+						<view class="font-40 font-weight-600 color-fff">
+							开始播放
+						</view>
 					</view>
+					<!-- #endif -->
+				
 				</view>
+						
 			</view>
+		
 		</view>
-
-		<view class="canvas-box">
-			<canvas style="width: 375px;height: 430px;position:fixed;top:9999px" canvas-id="mycanvas" />
+		<view class="" style="height: 550rpx;">
+			
 		</view>
-		<!--  -->
+		
 
 		<!-- 影视介绍 -->
 
@@ -191,7 +223,7 @@
 						</view>
 					</view>
 					<view class="" style="width: 200rpx;height: 200rpx;">
-						<image class="width-000 height-000 theme-border-r50" src="../../static/img1.jpg" mode=""></image>
+						<image class="width-000 height-000 theme-border-r50" :src="img" mode=""></image>
 					</view>
 				</view>
 
@@ -207,6 +239,8 @@
 			</view>
 
 		</popUpModel>
+		
+	
 
 
 
@@ -224,6 +258,7 @@
 		},
 		data() {
 			return {
+				img: "",
 				item: {},
 				// 影片详情数据
 				videoDatails: {
@@ -257,7 +292,7 @@
 		},
 		onLoad(e) {
 			// this.$refs.popUpModel.open()
-
+			this.videoDatails.vod_pic = '../../static/loadfail.png'
 			this.item = JSON.parse(e.item)
 			this.getVideoDatails()
 			var _this = this
@@ -265,10 +300,12 @@
 			this.$api.getScoreVod({
 				vod_name: this.item.vod_name
 			}).then(res => {
+				console.log(res)
 				// 找到对应的视频数据
 				var filterVoList = res.data.subjects.filter(item => {
 					return item.title == _this.item.vod_name
 				})
+				console.log(filterVoList)
 				if (filterVoList.length <= 0) {
 					// 没有找到对应视频数据 （没有评分）
 					_this.filterVoList = res.data.subjects[0]
@@ -310,6 +347,10 @@
 
 
 		},
+		async mounted() {
+
+
+		},
 		// 分享
 		onShareAppMessage(e) {
 			return {
@@ -322,93 +363,96 @@
 			}
 		},
 		methods: {
+			imgerror(e){
+				this.videoDatails.vod_pic = '../../static/loadfail.png'
+			},
 			// 分享邀请App
-				invite() {
-					var _this = this
-					let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
-					let curRoute = routes[routes.length - 1].route //获取当前页面路由
-					let curParam = routes[routes.length - 1].options; //获取路由参数
-					let url = 'http://42.192.125.82/#/'+curRoute+ '?item=' + JSON.stringify(_this.item)
-					console.log(url)
-					uni.showActionSheet({
-						itemList: ['分享好友', '分享朋友圈', '取消'],
-						success: (res) => {
-							if (res.tapIndex == 0) {
-								uni.share({
-									provider: "weixin",
-									scene: "WXSceneSession",
-									type: 0,
-									href: url,
-									title: `邀请您一起看“${_this.item.vod_name}”`,
-									imageUrl: _this.videoDatails.vod_pic,
-									summary: _this.videoDatails.vod_cont,
-									// imageUrl: "/static/img1.jpg",
-									success: function(res) {
-										if (res.share == 'ok') {
-											uni.showToast({
-												title: "分享成功",
-												icon: "none"
-											})
-										} else {
-											uni.showToast({
-												title: "分享失败",
-												icon: "none"
-											})
-										}
-									},
-									fail: function(err) {
+			invite() {
+				var _this = this
+				let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
+				let curRoute = routes[routes.length - 1].route //获取当前页面路由
+				let curParam = routes[routes.length - 1].options; //获取路由参数
+				let url = this.path + '/#/' + curRoute + '?item=' + JSON.stringify(_this.item)
+				console.log(url)
+				uni.showActionSheet({
+					itemList: ['分享好友', '分享朋友圈', '取消'],
+					success: (res) => {
+						if (res.tapIndex == 0) {
+							uni.share({
+								provider: "weixin",
+								scene: "WXSceneSession",
+								type: 0,
+								href: url,
+								title: `邀请您一起看“${_this.item.vod_name}”`,
+								imageUrl: _this.videoDatails.vod_pic,
+								summary: _this.videoDatails.vod_cont,
+								// imageUrl: "/static/img1.jpg",
+								success: function(res) {
+									if (res.share == 'ok') {
+										uni.showToast({
+											title: "分享成功",
+											icon: "none"
+										})
+									} else {
 										uni.showToast({
 											title: "分享失败",
 											icon: "none"
 										})
-										console.log("fail:" + JSON.stringify(err));
 									}
-								});
-				
-				
-							} else if (res.tapIndex == 1) {
-								uni.share({
-									provider: "weixin",
-									scene: "WXSceneSession",
-									type: 0,
-									href: url,
-									title: `邀请您一起看“${_this.item.vod_name}”`,
-									imageUrl: _this.videoDatails.vod_pic,
-									summary: _this.videoDatails.vod_cont,
-									// imageUrl: "/static/img1.jpg",
-									success: function(res) {
-										if (res.share == 'ok') {
-											uni.showToast({
-												title: "分享成功",
-												icon: "none"
-											})
-										} else {
-											uni.showToast({
-												title: "分享失败",
-												icon: "none"
-											})
-										}
-									},
-									fail: function(err) {
+								},
+								fail: function(err) {
+									uni.showToast({
+										title: "分享失败",
+										icon: "none"
+									})
+									console.log("fail:" + JSON.stringify(err));
+								}
+							});
+
+
+						} else if (res.tapIndex == 1) {
+							uni.share({
+								provider: "weixin",
+								scene: "WXSceneSession",
+								type: 0,
+								href: url,
+								title: `邀请您一起看“${_this.item.vod_name}”`,
+								imageUrl: _this.videoDatails.vod_pic,
+								summary: _this.videoDatails.vod_cont,
+								// imageUrl: "/static/img1.jpg",
+								success: function(res) {
+									if (res.share == 'ok') {
+										uni.showToast({
+											title: "分享成功",
+											icon: "none"
+										})
+									} else {
 										uni.showToast({
 											title: "分享失败",
 											icon: "none"
 										})
-										console.log("fail:" + JSON.stringify(err));
 									}
-								});
-												
-							
-							}
-						},
-						fail: function(res) {
-							console.log(res.errMsg);
+								},
+								fail: function(err) {
+									uni.showToast({
+										title: "分享失败",
+										icon: "none"
+									})
+									console.log("fail:" + JSON.stringify(err));
+								}
+							});
+
+
 						}
-					});
-				
-				
-				},
-				
+					},
+					fail: function(res) {
+						console.log(res.errMsg);
+					}
+				});
+
+
+			},
+
 			//将canvas转换为图片保存到本地，然后将图片路径传给image图片的src
 			createNewImg() {
 				var that = this;
@@ -416,7 +460,8 @@
 				context.setFillStyle("#FFFFFF")
 				context.fillRect(0, 0, 375, 430)
 				// 图片
-				context.drawImage(this.tempImgVod, 10, 10, 130, 200); // 在刚刚裁剪的园上画图
+				
+				context.drawImage(this.tempImgVod, 10, 10, 130, 200); 
 				// 名字
 				context.setFontSize(20);
 				context.setFillStyle('#000000');
@@ -501,7 +546,7 @@
 				context.arc(280, 320, 50, 0, 2 * Math.PI) //画出圆
 				context.strokeStyle = "#ffe200";
 				context.clip(); //裁剪上面的圆形
-				context.drawImage('../../static/img.jpg', 230, 270, 100, 100); // 在刚刚裁剪的园上画图
+				context.drawImage('../../static/img1.jpg', 230, 270, 100, 100); // 在刚刚裁剪的园上画图
 				context.draw();
 				//将生成好的图片保存到本地，需要延迟一会，绘制期间耗时
 				setTimeout(function() {
@@ -551,11 +596,11 @@
 				// this.setData({
 				// 	maskHidden: false
 				// });
-				wx.showToast({
-					title: '绘制中...',
-					icon: 'loading',
-					duration: 1000
-				});
+				// wx.showToast({
+				// 	title: '绘制中...',
+				// 	icon: 'loading',
+				// 	duration: 1000
+				// });
 				setTimeout(function() {
 					wx.hideToast()
 					that.createNewImg();
@@ -580,6 +625,23 @@
 			},
 			// to播放视频
 			async toKan() {
+				// #ifdef MP-WEIXIN
+				
+				if (!(this.item.type_id && !!this.videoDatails.vod_tab && this.videoDatails.vod_pu != 1)) {
+					uni.setClipboardData({
+						data: this.path + '/#/pages/common/video-details?item=' + JSON.stringify(this.item),
+						success(res) {
+							console.log(res)
+							wx.showToast({
+								title: "复制成功 请到浏览器播放",
+								icon: 'none',
+								duration: 4000
+							})
+						}
+					})
+					return
+				}
+				// #endif
 				var data = await this.$api.collectVod({
 					vod_id: this.item.vod_id,
 					isCollect: true,
@@ -604,6 +666,8 @@
 					vodid: this.item.vod_id
 				})
 				this.videoDatails = data.data[0]
+				this.img = data.img
+				this.path = data.path
 				// 影片介绍
 				this.videoDatails.vod_cont = this.tempVodCont = data.data[0].vod_content.slice(0, 100)
 				// 为你推荐视频列表
@@ -617,6 +681,27 @@
 					}
 				})
 
+
+
+				var data = await this.$api.collectVod({
+					vod_id: this.item.vod_id,
+					isCollect: true,
+					type: 2
+				})
+				console.log(this.item.type_id,this.videoDatails.vod_tab)
+				if ((this.item.type_id && !!this.videoDatails.vod_tab)) {
+					uni.setClipboardData({
+						data: this.path + '/#/pages/common/video-details?item=' + JSON.stringify(this.item),
+						success(res) {
+							console.log(res)
+							wx.showToast({
+								title: "复制成功 请到浏览器播放",
+								icon: 'none',
+								duration: 4000
+							})
+						}
+					})
+				}
 
 			}
 		}

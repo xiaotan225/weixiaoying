@@ -1,6 +1,6 @@
 {
-  "component": true,
   "usingComponents": {
     "load-img": "/components/load-img"
-  }
+  },
+  "component": true
 }

@@ -14,8 +14,8 @@ export let notice = (options)  => {
 
 
 // 获取首页更多热门
-export let indexClassify = (options)  => {
-  return req.get('/indexClassify', options)
+export let indexClassify = (options,isJia)  => {
+  return req.get('/indexClassify', options,isJia)
 }
 
 
@@ -40,8 +40,13 @@ export let getvodClassify = (options)  => {
 }
 
 // 视频类型筛选查询
-export let getvodClassifyList = (options)  => {
-  return req.get('/getvodClassifyList', options)
+export let getvodClassifyList = (options,isJia)  => {
+  return req.get('/getvodClassifyList', options,isJia)
+}
+
+// 微信授权登录
+export let getwxuser = (options)  => {
+  return req.post('/api/wxuser/getwxuser', options)
 }
 
 // 微信授权登录

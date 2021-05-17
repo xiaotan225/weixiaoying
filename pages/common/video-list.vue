@@ -1,6 +1,7 @@
 <template>
 	<!-- 视频列表公用部分 -->
 	<view class="">
+		<load></load>
 		<!-- 导航栏 -->
 		<view class="width-000 ">
 			<!-- <commonTitle :defaultSty="false"  :isShowIcon="false" :center="true" title="微小视"></commonTitle> -->
@@ -8,7 +9,8 @@
 		</view>
 		<!-- 导航栏 -->
 		<view class="mt-2 px-2">
-			<commonListFill :videoList="videoList"></commonListFill>
+			<commonListFill :videoList="videoList" ></commonListFill>
+			
 		</view>
 		<noneText :textLoad="textLoad"></noneText>
 	</view>
@@ -54,7 +56,7 @@
 			if(this.item.searchVal){
 				this.searchOvd(page)
 			}else{
-				this.getHotListOvd(page)
+				this.getHotListOvd(page,15,true)
 			}
 		},
 		methods:{
@@ -69,12 +71,14 @@
 				this.$U.moreLoad.call(this,data.result)?this.videoList = data.result:''
 			},
 			// 获取热门视频列表
-			async getHotListOvd(startPage = 1,endPage = 15){
+			async getHotListOvd(startPage = 1,endPage = 15,isJia){
 				var data = await this.$api.indexClassify({
 					vod_level:this.item.type_id,
 					startPage:(startPage-1)*endPage,
 					endPage:endPage,
 					more:1
+				},{
+					isJia
 				})
 				// 加载更多
 				this.$U.moreLoad.call(this,data.data)?this.videoList = data.data:''

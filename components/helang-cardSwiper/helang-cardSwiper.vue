@@ -4,14 +4,19 @@
 			 <view class="bg">
 				 <view class="placeholder"></view>
 				 <view class="image">
-					 <image :src="list[swiper.index]" mode="aspectFill"></image>
+					 <!-- <loadImg :loadSrc="list[swiper.index]"></loadImg> -->
+					 <image :src="list[swiper.index] && list[swiper.index].src" mode="aspectFill"></image>
+					 <!-- <loadImg :loadSrc="item.vod_pic"></loadImg> -->
 				 </view>
 			 </view>
 			 <view class="box">
 				<view :style="'height:'+navHeight+'px; '"></view>
 			 	<swiper autoplay class="swiper" :previous-margin="swiper.margin" :next-margin='swiper.margin' :circular="true" @change="swiperChange">
 			 		<swiper-item v-for="(item,index) in list" :key="index">
-			 			<image @tap="toDetails(item,index)" class='le-img' :src='item' :class="{'le-active':swiper.index == index}"></image>
+			 			<image @tap="toDetails(item,index)" v-show="!item.isLoad" class='le-img' @load="load($event,item)" @error="error" :src='item.src' :class="{'le-active':swiper.index == index}"></image>
+						<view class="d-flex a-center j-center" v-show="item.isLoad"  style="border-radius: 10rpx; width: 100%;height: 100%;border: 1px solid rgb(229 229 229)">
+							<image  style="width: 120rpx;height: 120rpx;"  src="/static/loading.gif" class='le-img' mode="aspectFill" :class="{'le-active':swiper.index == index}"></image>
+						</view>
 			 		</swiper-item>
 			 	</swiper> 
 			 </view>
@@ -20,7 +25,11 @@
 </template>
 
 <script>
+	import loadImg from '@/components/load-img.vue'
 	export default {
+		components:{
+			loadImg
+		},
 		props:{
 			list:{
 				type:Array,
@@ -33,6 +42,10 @@
 		},
 		data() {
 			return {
+				isLoad:true,
+				errorImgSrc:'/static/loadfail.png',
+				_loadSrc:'',
+				imgList:[],
 				swiper: {
 					margin: "150rpx",
 					index: 0,
@@ -64,10 +77,21 @@
 			// #endif
 		
 		},
-		mounted() {
-			
+		created() {
+		
 		},
 		methods: {
+			load(e,item) {
+				item.isLoad = false
+				// this.isLoad = false
+				// item.isLoad = true
+				// console.log(this.list)
+				// this.list = Object.assign([],this.list)
+			},
+			error(e) {
+				// this.isLoad = false
+				// this._loadSrc = this.errorImgSrc
+			},
 			toDetails(item,index){
 				console.log(this.vodList[index])
 				this.$U.navTo('/pages/common/video-details?item='+JSON.stringify(this.vodList[index]))

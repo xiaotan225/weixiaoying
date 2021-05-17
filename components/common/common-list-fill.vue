@@ -9,10 +9,10 @@
 					<!-- <easy-loadimage mode="" imageSrc="../../static/demo.jpg"></easy-loadimage> -->
 					<!-- <image @load="load($event,item)" @error="error" class="width-000 height-000" :src="item.isShowImg?item.vod_pic:'../../static/loading.gif'"
 					 mode="aspectFit"></image> -->
-					 <loadImg :loadSrc="item.vod_pic"></loadImg>
+					<loadImg :loadSrc="item.vod_pic"></loadImg>
 					<!-- <image  @load="load($event,item)" @error="error" class="width-000 height-000" :src="item.vod_pic" mode=""></image> -->
 					<!-- <image v-else  src="../../static/demo.jpg" class="width-000 height-000" mode=""></image> -->
-					<view class="position-absolute score d-flex a-center j-center" style="">
+					<view :style="theme.bgColor" class="position-absolute score d-flex a-center j-center" style="">
 						{{item.vod_year}}
 					</view>
 				</view>
@@ -20,7 +20,10 @@
 					{{item.vod_name}}
 				</view>
 			</view>
-
+		</view>
+		<view class="" v-if="isShow" style="display: flex;align-items: center;justify-content: center; width: 100%;">
+			<text>加载中</text>
+			<image style="width: 80rpx;height: 80rpx;" src="../../static/loading.gif" mode=""></image>
 		</view>
 	</view>
 </template>
@@ -45,10 +48,10 @@
 			}
 		},
 		watch: {
-			videoList(newVal,olaVal){
-				let newArr =  JSON.parse(JSON.stringify(newVal))
+			videoList(newVal, olaVal) {
+				let newArr = JSON.parse(JSON.stringify(newVal))
 				// console.log(newArr)
-				this.tempVideoList =  JSON.parse(JSON.stringify(newVal))
+				this.tempVideoList = JSON.parse(JSON.stringify(newVal))
 				// console.log(this.tempVideoList)
 				// this.tempVideoList.push()
 			},
@@ -56,8 +59,13 @@
 			deep: true
 
 		},
-		computed:{
-			
+		computed: {
+			isShow(){
+				return this.$store.state.isShowLoad1
+			},
+			theme(){
+					return this.$store.state.theme
+			},
 		},
 		onPageScroll({
 			scrollTop
@@ -66,11 +74,11 @@
 			this.scrollTop = scrollTop;
 		},
 		created() {
-			this.tempVideoList =  JSON.parse(JSON.stringify(this.videoList))
+			this.tempVideoList = JSON.parse(JSON.stringify(this.videoList))
 			this.videoList.forEach((item, index) => {
 				this.tempVideoList[index].isShowImg = false
 			})
-			
+
 		},
 		mounted() {
 
@@ -80,11 +88,11 @@
 		},
 		methods: {
 			load(e, item) {
-				if(!item.isShowImg){
+				if (!item.isShowImg) {
 					item.isShowImg = true
-					this.tempVideoList = Object.assign([],this.tempVideoList)
+					this.tempVideoList = Object.assign([], this.tempVideoList)
 				}
-				
+
 				// console.log(e, 'load')
 			},
 			error(e) {
