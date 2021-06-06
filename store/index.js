@@ -20,10 +20,14 @@ export default new Vuex.Store({
 			currentIndex:0,
 			color:'color: rgb(104, 132, 253);',
 		},
-		timerDJ:""
+		timerDJ:"",
+		wxTitleHe:0,
 		
 	},
 	mutations:{
+		setWxTitleHe(state,data){
+			state.wxTitleHe = data
+		},
 		setNavHeight(state,data){
 			state.navHeight = data
 		

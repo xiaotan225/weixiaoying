@@ -568,7 +568,17 @@
 			// 获取视频详情资源
 			this.getVideoDatails()
 			this.isCollectVod()
-
+			
+			// // 通过 id 获取 nvue 子窗体  
+			// const subNVue = uni.getSubNVueById('concat')  
+			// // 打开 nvue 子窗体  
+			// subNVue.show('slide-in-left', 300, function(){  
+			//     // 打开后进行一些操作...  
+			//     //   
+			// });  
+			// 关闭 nvue 子窗体  
+			// subNVue.hide('fade-out', 300)
+			
 		},
 		mounted() {
 			// var videoContext = uni.createVideoContext('myvideo', this);
@@ -710,6 +720,15 @@
 			},
 			// 切换播放源
 			playSourceTap(item, index) {
+				// 无线路防止报错
+				if(!this.optCollect[index]){
+					uni.showToast({
+					    title: '暂无资源',
+					    duration: 2000,
+						icon:"none"
+					});
+					return
+				}
 				this.playSourceCurrent = index
 				this.playOrigin = this.optCollect['playOrigin' + index]
 				// console.log(item,index)
@@ -902,4 +921,5 @@
 	button::after {
 		border: none !important;
 	}
+	
 </style>

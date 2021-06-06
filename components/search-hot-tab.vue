@@ -1,7 +1,7 @@
 <template>
 	<!-- 搜索热门和历史搜索组件 -->
 	<view class="list-cont d-flex flex-wrap">
-		<view @tap="tapsearchHistory(item,index)" class="item mr-2 mt-2 mb-1" v-for="(item,index) in list" :key="index">
+		<view :style="theme.bgColor" @tap="tapsearchHistory(item,index)" class="item mr-2 mt-2 mb-1" v-for="(item,index) in list" :key="index">
 			{{item.title || item}}
 		</view>
 	</view>
@@ -18,6 +18,11 @@
 		data(){
 			return {
 				
+			}
+		},
+		computed:{
+			theme(){
+				return this.$store.state.theme
 			}
 		},
 		methods:{

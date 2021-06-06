@@ -136,6 +136,11 @@ var _default2 =
 
 
   },
+  computed: {
+    theme: function theme() {
+      return this.$store.state.theme;
+    } },
+
   methods: {
     tapsearchHistory: function tapsearchHistory(item, index) {
       this.$emit('tapsearchHistory', item, index);

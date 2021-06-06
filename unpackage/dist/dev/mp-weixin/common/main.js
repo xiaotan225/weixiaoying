@@ -29,6 +29,11 @@ var _store = _interopRequireDefault(__webpack_require__(/*! ./store */ 16));
 
 
 
+
+
+
+
+
 var api = _interopRequireWildcard(__webpack_require__(/*! @/common/lib/api.js */ 19));
 
 
@@ -54,13 +59,12 @@ _vue.default.prototype.$H = _request.default; // // 引入通讯库
 // Vue.prototype.$W = $W 
 // 助手函数
 _vue.default.prototype.$U = _util.default; // 时间函数
-_vue.default.prototype.$T = _time.default;console.log(_time.default.gettime(new Date())); // //生成二维码
+_vue.default.prototype.$T = _time.default; // //生成二维码
 // import $Q from './common/lib/qrcode.js'
 // Vue.prototype.$Q = $Q
 // 权限跳转
 _vue.default.prototype.navigateTo = function (options) {// 判断用户是否登录
-  if (!_store.default.state.user.userInfo || !_store.default.state.user.userInfo.mobile) {uni.showToast({ title: '请绑定手机号',
-      icon: 'none' });
+  if (!_store.default.state.user.userInfo || !_store.default.state.user.userInfo.mobile) {uni.showToast({ title: '请绑定手机号', icon: 'none' });
 
     setTimeout(function () {
       return uni.navigateTo({
@@ -161,6 +165,7 @@ __webpack_require__.r(__webpack_exports__);
 {
 
   onLaunch: function onLaunch() {
+
     // 获取视频分类选项
     this.getvodClassify();
     // this.$store.dispatch('wxLogin')

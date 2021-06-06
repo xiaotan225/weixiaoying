@@ -1,10 +1,8 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			// 首页
 			"path": "pages/index/index",
 			"style": {
-
 
 			}
 
@@ -61,7 +59,6 @@
 			// 视频详情
 			"path": "pages/common/video-details",
 			"style": {
-			
 
 			}
 		},
@@ -70,13 +67,14 @@
 			"path": "pages/common/video-kan",
 			"style": {
 
+			
 
 			}
 		},
 		{
 			// H5登录
 			"path": "pages/my/login/login"
-			
+
 		},
 		{
 			// H5注册
@@ -90,8 +88,8 @@
 			// 主题
 			"path": "pages/my/theme",
 			"style": {
-		
-		
+
+
 			}
 		}
 

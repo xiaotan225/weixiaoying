@@ -15,6 +15,9 @@
 					<view :style="theme.bgColor" class="position-absolute score d-flex a-center j-center" style="">
 						{{item.vod_year}}
 					</view>
+					<view :style="theme.bgColor" class="position-absolute score score1 d-flex a-center j-center" style="">
+						{{item.vod_area}}
+					</view>
 				</view>
 				<view class="text-center width-000" style="margin-top: 5rpx;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
 					{{item.vod_name}}
@@ -124,15 +127,17 @@
 
 	.score {
 		top: 0;
-		left: 0;
 		z-index: 0;
 		width: 56rpx;
 		height: 32rpx;
 		font-size: 20rpx;
-		-webkit-border-radius: 0 10rpx 0 10rpx;
-		border-radius: 0 0rpx 10rpx 0rpx;
+		border-radius: 10rpx 0rpx 10rpx 0rpx;;
 		background: rgb(105, 133, 253);
 		color: #fff;
 
+	}
+	.score1{
+		border-radius: 0 10rpx 0 10rpx;
+		right: 0;
 	}
 </style>
