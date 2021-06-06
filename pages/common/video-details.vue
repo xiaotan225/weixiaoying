@@ -48,10 +48,10 @@
 				
 								<!-- #ifdef MP-WEIXIN -->
 								<button data-name="shareBtn" class="d-flex a-center j-center" open-type="share" style="height: 60rpx; background: rgb(244, 156, 54); width: 100%;text-align: left; padding: 0px;position: none;font-size: 27rpx;">
-									<view class="iconfont font-27 iconfenxiang mr-1">
+									<view class="iconfont font-27 iconfenxiang mr-1" style="color: #fff;">
 				
 									</view>
-									<view class="">
+									<view class="" style="color: #fff;">
 										分享
 									</view>
 								</button>
@@ -241,7 +241,7 @@
 		</popUpModel>
 		
 	
-
+<canvas style="width: 375px;height: 430px;position:fixed;top:9999px" canvas-id="mycanvas" />
 
 
 
@@ -560,7 +560,7 @@
 						fail: function(res) {
 							console.log(res);
 						}
-					});
+					},that);
 				}, 200);
 			},
 			//点击保存到相册

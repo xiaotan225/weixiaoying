@@ -180,6 +180,7 @@
 			// console.log(uni.getStorageSync('userInfo'))
 			// H5环境
 			// #ifdef H5
+			console.log(this.userInfo.token)
 			if (!this.userInfo.token) {
 				uni.navigateTo({
 					url: "/pages/my/login/login"

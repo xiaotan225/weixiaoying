@@ -2,6 +2,7 @@
 	export default {
 
 		onLaunch: function() {
+			
 			// 获取视频分类选项
 			this.getvodClassify()
 			// this.$store.dispatch('wxLogin')
@@ -54,7 +55,7 @@
 	/* UI基础库 */
 	@import "/common/zcm-main.css";
 	/* 公共样式 */
-	@import "/common/common.css";
+	/* @import "/common/common.css"; */
 </style>
 
 <style lang="scss">

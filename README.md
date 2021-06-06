@@ -16,6 +16,19 @@ app：基本完成
 ## 本次更新
 
 <li>
+   视频列表页面优化
+</li>
+<li>
+   修复海报不能保存
+</li>
+<li>
+   搜索列表页面添加搜索功能
+</li>
+
+
+## 2021-05-15更新
+
+<li>
    添加用户可以切换主题颜色 
 </li>
 <li>
@@ -28,7 +41,7 @@ app：基本完成
 
 ## 效果图
 #### 小程序和H5已上线
-#### H5传送门：https://www.xiaotan123.xyz  如果不能正常显示请使用qq浏览器
+#### H5传送门：https://www.weixiaoying.xyz  如果不能正常显示请使用qq浏览器
 #### 小程序个人开发功能限制太多，无法完全上线。如若喜欢可以克隆项目自己运行看看
 
 ![gh_0b9926b49434_430.jpg](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a1eb3eb3f6514118b12a9da7ee4bd407~tplv-k3u1fbpfcp-watermark.image)
@@ -43,9 +56,12 @@ app：基本完成
 
 ![Snipaste_2021-05-17_21-58-26.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b5a5e8b3a474491b80aa1ce8f7ed1caf~tplv-k3u1fbpfcp-watermark.image)
 
-![Snipaste_2021-05-17_21-58-38.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/27afc30eb66d4c18af37ad33bc21dc7c~tplv-k3u1fbpfcp-watermark.image)
+
+![Snipaste_2021-06-06_20-20-15.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/38e83da09e8d41f4b32095411be28384~tplv-k3u1fbpfcp-watermark.image)
 
 ![b619fb60-8725-11eb-a70f-75caa4ec34fc_2.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1607c66cdd444175be9110822a523182~tplv-k3u1fbpfcp-watermark.image)
+
+![Snipaste_2021-06-06_20-24-44.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c629523aa4084422b22090a8a278ac1e~tplv-k3u1fbpfcp-watermark.image)
 
 ### 如何使用
 

@@ -3,7 +3,6 @@
 	<view class="">
 		<!-- 导航栏 -->
 		<view class="width-000 ">
-			<!-- <commonTitle :defaultSty="false"  :isShowIcon="false" :right="true" title="微小视"></commonTitle> -->
 			<commonTitle :defaultSty="false"  :isShowIcon="false" :center="true" title="搜索"></commonTitle>
 		</view>
 		<!-- 导航栏 -->
@@ -84,6 +83,7 @@
 
 <script>
 	import searchSeniority from '@/components/search-seniority.vue'
+	
 	import searchHotTab from '@/components/search-hot-tab.vue'
 	export default {
 		components:{

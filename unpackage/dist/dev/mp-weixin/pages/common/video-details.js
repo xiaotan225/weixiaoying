@@ -691,8 +691,8 @@ __webpack_require__.r(__webpack_exports__);
           },
           fail: function fail(res) {
             console.log(res);
-          } });
-
+          } },
+        that);
       }, 200);
     },
     //点击保存到相册

@@ -9,8 +9,8 @@
 		<view class="theme-cont-box">
 			<view class="theme-cont-item px-2 py-3" v-for="(item,index) in themeList" :key="index">
 				<view class="theme-cont-left">
-					<view class="theme-cont-demo" :style="'background: rgb('+item.color+');'">
-
+					<view class="theme-cont-demo" :style="item.name == 'DJ颜色'?'  background: linear-gradient(to bottom, rgb(25, 118, 210) 0%,rgb(250, 192, 46) 100%);':'background: rgb('+item.color+');'">
+						
 					</view>
 					<view class="theme-cont-name">
 						{{item.name}}
@@ -50,6 +50,22 @@
 					{
 						name: '知乎蓝',
 						color: '101, 183, 221'
+					},
+					{
+						name: '橙子黄',
+						color: '250, 192, 46'
+					},
+					{
+						name: '基佬紫',
+						color: '81, 45, 167'
+					},
+					{
+						name: '草原绿',
+						color: '57, 142, 61'
+					},
+					{
+						name: '水鸭青',
+						color: '0, 152, 166'
 					},
 					{
 						name: 'DJ颜色',
