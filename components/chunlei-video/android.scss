@@ -1,0 +1,52 @@
+.android-lock{
+	position: absolute;
+	left: 40px;
+	width: 30px;
+	height: 30px;
+	align-items: center;
+	justify-content: center;
+	background-color: rgba(0,0,0,0.3);
+	border-radius: 50%;
+	
+	
+}
+.android-icon{
+	font-size: 18px;
+	color: #fff;
+	/* #ifndef APP-PLUS-NVUE */
+	font-family: "texticons";
+	/* #endif*/
+	font-family: texticons;
+}
+.android-title{
+	font-size: 18px;
+	color: #fff;
+}
+.android-title-box{
+	align-items: center;
+	text-align: center;
+	border-width: 2px;
+	border-color: #fff;
+	border-style: solid;
+	padding: 2px;
+}
+.android-srcTitle{
+	font-size: 12px;
+	color: #fff;
+}
+.android-sm-title{
+	font-size: 8px;
+	color: #fff;
+}
+.android-big-title{
+	font-size: 28px;
+	color: #fff;
+}
+.android-big-icon{
+	font-size: 52px;
+	color: #fff;
+	/* #ifndef APP-PLUS-NVUE */
+	font-family: "texticons";
+	/* #endif*/
+	font-family: texticons;
+}

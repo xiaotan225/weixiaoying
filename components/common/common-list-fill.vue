@@ -12,9 +12,9 @@
 					<loadImg :loadSrc="item.vod_pic"></loadImg>
 					<!-- <image  @load="load($event,item)" @error="error" class="width-000 height-000" :src="item.vod_pic" mode=""></image> -->
 					<!-- <image v-else  src="../../static/demo.jpg" class="width-000 height-000" mode=""></image> -->
-					<view :style="theme.bgColor" class="position-absolute score d-flex a-center j-center" style="">
+				<!-- 	<view :style="theme.bgColor" class="position-absolute score d-flex a-center j-center" style="">
 						{{item.vod_year}}
-					</view>
+					</view> -->
 					<view :style="theme.bgColor" class="position-absolute score score1 d-flex a-center j-center" style="">
 						{{item.vod_area}}
 					</view>
@@ -102,7 +102,12 @@
 				// console.log(e,'error')
 			},
 			toDetails(item, index) {
-				this.$U.navTo('/pages/common/video-details?item=' + JSON.stringify(item))
+				console.log(item)
+				this.$U.navTo('/pages/common/video-details?item=' + JSON.stringify({
+					id:item.id,
+					vod_pic:item.vod_pic,
+					vod_name:item.vod_name
+				}))
 			},
 			toMake() {
 				uni.navigateTo({

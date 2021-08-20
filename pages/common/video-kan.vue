@@ -1,5 +1,6 @@
 <template>
 	<!-- 视频详情 -->
+	
 	<view class="">
 		<!-- #ifdef MP-WEIXIN -->
 			<view class="" v-if="item.type_id && videoDatails.vod_tag == 'zhangxiaoxiao' && videoDatails.vod_sub != 1">
@@ -155,7 +156,7 @@
 		<!-- #endif -->
 		
 		<!-- #ifdef APP-PLUS -->
-			<view class="" >
+			<view class="" style="margin-top: 100px;">
 				<load></load>
 				<!-- 导航栏 -->
 				<view class="width-000 " v-if="isShowVideo">
@@ -164,7 +165,7 @@
 				<!-- 导航栏 -->
 				<!-- 视频 -->
 				<view class="" v-if="isShowVideo">
-					<videoElement @playbackRateVod="playbackRateVod" ref="videoElement" :playbackRateList="playbackRateList" :src="playOrigin[collectCurrent].src"></videoElement>
+					<!-- <videoElement @playbackRateVod="playbackRateVod" ref="videoElement" :playbackRateList="playbackRateList" :src="playOrigin[collectCurrent].src"></videoElement> -->
 				</view>
 				<!-- 视频 -->
 			
@@ -561,6 +562,8 @@
 				}
 			},
 		},
+	
+	
 		onLoad(e) {
 			// item={"type_id":1,"vod_actor":"塞思·麦克法兰,马克·沃尔伯格,阿曼达·塞弗里德,杰西卡·巴斯","vod_hits":1,"vod_id":26378,"vod_level":1,"vod_name":"泰迪熊2","vod_pic":"https://img.yongjiu7.com/upload/vod/2019-01-17/15477307180.jpg","vod_remarks":"BD高清","vod_score":0,"vod_year":"2015"}&__id__=2
 			let item = e.item
@@ -569,15 +572,6 @@
 			this.getVideoDatails()
 			this.isCollectVod()
 			
-			// // 通过 id 获取 nvue 子窗体  
-			// const subNVue = uni.getSubNVueById('concat')  
-			// // 打开 nvue 子窗体  
-			// subNVue.show('slide-in-left', 300, function(){  
-			//     // 打开后进行一些操作...  
-			//     //   
-			// });  
-			// 关闭 nvue 子窗体  
-			// subNVue.hide('fade-out', 300)
 			
 		},
 		mounted() {

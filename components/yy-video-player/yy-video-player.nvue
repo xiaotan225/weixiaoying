@@ -1,0 +1,191 @@
+<template>
+	<div>
+		<video
+			id="video"
+			loop="true"
+			:autoplay="autoPlay"
+			:src="url"
+			:danmu-list="danmuList"
+			enable-danmu="true"
+			danmu-btn="true"
+			:style="{ width: screenWidth }"
+			:poster="poster"
+			@fullscreenchange="setFullScreenStatus"
+			@timeupdate="timeUpdate"
+		>
+			<cover-view class="back-button" @click="back" v-if="!isFullScreen && showBackBtn"><image src="../../static/yy-video-player/back-white.png" class="back-icon"></image></cover-view>
+			<cover-view v-if="showDownloadBtn&&!isFullScreen" class="download-button" @click="download(url)">
+				<image v-if="!isDownloading" src="../../static/yy-video-player/download.png" class="back-icon"></image>
+				<text v-else class="process-text">{{ progressValue }}%</text>
+			</cover-view>
+			<cover-view v-if="showDownloadBtn&&isFullScreen" :style="{'margin-top':screenWidth/2.3}" class="download-icon-horizontal" @click="download(url)">
+				<image v-if="!isDownloading" src="../../static/yy-video-player/download.png" class="back-icon"></image>
+				<text v-else class="process-text-horizontal">{{ progressValue }}%</text>
+			</cover-view>
+		</video>
+		<div class="video-process-bar" :style="{'background-color':processBarColor,width:processBarWidth}"></div>
+	</div>
+</template>
+<script>
+export default {
+	props: {
+		autoPlay:{
+			type:Boolean,
+			default:true
+		},
+		url: {
+			type: String,
+			default: ''
+		},
+		poster: {
+			type: String,
+			default: ''
+		},
+		danmuList: {
+			type: Array,
+			default: []
+		},
+		showBackBtn:{
+			type:Boolean,
+			default:false
+		},
+		showDownloadBtn:{
+			type:Boolean,
+			default:true
+		},
+		processBarColor:{
+			type:String,
+			default:"#39BFFD"
+		}
+	},
+	data() {
+		return {
+			screenWidth: 750,
+			isFullScreen: false,
+			isDownloading: false,
+			downloadTask: null,
+			progressValue:0,
+			processBarWidth:0,
+		};
+	},
+	created() {
+		this.screenWidth = uni.getSystemInfoSync().windowWidth;
+	},
+	methods: {
+		showToast(title) {
+			uni.showToast({
+				title: title,
+				icon: 'none'
+			})
+		},
+		downLoadFile(url) {
+			var that=this;
+			that.showToast('开始下载');
+			that.downloadTask = uni.downloadFile({
+				url: url,
+				success: (res) => {
+					if (res.statusCode === 200) {
+						console.log(res.tempFilePath)
+						var tempFilePath=res.tempFilePath;
+						uni.saveFile({
+							tempFilePath:tempFilePath,
+							success(res) {
+								console.log(res.savedFilePath)
+								that.showToast('下载成功,文件已保存到'+res.savedFilePath);
+							},fail() {
+								that.showToast('下载失败，请稍后重试');
+							}
+						})
+					} else {
+						that.showToast('下载失败');
+					}
+				},
+				complete:()=>{
+					that.isDownloading=false;
+				}
+			})
+		},
+		download(url) {
+			var that=this;
+			that.progressValue=0;
+			if (!that.isDownloading) {
+				that.isDownloading = true;
+				that.downLoadFile( url);
+				that.downloadTask.onProgressUpdate(res => {
+					that.progressValue=res.progress;
+				});
+			}else{
+				if(that.downloadTask!=null){
+					that.downloadTask.abort();
+					that.isDownloading=false;
+					that.showToast('取消下载');
+				}
+			}
+		},
+		timeUpdate(e){
+			this.processBarWidth=(e.detail.currentTime/e.detail.duration)*this.screenWidth;
+		},
+		setFullScreenStatus(e) {
+			if (e.detail.direction == 'horizontal') {
+				this.isFullScreen = true;
+			} else {
+				this.isFullScreen = false;
+			}
+		},
+		back() {
+			uni.navigateBack();
+		}
+	}
+};
+</script>
+<style lang="scss">
+.back-button {
+	width: 30px;
+	height: 30px;
+	align-items: center;
+	justify-content: center;
+	opacity: 0.8;
+	margin-top: 25px;
+	margin-left: 15px;
+	border-radius: 50%;
+	background-color: rgba($color: #000000, $alpha: 0.8);
+}
+.back-icon {
+	width: 20px;
+	height: 20px;
+}
+.download-button {
+	position: absolute;
+	top: 90px;
+	right: 15px;
+	width: 30px;
+	height: 30px;
+	align-items: center;
+	justify-content: center;
+	opacity: 0.8;
+	border-radius: 50%;
+	background-color: rgba($color: #000000, $alpha: 0.8);
+}
+.process-text {
+	color: #fff;
+	font-size: 10px;
+}
+.video-process-bar{
+	height: 2px;
+}
+.download-icon-horizontal{
+	position: absolute;
+	right: 30px;
+	width: 30px;
+	height: 30px;
+	align-items: center;
+	justify-content: center;
+	opacity: 0.8;
+	border-radius: 50%;
+	background-color: rgba($color: #000000, $alpha: 0.8);
+}
+.process-text-horizontal {
+	color: #fff;
+	font-size: 5px;
+}
+</style>

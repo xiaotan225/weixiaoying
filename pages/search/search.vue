@@ -56,7 +56,7 @@
 	
 	
 		<!-- 搜索排行 -->
-	<!-- 	<view class="">
+		<!-- <view class="">
 			<view class="mt-3 d-flex" style="overflow: auto;">
 				<view class="d-flex">
 					<view class="mr-5">
@@ -133,7 +133,7 @@
 			}
 		},
 		onLoad() {
-			this.hotSearch()
+			// this.hotSearch()
 		},
 		methods:{
 			tapsearchHistory1(item,index){
@@ -142,9 +142,7 @@
 			// 热门搜索
 			async hotSearch(){
 				var data = await this.$api.hotSearch()
-				var sliceStr = data.result.slice('32')
-				var JSONStr =  JSON.parse(sliceStr)
-				this.hotWordList =  JSONStr.data.data.word
+			
 			},
 			//清除搜索记录
 			delHistorySearch(){

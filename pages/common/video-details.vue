@@ -10,8 +10,9 @@
 		<!-- 导航栏 -->
 		<!-- background: -webkit-linear-gradient(top, #6882fd, rgba(104, 130, 253, .7), rgba(85, 170, 255, .05)); -->
 		<!-- :style="'background: url('+videoDatails.vod_pic+');'" -->
-		<view class="position-relative"  style="color: #fff;">
-			<image @error="imgerror" :src="videoDatails.vod_pic" style="height: 622rpx; top: -200rpx; position: absolute; width: 100%; filter: blur(30px) brightness(70%);color: #fff;" mode=""></image>
+		<view class="position-relative" style="color: #fff;">
+			<image @error="imgerror" :src="videoDatails.vod_pic" style="height: 622rpx; top: -200rpx; position: absolute; width: 100%; filter: blur(30px) brightness(70%);color: #fff;"
+			 mode=""></image>
 			<view class="" style="position: absolute;left: 0; width: 100%;">
 				<view class="d-flex a-center mx-4 ">
 					<view class="mr-5" style="width: 35%;height: 350rpx;">
@@ -45,11 +46,11 @@
 						</view>
 						<view class="d-flex a-center  operate">
 							<view class="mr-2 d-flex a-center">
-				
+
 								<!-- #ifdef MP-WEIXIN -->
 								<button data-name="shareBtn" class="d-flex a-center j-center" open-type="share" style="height: 60rpx; background: rgb(244, 156, 54); width: 100%;text-align: left; padding: 0px;position: none;font-size: 27rpx;">
 									<view class="iconfont font-27 iconfenxiang mr-1" style="color: #fff;">
-				
+
 									</view>
 									<view class="" style="color: #fff;">
 										分享
@@ -59,7 +60,7 @@
 								<!-- #ifdef APP-PLUS -->
 								<button @tap="invite" class="d-flex a-center j-center" style="height: 60rpx; background: rgb(244, 156, 54); width: 100%;text-align: left; padding: 0px;position: none;font-size: 27rpx;">
 									<view class="iconfont font-27 iconfenxiang mr-1">
-				
+
 									</view>
 									<view class="" @tap="invite">
 										分享
@@ -69,7 +70,7 @@
 							</view>
 							<view class="d-flex a-center" @tap="haibao">
 								<view class="iconfont  font-27 iconguangquan mr-1">
-				
+
 								</view>
 								<view class="">
 									海报
@@ -79,65 +80,65 @@
 					</view>
 				</view>
 				<view class="mt-5 px-2 d-flex j-sb a-center mx-2 theme-border-r10" style="height: 150rpx;background: rgb(148, 169, 191);">
-					<view v-if="filterVoList.rating.value" class="d-flex a-center font-weight-600 font-33 " style="color: rgb(244, 209, 119);">
+					<view v-show="filterVoList.rating.value" class="d-flex a-center font-weight-600 font-33 " style="color: rgb(244, 209, 119);">
 						<view class="mr-2 font-weight-600 font-33 ">
 							评分：{{filterVoList.rating.value}}
 						</view>
 						<view class="font-weight-600 font-33 d-flex a-center">
 							<view :class="item == 3?'font-36 iconai65':item == 1?'font-40 iconwujiaoxing1':'iconwujiaoxing3'" class="font-33 iconfont "
 							 v-for="(item,index) in newArr" :key="index">
-				
+
 							</view>
 						</view>
 					</view>
 					<view v-show="!filterVoList.rating.value" class="d-flex a-center font-weight-600 font-33 " style="color: rgb(244, 209, 119);">
 						暂无评分
 					</view>
-				
+
 					<!-- #ifdef MP-WEIXIN -->
-						<view class="d-flex a-center" @tap="toKan" v-if="this.item.type_id && !!this.videoDatails.vod_tab && this.videoDatails.vod_pu != 1">
-							<view class="mr-2 iconfont iconbofang color-fff font-50">
-						
-							</view>
-							<view class="font-40 font-weight-600 color-fff">
-								开始播放
-							</view>
-						</view>
-									
-					<!-- #endif -->
-					
-					<!-- #ifdef APP-PLUS -->
-						<view class="d-flex a-center" @tap="toKan" >
-							<view class="mr-2 iconfont iconbofang color-fff font-50">
-						
-							</view>
-							<view class="font-40 font-weight-600 color-fff">
-								开始播放
-							</view>
-						</view>
-					<!-- #endif -->
-				
-				
-					<!-- #ifdef H5 -->
-					<view class="d-flex a-center" @tap="toKan" >
+					<view class="d-flex a-center" @tap="toKan" v-if="this.item.type_id && !!this.videoDatails.vod_tab && this.videoDatails.vod_pu != 1">
 						<view class="mr-2 iconfont iconbofang color-fff font-50">
-					
+
+						</view>
+						<view class="font-40 font-weight-600 color-fff">
+							开始播放
+						</view>
+					</view>
+
+					<!-- #endif -->
+
+					<!-- #ifdef APP-PLUS -->
+					<view class="d-flex a-center" @tap="toKan">
+						<view class="mr-2 iconfont iconbofang color-fff font-50">
+
 						</view>
 						<view class="font-40 font-weight-600 color-fff">
 							开始播放
 						</view>
 					</view>
 					<!-- #endif -->
-				
+
+
+					<!-- #ifdef H5 -->
+					<view class="d-flex a-center" @tap="toKan">
+						<view class="mr-2 iconfont iconbofang color-fff font-50">
+
+						</view>
+						<view class="font-40 font-weight-600 color-fff">
+							开始播放
+						</view>
+					</view>
+					<!-- #endif -->
+
 				</view>
-						
+
 			</view>
-		
+
 		</view>
 		<view class="" style="height: 550rpx;">
-			
+
 		</view>
-		
+
 
 		<!-- 影视介绍 -->
 
@@ -153,8 +154,11 @@
 			<!-- 	<view v-show="!isShow" class="mt-2" style="color: rgb(153, 153, 153);">
 				{{videoDatails.vod_blurb}}...
 			</view> -->
-			<view class="mt-2 " style="color: rgb(153, 153, 153);">
+			<view class="mt-2 " style="color: rgb(153, 153, 153);" v-if="videoDatails.vod_cont">
 				{{videoDatails.vod_cont.length == 100?videoDatails.vod_cont+'...':videoDatails.vod_cont}}
+			</view>
+			<view class="mt-2 " style="color: rgb(153, 153, 153);" v-if="!videoDatails.vod_cont">
+				暂无影片介绍
 			</view>
 			<!-- <rich-text :nodes="videoDatails.vod_content"></rich-text> -->
 			<view class="d-flex j-center mt-1" v-if="videoDatails.vod_content.length > 100" @tap="isShowEvent">
@@ -208,7 +212,7 @@
 							演员：{{videoDatails.vod_actor || '未知'}}
 						</view>
 						<view class="mb-1 font-30 xianzhi">
-							详情：{{videoDatails.vod_blurb}}
+							详情：{{videoDatails.vod_cont}}
 						</view>
 					</view>
 				</view>
@@ -239,9 +243,9 @@
 			</view>
 
 		</popUpModel>
-		
-	
-<canvas style="width: 375px;height: 430px;position:fixed;top:9999px" canvas-id="mycanvas" />
+
+
+		<canvas style="width: 375px;height: 430px;position:fixed;top:9999px" canvas-id="mycanvas" />
 
 
 
@@ -294,56 +298,9 @@
 			// this.$refs.popUpModel.open()
 			this.videoDatails.vod_pic = '../../static/loadfail.png'
 			this.item = JSON.parse(e.item)
+			this.videoDatails = this.item
 			this.getVideoDatails()
-			var _this = this
-			// 获取豆瓣视频数据（评分）
-			this.$api.getScoreVod({
-				vod_name: this.item.vod_name
-			}).then(res => {
-				console.log(res)
-				// 找到对应的视频数据
-				var filterVoList = res.data.subjects.filter(item => {
-					return item.title == _this.item.vod_name
-				})
-				console.log(filterVoList)
-				if (filterVoList.length <= 0) {
-					// 没有找到对应视频数据 （没有评分）
-					_this.filterVoList = res.data.subjects[0]
-					_this.filterVoList.directors = res.data.directors
-				} else {
-					_this.filterVoList = filterVoList[0]
-				}
-				// 评分数 做页面 处理
-				var star_count = _this.filterVoList.rating.star_count || []
-				if (String(star_count).indexOf('.') != -1) {
-					// 小数
-					var intSatr = parseInt(star_count)
-
-					for (var i = 0; i < 5; i++) {
-						if (i < intSatr) {
-							_this.newArr.push(1)
-						} else if (i <= intSatr) {
-							_this.newArr.push(3)
-						} else {
-							_this.newArr.push(2)
-						}
-
-					}
-				} else {
-					// 整数
-					var intSatr = parseInt(star_count)
-					for (var i = 0; i < 5; i++) {
-						if (i < intSatr) {
-							_this.newArr.push(1)
-						} else {
-							_this.newArr.push(2)
-						}
-
-					}
-
-				}
-
-			})
+			this.getVod()
 
 
 		},
@@ -363,9 +320,170 @@
 			}
 		},
 		methods: {
-			imgerror(e){
+			async getVod() {
+				var data = await this.$api.getVodList({
+					type:"movie",
+					tag:"热门",
+					page_limit:3,
+					page_start: parseInt(Math.random() * 10)
+				})
+				var temp = []
+				data.subjects.forEach(item=>{
+					temp.push({
+						vod_pic:item.cover,
+						vod_name:item.title,
+						vod_area:item.rate,
+						id:item.id
+					})
+				})
+				this.videoList = temp
+			},
+			imgerror(e) {
 				this.videoDatails.vod_pic = '../../static/loadfail.png'
 			},
+			// 获取视频详情
+			async getVideoDatails() {
+				var _this = this
+				var data = await this.$api.getVideoDatails({
+					subject_id: this.item.id
+				})
+				let subject = data.subject
+				this.videoDatails.vod_remarks = subject.duration
+				this.videoDatails.vod_actor = subject.actors
+				this.videoDatails.vod_area = subject.region
+				// this.videoDatails.vod_cont = subject.short_comment.content
+				this.videoDatails.vod_content = subject.short_comment.content
+				this.videoDatails.vod_cont = this.tempVodCont = subject.short_comment.content.slice(0, 100)
+				var star_count = subject.rate
+
+
+
+				let shuj = {
+					count: 20,
+					extra: {
+						is_suicide: false
+					},
+					is_suicide: false,
+					start: 0,
+					subjects: [{
+						title: subject.title,
+						rating: {
+							count: '',
+							max: 0,
+							star_count: star_count,
+							value: star_count,
+
+						},
+						directors: [{
+							name: subject.directors
+						}],
+						genres: subject.types,
+						year: subject.release_year
+					}, ],
+
+					tags: [],
+					total: 0
+				}
+				this.filterVoList = shuj.subjects[0]
+				if (String(star_count).indexOf('.') != -1) {
+					// 小数
+					var intSatr = parseInt(star_count) / 2
+
+					for (var i = 0; i < 5; i++) {
+						if (i < intSatr) {
+							_this.newArr.push(1)
+						} else if (i <= intSatr) {
+							_this.newArr.push(3)
+						} else {
+							_this.newArr.push(2)
+						}
+
+					}
+				} else {
+					// 整数
+					var intSatr = parseInt(star_count) / 2
+					for (var i = 0; i < 5; i++) {
+						if (i < intSatr) {
+							_this.newArr.push(1)
+						} else {
+							_this.newArr.push(2)
+						}
+
+					}
+
+				}
+
+
+
+
+
+				// if (String(star_count).indexOf('.') != -1) {
+				// 					// 小数
+				// 					var intSatr = parseInt(star_count)
+
+				// 					for (var i = 0; i < 5; i++) {
+				// 						if (i < intSatr) {
+				// 							_this.newArr.push(1)
+				// 						} else if (i <= intSatr) {
+				// 							_this.newArr.push(3)
+				// 						} else {
+				// 							_this.newArr.push(2)
+				// 						}
+
+				// 					}
+				// 				} else {
+				// 					// 整数
+				// 					var intSatr = parseInt(star_count)
+				// 					for (var i = 0; i < 5; i++) {
+				// 						if (i < intSatr) {
+				// 							_this.newArr.push(1)
+				// 						} else {
+				// 							_this.newArr.push(2)
+				// 						}
+
+				// 					}
+
+				// 				}
+
+
+				// this.videoDatails = data.data[0]
+				// this.img = data.img
+				// this.path = data.path
+				// // 影片介绍
+				// // 为你推荐视频列表
+				// this.videoList = data.list
+
+				// uni.getImageInfo({
+				// 	src: this.videoDatails.vod_pic,
+				// 	success(res) {
+				// 		_this.tempImgVod = res.path
+				// 		_this.formSubmit()
+				// 	}
+				// })
+
+
+
+				// var data = await this.$api.collectVod({
+				// 	vod_id: this.item.vod_id,
+				// 	isCollect: true,
+				// 	type: 2
+				// })
+				if ((this.item.type_id && !!this.videoDatails.vod_tab)) {
+					uni.setClipboardData({
+						data: this.path + '/#/pages/common/video-details?item=' + JSON.stringify(this.item),
+						success(res) {
+							console.log(res)
+							wx.showToast({
+								title: "复制成功 请到浏览器播放",
+								icon: 'none',
+								duration: 4000
+							})
+						}
+					})
+				}
+
+			},
+
 			// 分享邀请App
 			invite() {
 				var _this = this
@@ -460,8 +578,8 @@
 				context.setFillStyle("#FFFFFF")
 				context.fillRect(0, 0, 375, 430)
 				// 图片
-				
-				context.drawImage(this.tempImgVod, 10, 10, 130, 200); 
+
+				context.drawImage(this.tempImgVod, 10, 10, 130, 200);
 				// 名字
 				context.setFontSize(20);
 				context.setFillStyle('#000000');
@@ -489,27 +607,27 @@
 				context.setFontSize(15);
 				context.setFillStyle('#000000');
 				context.setTextAlign('left');
-				context.fillText('详情：' + this.videoDatails.vod_blurb.slice(0, 11), 162, 120 + 25);
+				context.fillText('详情：' + this.videoDatails.vod_cont.slice(0, 11), 162, 120 + 25);
 				context.stroke();
 				// 详情
 				context.setFontSize(15);
 				context.setFillStyle('#000000');
 				context.setTextAlign('left');
-				context.fillText(this.videoDatails.vod_blurb.slice(11, 11 + 18), 162, 120 + 25 + 20);
-				context.stroke();
-
-				// 详情
-				context.setFontSize(15);
-				context.setFillStyle('#000000');
-				context.setTextAlign('left');
-				context.fillText(this.videoDatails.vod_blurb.slice(11 + 18, 11 + 18 + 18), 162, 120 + 25 + 20 + 20);
+				context.fillText(this.videoDatails.vod_cont.slice(11, 11 + 18), 162, 120 + 25 + 20);
 				context.stroke();
 
 				// 详情
 				context.setFontSize(15);
 				context.setFillStyle('#000000');
 				context.setTextAlign('left');
-				context.fillText(this.videoDatails.vod_blurb.slice(11 + 18 + 18, 11 + 18 + 18 + 20) + '...', 162, 120 + 25 + 20 +
+				context.fillText(this.videoDatails.vod_cont.slice(11 + 18, 11 + 18 + 18), 162, 120 + 25 + 20 + 20);
+				context.stroke();
+
+				// 详情
+				context.setFontSize(15);
+				context.setFillStyle('#000000');
+				context.setTextAlign('left');
+				context.fillText(this.videoDatails.vod_cont.slice(11 + 18 + 18, 11 + 18 + 18 + 20) + '...', 162, 120 + 25 + 20 +
 					20 + 20);
 				context.stroke();
 
@@ -560,7 +678,7 @@
 						fail: function(res) {
 							console.log(res);
 						}
-					},that);
+					}, that);
 				}, 200);
 			},
 			//点击保存到相册
@@ -626,7 +744,7 @@
 			// to播放视频
 			async toKan() {
 				// #ifdef MP-WEIXIN
-				
+
 				if (!(this.item.type_id && !!this.videoDatails.vod_tab && this.videoDatails.vod_pu != 1)) {
 					uni.setClipboardData({
 						data: this.path + '/#/pages/common/video-details?item=' + JSON.stringify(this.item),
@@ -642,12 +760,12 @@
 					return
 				}
 				// #endif
-				var data = await this.$api.collectVod({
-					vod_id: this.item.vod_id,
-					isCollect: true,
-					type: 2
-				})
-				this.$U.navTo('./video-kan?item=' + JSON.stringify(this.item))
+				// var data = await this.$api.collectVod({
+				// 	vod_id: this.item.vod_id,
+				// 	isCollect: true,
+				// 	type: 2
+				// })
+				// this.$U.navTo('./video-kan?item=' + JSON.stringify(this.item))
 			},
 			// 影片介绍文字是否展示全部
 			isShowEvent() {
@@ -659,51 +777,7 @@
 				}
 				// this.videoDatails = Object.assign({},this.videoDatails)
 			},
-			// 获取视频详情
-			async getVideoDatails() {
-				var _this = this
-				var data = await this.$api.getVideoDatails({
-					vodid: this.item.vod_id
-				})
-				this.videoDatails = data.data[0]
-				this.img = data.img
-				this.path = data.path
-				// 影片介绍
-				this.videoDatails.vod_cont = this.tempVodCont = data.data[0].vod_content.slice(0, 100)
-				// 为你推荐视频列表
-				this.videoList = data.list
 
-				uni.getImageInfo({
-					src: this.videoDatails.vod_pic,
-					success(res) {
-						_this.tempImgVod = res.path
-						_this.formSubmit()
-					}
-				})
-
-
-
-				var data = await this.$api.collectVod({
-					vod_id: this.item.vod_id,
-					isCollect: true,
-					type: 2
-				})
-				console.log(this.item.type_id,this.videoDatails.vod_tab)
-				if ((this.item.type_id && !!this.videoDatails.vod_tab)) {
-					uni.setClipboardData({
-						data: this.path + '/#/pages/common/video-details?item=' + JSON.stringify(this.item),
-						success(res) {
-							console.log(res)
-							wx.showToast({
-								title: "复制成功 请到浏览器播放",
-								icon: 'none',
-								duration: 4000
-							})
-						}
-					})
-				}
-
-			}
 		}
 	}
 </script>

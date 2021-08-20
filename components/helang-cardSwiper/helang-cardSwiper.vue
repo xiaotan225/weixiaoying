@@ -92,9 +92,15 @@
 				// this.isLoad = false
 				// this._loadSrc = this.errorImgSrc
 			},
-			toDetails(item,index){
-				console.log(this.vodList[index])
-				this.$U.navTo('/pages/common/video-details?item='+JSON.stringify(this.vodList[index]))
+			toDetails(item1,index){
+				let item = this.vodList[index]
+				let data = {
+					id:item.id,
+					vod_pic:item.cover,
+					vod_name:item.title
+				}
+				console.log(data)
+				this.$U.navTo('/pages/common/video-details?item='+JSON.stringify(data))
 			},
 			//swiper滑动事件
 			swiperChange: function(e) {

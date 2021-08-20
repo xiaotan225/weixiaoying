@@ -1,0 +1,163 @@
+<template>
+	<div class="moon-box">
+		<div class="light light1" :style="{opacity:light1}"></div>
+		<div class="light light2" :style="{opacity:light2}"></div>
+		<div class="light light3" :style="{opacity:light3}"></div>
+		<div class="light light4" :style="{opacity:light4}"></div>
+		<div class="light light5" :style="{opacity:light5}"></div>
+		<div class="light light6" :style="{opacity:light6}"></div>
+		<div class="light light7" :style="{opacity:light7}"></div>
+		<div class="light light8" :style="{opacity:light8}"></div>
+		<div class="light light9" :style="{opacity:light9}"></div>
+		<div class="light light10" :style="{opacity:light10}"></div>
+		<div class="light light11" :style="{opacity:light11}"></div>
+		<div class="light light12" :style="{opacity:light12}"></div>
+		<div class="moon">
+			<div class="move-box" :style="{transform:`rotate(${225-270*percentage}deg)`}">
+				<div class="move-moon" :style="{right:`${-16+(1-percentage)*14}px`}"></div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+	export default{
+		props:{
+			percentage:{
+				type:Number,
+				default:1
+			}
+		},
+		data(){
+			return{
+				
+			}
+		},
+		methods:{
+			getOpacity(percentage,nub){
+				let opacity
+				if(percentage<(13/12-nub/12)&&percentage>(1-nub/12)){
+					opacity = '0.5'
+				}else if(percentage<=(1-nub/12)){
+					opacity = '0'
+				}else{
+					opacity = '1'
+				}
+				return opacity
+			}
+		},
+		computed:{
+			light1(){
+				return this.getOpacity(this.percentage,1)
+			},
+			light2(){
+				return this.getOpacity(this.percentage,2)
+			},
+			light3(){
+				return this.getOpacity(this.percentage,3)
+			},
+			light4(){
+				return this.getOpacity(this.percentage,4)
+			},
+			light5(){
+				return this.getOpacity(this.percentage,5)
+			},
+			light6(){
+				return this.getOpacity(this.percentage,6)
+			},
+			light7(){
+				return this.getOpacity(this.percentage,7)
+			},
+			light8(){
+				return this.getOpacity(this.percentage,8)
+			},
+			light9(){
+				return this.getOpacity(this.percentage,9)
+			},
+			light10(){
+				return this.getOpacity(this.percentage,10)
+			},
+			light11(){
+				return this.getOpacity(this.percentage,11)
+			},
+			light12(){
+				return this.getOpacity(this.percentage,12)
+			}
+		}
+	}
+</script>
+
+<style>
+	.moon-box{
+		position: relative;
+		width: 40px;
+		height: 40px;
+	}
+	.moon{
+		width: 16px;
+		height: 16px;
+		border-radius: 8px;
+		position: absolute;
+		top: 10px;
+		left: 10px;
+		background-color: #fff;
+	}
+	.move-box{
+		position: relative;
+		width: 16px;
+		height: 16px;
+		border-radius: 8px;
+	}
+	.move-moon{
+		position: absolute;
+		width: 16px;
+		height: 16px;
+		top:0;
+		border-radius: 8px;
+		position: relative;
+		background-color: rgba(0,0,0,0.5);
+	}
+	.light{
+		position: absolute;
+		border-radius: 0.8px;
+		height: 3px;
+		width: 2px;
+		top: 4.75px;
+		left: 16.75px;
+		transform-origin:0px 13px;
+		background-color: #FFFFFF;
+	}
+	.light2{
+		transform: rotate(30deg);
+	}
+	.light3{
+		transform: rotate(60deg);
+	}
+	.light4{
+		transform: rotate(90deg);
+	}
+	.light5{
+		transform: rotate(120deg);
+	}
+	.light6{
+		transform: rotate(150deg);
+	}
+	.light7{
+		transform: rotate(180deg);
+	}
+	.light8{
+		transform: rotate(210deg);
+	}
+	.light9{
+		transform: rotate(240deg);
+	}
+	.light10{
+		transform: rotate(270deg);
+	}
+	.light11{
+		transform: rotate(300deg);
+	}
+	.light12{
+		transform: rotate(330deg);
+	}
+</style>

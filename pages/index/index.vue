@@ -7,7 +7,7 @@
 			<commonTitle :defaultSty="false" :isShowIcon="false" :center="true" title="微小影"></commonTitle>
 		</view>
 		<!-- 导航栏 -->
-		
+
 		<!-- 轮播图 -->
 		<view class="">
 			<helangCardSwiper :list="listImg" :vodList="vodList"></helangCardSwiper>
@@ -56,10 +56,10 @@
 		</view>
 
 		<view class="" style="height: 100rpx;">
-			
+
 		</view>
-		
-		
+
+
 		<!-- <view class="px-2">
 			<card class="mx-3" headTitle="热门电视剧" :headTitleWeight="true">
 				<view @click="likeTap('热门电视剧')" slot="right" class="font-md text-muted pr-1 d-flex a-center">
@@ -100,51 +100,111 @@
 				listImg: [
 
 				],
-				vodList:[],
-				noticeList:[],
+				vodList: [],
+				noticeList: [],
 			}
 		},
 		onLoad() {
-			// 获取轮播图
 			this.getSlideshow()
-			// 获取首页分类
-			this.indexClassify()
-
-			this.notice()
-			
-			
-			
-
-			
-		
-			// console.log(this.citySelect[this.citySelectCurrent].chid)
+			this.init()
 		},
 		methods: {
+			async init(){
+				let data1 = await this.$api.getVodList({
+					tag: "电影"
+				})
+				let data2 = await this.$api.getVodList({
+					type:'tv',
+					tag: "热门"
+				})
+				let data3 = await this.$api.getVodList({
+					tag: "综艺"
+				})
+				let data4 = await this.$api.getVodList({
+					tag: "动漫"
+				})
+				let temp = [
+					{
+						type_name:"热门电影",
+						type:'电影',
+						list:[]
+					},
+					{
+						type_name:"热门电视剧",
+						type:'电视剧',
+						list:[]
+					},
+					{
+						type_name:"热门综艺",
+						type:'综艺',
+						list:[]
+					},
+					{
+						type_name:"热门动漫",
+						type:'动漫',
+						list:[]
+					}
+					
+				]
+				data1.subjects.forEach(item=>{
+					temp[0].list.push({
+						vod_pic:item.cover,
+						vod_name:item.title,
+						vod_area:item.rate,
+						id:item.id
+					})
+				})
+				data2.subjects.forEach(item=>{
+					temp[1].list.push({
+						vod_pic:item.cover,
+						vod_name:item.title,
+						vod_area:item.rate,
+						id:item.id
+					})
+				})
+				data3.subjects.forEach(item=>{
+					temp[2].list.push({
+						vod_pic:item.cover,
+						vod_name:item.title,
+						vod_area:item.rate
+					})
+				})
+				data4.subjects.forEach(item=>{
+					temp[3].list.push({
+						vod_pic:item.cover,
+						vod_name:item.title,
+						vod_area:item.rate,
+						id:item.id
+					})
+				})
+				this.videoList = temp
+			},
 			
-			async notice(){
+			// 轮播图
+			async getSlideshow() {
+				let data = await this.$api.getVodList({
+					tag: "热门"
+				})
+				var tempImgArr = []
+				data.subjects.forEach(item=>{
+						tempImgArr.push({
+							isLoad: true,
+							src: item.cover
+						})
+				})
+				this.vodList = data.subjects
+				this.listImg = tempImgArr
+			},
+			async notice() {
 				var data = await this.$api.notice()
-				this.noticeList =data.data
+				this.noticeList = data.data
 			},
 			// to更多页面视频列表
 			likeTap(item) {
 				var newItem = {
-					type_id: item.type_id,
-					type: item.type_name
+					type: item.type
 				}
 				this.$U.navTo('/pages/common/video-list?item=' + JSON.stringify(newItem))
-			},
-			// 轮播图
-			async getSlideshow() {
-				var data = await this.$api.getslideshow()
-				var tempImgArr = []
-				data.data.forEach((item,index)=>{
-					tempImgArr.push({
-						isLoad:true,
-						src:item.vod_pic
-					})
-				})
-				this.vodList = data.data
-				this.listImg = tempImgArr
 			},
 			// 首页分类
 			async indexClassify() {
@@ -155,10 +215,11 @@
 	}
 </script>
 
-<style >
+<style>
 	page {
 		/* background-color: rgb(121, 146, 252); */
 	}
+
 	.load-video-text {
 		color: #fff;
 		background-image: -webkit-linear-gradient(left, #ff0, #dd524d 25%, #bdcd34 50%, #dd524d 75%, #ff0);
@@ -168,14 +229,14 @@
 		-webkit-animation: masked-animation 3s infinite linear;
 		border: 0;
 		font-size: 30rpx;
-	
+
 	}
-	
+
 	@-webkit-keyframes masked-animation {
 		0% {
 			background-position: 0 0
 		}
-	
+
 		to {
 			background-position: -100% 0
 		}

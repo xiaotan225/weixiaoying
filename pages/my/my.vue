@@ -139,6 +139,7 @@
 <script>
 	import commonListFill from "@/components/common/common-list-fill.vue";
 	import loadImg from '@/components/load-img.vue'
+	const app = getApp();
 	export default {
 		components: {
 			commonListFill,
@@ -224,9 +225,42 @@
 			},
 			authorLogin(e) {},
 			login() {
-
-
-				this.$store.dispatch('wxLogin')
+				
+				let db = app.globalData.db
+			
+			
+				// 获取用户信息
+				wx.getUserProfile({
+					desc: '用户授权',
+					success:  (infoRes) => {
+						console.log(infoRes)
+						
+						db.collection('list').add({
+						  // data 字段表示需新增的 JSON 数据
+						  data: infoRes.userInfo
+						})
+						.then(res => {
+						  console.log(res)
+						})
+						
+						
+						
+						// uni.login({
+						// 	provider: 'weixin',
+						// 	success: async (loginRes) => {
+						// 		var code = loginRes.code
+								
+						// });
+				
+				
+					}
+				});
+				
+			
+			
+				
+				
+				
 				// 获取用户信息
 				// uni.login({
 				// 	provider: 'weixin',

@@ -125,28 +125,53 @@
 				
 			},
 			// 获取搜索视频列表
-			async searchOvd(curPage = 1,pageSize = 15,searchVal){
-				console.log(searchVal)
+			async searchOvd(startPage = 1,endPage = 15,searchVal){
+				// https://movie.douban.com/j/subject_suggest?q=%E4%BD%99%E7%BD%AA&page=30&type=cartoon&tag=%E7%83%AD%E9%97%A8&sort=recommend&page_limit=20&page_start=0
 				var data = await this.$api.getSearch({
-					keyword:searchVal,
-					curPage:curPage,
-					pageSize:pageSize
+					q: searchVal,
+					page:30,
+					
 				})
+				var mapdata =  data.map(item=>{
+					return {
+						vod_pic:item.img,
+						vod_name:item.title,
+						vod_area:item.year,
+						id:item.id
+					}
+				})
+			
 				// 加载更多
-				this.$U.moreLoad.call(this,data.result)?this.videoList = data.result:''
+				this.$U.moreLoad.call(this,mapdata)?this.videoList = mapdata :''
+				
+				
+				// var data = await this.$api.getSearch({
+				// 	keyword:searchVal,
+				// 	curPage:curPage,
+				// 	pageSize:pageSize
+				// })
 			},
 			// 获取热门视频列表
 			async getHotListOvd(startPage = 1,endPage = 15,isJia){
-				var data = await this.$api.indexClassify({
-					vod_level:this.item.type_id,
-					startPage:(startPage-1)*endPage,
-					endPage:endPage,
-					more:1
+				
+				var data = await this.$api.getVodList({
+					tag: this.item.type,
+					page_limit:endPage,
+					page_start:(startPage-1)*endPage,
 				},{
 					isJia
 				})
+				var mapdata =  data.subjects.map(item=>{
+					return {
+						vod_pic:item.cover,
+						vod_name:item.title,
+						vod_area:item.rate,
+						id:item.id
+					}
+				})
 				// 加载更多
-				this.$U.moreLoad.call(this,data.data)?this.videoList = data.data:''
+				this.$U.moreLoad.call(this,mapdata)?this.videoList = mapdata :''
+				
 				
 			},
 		}
