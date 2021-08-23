@@ -16,7 +16,7 @@
 						{{item.vod_year}}
 					</view> -->
 					<view :style="theme.bgColor" class="position-absolute score score1 d-flex a-center j-center" style="">
-						{{item.vod_area}}
+						{{item.vod_area || '无'}}
 					</view>
 				</view>
 				<view class="text-center width-000" style="margin-top: 5rpx;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">

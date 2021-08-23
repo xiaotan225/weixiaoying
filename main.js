@@ -9,7 +9,8 @@ if (window.location.pathname.indexOf('//') != -1) {
 }
 // #endif
 Vue.config.productionTip = false
-
+import sub from "vue"
+Vue.prototype.sub = sub
 
 // 引入全局组件
 import divider from "@/components/common/divider.vue"

@@ -1,5 +1,5 @@
 
-.search-cont{
+.search-cont {
 	background: rgb(104, 132, 253);
 	height: 110rpx;
 	display: -webkit-box;
@@ -12,10 +12,11 @@
 	-webkit-justify-content: center;
 	        justify-content: center;
 }
-.search-cont view input,.search-cont view{
+.search-cont view input,
+.search-cont view {
 	height: 70rpx;
 	width: 100%;
-	
+
 	border-radius: 50rpx;
 	background: #fff;
 }

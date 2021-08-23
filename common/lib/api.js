@@ -83,7 +83,7 @@ export let getvodClassify = (options) => {
 
 // 视频类型筛选查询
 export let getvodClassifyList = (options, isJia) => {
-	return req.get('/getvodClassifyList', options, isJia)
+	return req.get('/j/new_search_subjects', options, isJia)
 }
 
 // 微信授权登录

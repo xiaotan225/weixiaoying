@@ -5,7 +5,7 @@ export default {
 	},
 	mutations:{
 		setVodClassifyList(state,data){
-			state.vodClassifyList = data.result
+			state.vodClassifyList = data
 			state.isShow = data.isShow
 		}
 	

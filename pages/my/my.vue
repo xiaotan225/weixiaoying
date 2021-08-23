@@ -51,7 +51,7 @@
 								<!-- <image class="width-000 height-000" style="width: 110rpx;" :src="item.vod_pic" mode=""></image> -->
 								<view :style="theme.bgColor" class="position-absolute score d-flex a-center j-center" style="">
 									<!-- {{item.vod_score.toFixed(1)}} -->
-									{{item.vod_year}}
+									{{item.vod_score}}
 								</view>
 							</view>
 							<view class="text-center width-000 font-22" style="width: 110rpx;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;margin-top: 5rpx;">
@@ -177,8 +177,7 @@
 				}
 				this.num++
 			}, 500)
-			// console.log(this.userInfo)
-			// console.log(uni.getStorageSync('userInfo'))
+			
 			// H5环境
 			// #ifdef H5
 			console.log(this.userInfo.token)
@@ -210,10 +209,14 @@
 			},
 			// 获取用户收藏影片和播放记录
 			async getCollectVod() {
-				var data = await this.$api.getCollectVod({
-					type: 1
+				var db = app.globalData.db
+				db.collection('userHistoryVodList').get().then(res=>{
+					console.log(res)
+					this.videoList = res.data
 				})
-				this.videoList = data.result
+				// var data = await this.$api.getCollectVod({
+				// 	type: 1
+				// })
 			},
 			// 问题反馈
 			toFeedbackIssue() {
@@ -226,35 +229,27 @@
 			authorLogin(e) {},
 			login() {
 				
-				let db = app.globalData.db
+		
 			
+				this.$store.dispatch('wxLogin')
 			
 				// 获取用户信息
-				wx.getUserProfile({
-					desc: '用户授权',
-					success:  (infoRes) => {
-						console.log(infoRes)
+				// wx.getUserProfile({
+				// 	desc: '用户授权',
+				// 	success:  (infoRes) => {
+				// 		console.log(infoRes)
 						
-						db.collection('list').add({
-						  // data 字段表示需新增的 JSON 数据
-						  data: infoRes.userInfo
-						})
-						.then(res => {
-						  console.log(res)
-						})
+				// 		db.collection('annunciate').add({
+				// 		  // data 字段表示需新增的 JSON 数据
+				// 		  data: infoRes.userInfo
+				// 		})
+				// 		.then(res => {
+				// 		  console.log(res)
+				// 		})
 						
-						
-						
-						// uni.login({
-						// 	provider: 'weixin',
-						// 	success: async (loginRes) => {
-						// 		var code = loginRes.code
-								
-						// });
 				
-				
-					}
-				});
+				// 	}
+				// });
 				
 			
 			

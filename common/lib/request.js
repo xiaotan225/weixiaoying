@@ -1,6 +1,5 @@
 import $store from '@/store/index.js'
 import Vue from 'vue'
-import X2JS from './x2js/we-x2js.js'
 
 
 

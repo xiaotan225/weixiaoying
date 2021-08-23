@@ -227,7 +227,7 @@
 						</view>
 					</view>
 					<view class="" style="width: 200rpx;height: 200rpx;">
-						<image class="width-000 height-000 theme-border-r50" :src="img" mode=""></image>
+						<image class="width-000 height-000 theme-border-r50" src="../../static/img1.jpg" mode=""></image>
 					</view>
 				</view>
 
@@ -255,6 +255,7 @@
 <script>
 	import commonListFill from "@/components/common/common-list-fill.vue";
 	import popUpModel from "@/components/common/pop-up-model.vue";
+	var app = getApp()
 	export default {
 		components: {
 			commonListFill,
@@ -292,6 +293,9 @@
 		computed: {
 			isShowKan() {
 				return this.$store.state.vodClassify.isShow
+			},
+			token() {
+				return this.$store.state.user.token
 			}
 		},
 		onLoad(e) {
@@ -306,7 +310,6 @@
 		},
 		async mounted() {
 
-
 		},
 		// 分享
 		onShareAppMessage(e) {
@@ -320,20 +323,55 @@
 			}
 		},
 		methods: {
+			// 设置用户记录
+			setRecordVod(star_count,vod_area,vod_actor) {
+				console.log(this.videoDatails,'asdfasdf',this.item)
+				let db = app.globalData.db
+				let vodData = {
+					vod_pic: this.item.vod_pic,
+					vod_score: star_count,
+					vod_name: this.item.vod_name,
+					id: this.item.id,
+					vod_area:this.videoDatails.vod_area,
+					vod_year:vod_area,
+					vod_actor:vod_actor
+				}
+
+				if (this.token) {
+					db.collection('userHistoryVodList').where({
+							id: this.item.id,
+							_openid: this.token
+						})
+						.get().then(res => {
+							let vodList = res.data
+							if (vodList.length <= 0) {
+								db.collection('userHistoryVodList').add({
+									data: vodData
+								}).then(res => {
+									console.log(res)
+								})
+							}
+
+						})
+				}
+
+
+			},
 			async getVod() {
 				var data = await this.$api.getVodList({
-					type:"movie",
-					tag:"热门",
-					page_limit:3,
+					type: "movie",
+					tag: "热门",
+					page_limit: 3,
 					page_start: parseInt(Math.random() * 10)
 				})
 				var temp = []
-				data.subjects.forEach(item=>{
+				data.subjects.forEach(item => {
 					temp.push({
-						vod_pic:item.cover,
-						vod_name:item.title,
-						vod_area:item.rate,
-						id:item.id
+						vod_pic: item.cover,
+						vod_name: item.title,
+						vod_area: item.rate,
+						id: item.id,
+						// vod_area:this.videoDatails.vod_area
 					})
 				})
 				this.videoList = temp
@@ -412,67 +450,10 @@
 					}
 
 				}
-
-
-
-
-
-				// if (String(star_count).indexOf('.') != -1) {
-				// 					// 小数
-				// 					var intSatr = parseInt(star_count)
-
-				// 					for (var i = 0; i < 5; i++) {
-				// 						if (i < intSatr) {
-				// 							_this.newArr.push(1)
-				// 						} else if (i <= intSatr) {
-				// 							_this.newArr.push(3)
-				// 						} else {
-				// 							_this.newArr.push(2)
-				// 						}
-
-				// 					}
-				// 				} else {
-				// 					// 整数
-				// 					var intSatr = parseInt(star_count)
-				// 					for (var i = 0; i < 5; i++) {
-				// 						if (i < intSatr) {
-				// 							_this.newArr.push(1)
-				// 						} else {
-				// 							_this.newArr.push(2)
-				// 						}
-
-				// 					}
-
-				// 				}
-
-
-				// this.videoDatails = data.data[0]
-				// this.img = data.img
-				// this.path = data.path
-				// // 影片介绍
-				// // 为你推荐视频列表
-				// this.videoList = data.list
-
-				// uni.getImageInfo({
-				// 	src: this.videoDatails.vod_pic,
-				// 	success(res) {
-				// 		_this.tempImgVod = res.path
-				// 		_this.formSubmit()
-				// 	}
-				// })
-
-
-
-				// var data = await this.$api.collectVod({
-				// 	vod_id: this.item.vod_id,
-				// 	isCollect: true,
-				// 	type: 2
-				// })
 				if ((this.item.type_id && !!this.videoDatails.vod_tab)) {
 					uni.setClipboardData({
 						data: this.path + '/#/pages/common/video-details?item=' + JSON.stringify(this.item),
 						success(res) {
-							console.log(res)
 							wx.showToast({
 								title: "复制成功 请到浏览器播放",
 								icon: 'none',
@@ -481,6 +462,15 @@
 						}
 					})
 				}
+
+
+
+
+
+				// 设置用户记录
+				this.setRecordVod(star_count,subject.release_year,subject.directors)
+
+
 
 			},
 
@@ -491,7 +481,6 @@
 				let curRoute = routes[routes.length - 1].route //获取当前页面路由
 				let curParam = routes[routes.length - 1].options; //获取路由参数
 				let url = this.path + '/#/' + curRoute + '?item=' + JSON.stringify(_this.item)
-				console.log(url)
 				uni.showActionSheet({
 					itemList: ['分享好友', '分享朋友圈', '取消'],
 					success: (res) => {
@@ -523,7 +512,6 @@
 										title: "分享失败",
 										icon: "none"
 									})
-									console.log("fail:" + JSON.stringify(err));
 								}
 							});
 
@@ -556,7 +544,6 @@
 										title: "分享失败",
 										icon: "none"
 									})
-									console.log("fail:" + JSON.stringify(err));
 								}
 							});
 
@@ -749,7 +736,6 @@
 					uni.setClipboardData({
 						data: this.path + '/#/pages/common/video-details?item=' + JSON.stringify(this.item),
 						success(res) {
-							console.log(res)
 							wx.showToast({
 								title: "复制成功 请到浏览器播放",
 								icon: 'none',

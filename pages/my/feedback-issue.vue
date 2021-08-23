@@ -3,7 +3,7 @@
 	<view class="">
 		<!-- 头部标题 -->
 		<view class="" style="border-bottom: 1rpx solid #ececec;">
-			 <commonTitle :defaultSty="false"  :isShowIcon="true" :right="true" title="反馈问题"></commonTitle>
+			<commonTitle :defaultSty="false" :isShowIcon="true" :right="true" title="反馈问题"></commonTitle>
 		</view>
 		<!-- 头部标题 -->
 
@@ -12,8 +12,8 @@
 				反馈类型
 			</view>
 			<view class="d-flex flex-wrap mt-2">
-				<view  class="d-flex a-center j-center mr-5 mb-3 fankType currentNo" @tap="currTab(item,index)" :style="current == index?theme.bgColor+';color:#fff':''" v-for="(item,index) in tabList"
-				 :key="index">
+				<view class="d-flex a-center j-center mr-5 mb-3 fankType currentNo" @tap="currTab(item,index)" :style="current == index?theme.bgColor+';color:#fff':''"
+				 v-for="(item,index) in tabList" :key="index">
 					{{item}}
 				</view>
 			</view>
@@ -23,7 +23,8 @@
 
 		<view class="px-2 mb-4 mt-4">
 			<view class="d-flex a-center mt-2">
-				<text class="mr-2" style="font-size: 32rpx;font-family: PingFang SC;font-weight: bold;" :style="theme.color"> 请提供相关问题图片</text>
+				<text class="mr-2" style="font-size: 32rpx;font-family: PingFang SC;font-weight: bold;" :style="theme.color">
+					请提供相关问题图片</text>
 				<!-- <text class="font-25 theme-color-hui">(最多6张图不超过20m)</text> -->
 			</view>
 			<!-- 请提供相关问题图片 -->
@@ -31,7 +32,7 @@
 
 				<view class="d-flex mt-2">
 					<view class="mr-5" @tap="openTempImg">
-						<view class="wx"  v-if="!tempImg">
+						<view class="wx" v-if="!tempImg">
 							+
 						</view>
 						<view class="width-000 height-000" style="width: 180rpx;height: 160rpx;" v-if="tempImg">
@@ -58,8 +59,8 @@
 			<view class="commTitle mt-2" :style="theme.color">
 				问题描述
 			</view>
-			<view class="position-relative" >
-				<textarea v-model="data.content" class="p-2" placeholder="请输入您的问题"  style="width: 100%; box-sizing: border-box; height: 300rpx;background: #F2F2F2;"/>
+			<view class="position-relative">
+				<textarea v-model="data.content" class="p-2" placeholder="请输入您的问题" style="width: 100%; box-sizing: border-box; height: 300rpx;background: #F2F2F2;" />
 				<!-- <view class="position-absolute"  style="font-size: 27rpx;font-family: PingFang SC;font-weight: 400;color: #999999;right: 50rpx; bottom: 10rpx;">
 					0/300
 				</view> -->
@@ -90,6 +91,7 @@
 
 <script>
 	import * as api  from "@/common/lib/api.js"
+	var app = getApp()
 	export default {
 		data() {
 			return {
@@ -130,20 +132,36 @@
 				    success: (chooseImageRes) => {
 				        const tempFilePaths = chooseImageRes.tempFilePaths;
 						this.tempImg = tempFilePaths[0]
-				        uni.uploadFile({
-				            url: _this.$H.common.baseUrl+'/api/wxuser/up/img', 
-							header:{"token":+this.userInfo.token},
-				            filePath: tempFilePaths[0],
-				            name: 'file',
-				            formData: {
-								name:'tset'
-				            },
-				            success: (uploadFileRes) => {
-								console.log(uploadFileRes)
-								var {result} = JSON.parse(uploadFileRes.data)
-								this.data.img = result
-				            }
-				        });
+						 let filePath = chooseImageRes.tempFilePaths[0];
+						 const name = Math.random() * 1000000;
+						 const cloudPath = name + filePath.match(/\.[^.]+?$/)[0];
+						 wx.cloud.uploadFile({
+						          cloudPath:  cloudPath,
+						          filePath: tempFilePaths[0], // 文件路径
+						        }).then(res => {
+						          // get resource ID
+						          this.data.img = res.fileID
+						        }).catch(error => {
+						          console.log(error)
+						        })
+						
+						
+						
+						
+				   //      uni.uploadFile({
+				   //          url: _this.$H.common.baseUrl+'/api/wxuser/up/img', 
+							// header:{"token":+this.userInfo.token},
+				   //          filePath: tempFilePaths[0],
+				   //          name: 'file',
+				   //          formData: {
+							// 	name:'tset'
+				   //          },
+				   //          success: (uploadFileRes) => {
+							// 	console.log(uploadFileRes)
+							// 	var {result} = JSON.parse(uploadFileRes.data)
+							// 	this.data.img = result
+				   //          }
+				   //      });
 				    }
 				});
 			},
@@ -154,19 +172,33 @@
 				    success: (chooseImageRes) => {
 				        const tempFilePaths = chooseImageRes.tempFilePaths;
 						this.tempImg1 = tempFilePaths[0]
-				        uni.uploadFile({
-				           url: _this.$H.common.baseUrl+'/api/wxuser/up/img',
-				           header:{"token":+this.userInfo.token},
-				           filePath: tempFilePaths[0],
-				           name: 'file',
-				            formData: {
+					let filePath = chooseImageRes.tempFilePaths[0];
+					const name = Math.random() * 1000000;
+					const cloudPath = name + filePath.match(/\.[^.]+?$/)[0];
+					wx.cloud.uploadFile({
+					         cloudPath:  cloudPath,
+					         filePath: tempFilePaths[0], // 文件路径
+					       }).then(res => {
+					         // get resource ID
+					         this.data.img1 = res.fileID
+					       }).catch(error => {
+					         console.log(error)
+					       })	
+						
+						
+				        // uni.uploadFile({
+				        //    url: _this.$H.common.baseUrl+'/api/wxuser/up/img',
+				        //    header:{"token":+this.userInfo.token},
+				        //    filePath: tempFilePaths[0],
+				        //    name: 'file',
+				        //     formData: {
 				        		
-				            },
-				            success: (uploadFileRes) => {
-				        		var {result} = JSON.parse(uploadFileRes.data)
-				        		this.data.img1 = result
-				            }
-				        });
+				        //     },
+				        //     success: (uploadFileRes) => {
+				        // 		var {result} = JSON.parse(uploadFileRes.data)
+				        // 		this.data.img1 = result
+				        //     }
+				        // });
 				    }
 				});
 			},
@@ -192,26 +224,39 @@
 				if (phone) {
 					return
 				}
-				var data = await api.feedbackIssue({
-					...this.data,
-				})
-				if(data.code == 1){
-					uni.showToast({
-						title:"反馈成功",
-						icon:"none",
-					})
-					setTimeout(()=>{
-						uni.switchTab({
-							url:"/pages/my/my"
+				var db = app.globalData.db
+				db.collection('feedbackList').add({
+					data:this.data
+				}).then(res=>{
+						uni.showToast({
+							title:"反馈成功",
+							icon:"none",
 						})
-					},500)
-				}else{
-					uni.showToast({
-						title:"提交失败",
-						icon:"none",
-					})
-				}
-				console.log(data)
+						setTimeout(()=>{
+							uni.switchTab({
+								url:"/pages/my/my"
+							})
+						},500)
+				})
+				// var data = await api.feedbackIssue({
+				// 	...this.data,
+				// })
+				// if(data.code == 1){
+				// 	uni.showToast({
+				// 		title:"反馈成功",
+				// 		icon:"none",
+				// 	})
+				// 	setTimeout(()=>{
+				// 		uni.switchTab({
+				// 			url:"/pages/my/my"
+				// 		})
+				// 	},500)
+				// }else{
+				// 	uni.showToast({
+				// 		title:"提交失败",
+				// 		icon:"none",
+				// 	})
+				// }
 			},
 		
 		

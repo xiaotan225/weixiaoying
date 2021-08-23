@@ -46,6 +46,7 @@
 
 <script>
 	import loadImg from '@/components/load-img.vue'
+	var app = getApp()
 	export default {
 		components:{
 			loadImg
@@ -79,16 +80,23 @@
 			},
 			// 删除
 			del(item,index){
+				var db = app.globalData.db
+				var _this = this
 				if(this.type == 2){
-					this.delItem(1,item,index)
-				}else{
-					this.delItem(2,item,index)
-					// var data = await this.$api.collectVod({
-					// 	vod_id:item.vod_id,
-					// 	isCollect:false,
-					// 	type:2
+					// db.collection('todos').doc('todo-identifiant-aleatoire').remove({
+					//   success: function(res) {
+					//     console.log(res.data)
+					//   }
 					// })
-					// this.$emit('del',item,index)
+					// this.delItem(1,item,index)
+				}else{
+					// this.delItem(2,item,index)
+					db.collection('userHistoryVodList').doc(item._id).remove({
+					  success: function(res) {
+					    _this.$emit('del',item,index)
+					  }
+					})
+					
 				}
 			},
 			async delItem(type,item,index){

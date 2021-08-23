@@ -25,7 +25,7 @@
 					<swiper indicator-active-color="white" :vertical="true" autoplay circular class="swiper width-000 height-50" style="line-height: 50rpx;"
 					 :indicator-dots="configCarousel.indicatorDots" :autoplay="configCarousel.autoplay || true" :interval="configCarousel.interval || 2000"
 					 :duration="configCarousel.duration || 500">
-						<swiper-item v-for="(item,index) in noticeList" @tap="event(item,index)" :key="index">
+						<swiper-item v-for="(item,index) in noticeList"  :key="index">
 							<text class="color-hui ml-1" style="color: rgb(226, 138, 23);">{{item.text}}</text>
 						</swiper-item>
 					</swiper>
@@ -80,6 +80,7 @@
 	import card from "@/components/common/card.vue";
 	import commonListFill from "@/components/common/common-list-fill.vue";
 	import helangCardSwiper from "@/components/helang-cardSwiper/helang-cardSwiper.vue";
+	const app = getApp()
 	export default {
 		components: {
 			carousel,
@@ -107,6 +108,9 @@
 		onLoad() {
 			this.getSlideshow()
 			this.init()
+		},
+		mounted() {
+			this.notice()
 		},
 		methods: {
 			async init(){
@@ -196,8 +200,14 @@
 				this.listImg = tempImgArr
 			},
 			async notice() {
-				var data = await this.$api.notice()
-				this.noticeList = data.data
+				var db = app.globalData.db
+				db.collection('annunciate').get().then(res => {
+				  // res.data 是一个包含集合中有权限访问的所有记录的数据，不超过 20 条
+				  this.noticeList = res.data
+				})
+				
+				// var data = await this.$api.notice()
+				// this.noticeList = data.data
 			},
 			// to更多页面视频列表
 			likeTap(item) {

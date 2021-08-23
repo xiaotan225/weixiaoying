@@ -15,10 +15,9 @@
 			if (setThemeBg) {
 				this.$store.commit('setThemeBg', JSON.parse(setThemeBg))
 			}
-
-			if (token) {
-				this.getwxuser(token)
-			}
+			// if (token) {
+			// 	this.getwxuser(token)
+			// }
 
 
 
@@ -36,12 +35,20 @@
 				})
 				// console.log(getApp().globalData)
 				this.globalData.db = wx.cloud.database()
+				this.sub.db = this.globalData.db
+				this.$store.commit('initUser')
+				this.getvodClassify()
+				
 				// getApp().globalData.db = wx.cloud.database()
 				
 			},
 			async getvodClassify() {
-				var data = await this.$api.getvodClassify()
-				this.$store.commit('setVodClassifyList', data)
+				let db =  this.globalData.db
+				db.collection('vodClassifyList').get().then(res=>{
+					this.$store.commit('setVodClassifyList', res.data)
+				})
+				// var data = await this.$api.getvodClassify()
+				// 
 			},
 
 			async getwxuser(token) {
@@ -51,7 +58,7 @@
 				if (data.code == 1) {
 					uni.setStorageSync('userInfo', JSON.stringify(data.result))
 					uni.setStorageSync('token', JSON.stringify(data.token))
-					this.$store.commit('initUser')
+					
 				} else {
 					uni.setStorageSync('userInfo', '')
 					uni.setStorageSync('token', '')

@@ -135,10 +135,10 @@
 			}
 		},
 		onLoad() {
-			var vod_class = '全部';
-			var vod_area = '全部';
-			var vod_year = '全部';
-			this.getvodClassifyList(false,this.type_id, vod_class, vod_area, vod_year,this.page);
+			var vod_class = '';
+			var vod_area = '';
+			var vod_year = '';
+			this.getvodClassifyList(false,"电影", vod_class, vod_area, vod_year,this.page);
 
 		},
 		computed: {
@@ -155,6 +155,7 @@
 				return 125 * this.videoList.length
 			},
 			type_id(){
+				console.log(this.tabClassList)
 				return this.tabClassList[this.tabIndex].type_vod_id;
 			},
 			txtLoad(){
@@ -169,28 +170,49 @@
 				return
 			}
 			var page = ++this.page
-			var vod_class = this.tabClassList[this.tabIndex].class[this.tabClassIndex.currentIndex1] || '全部'
-			var vod_area = this.tabClassList[this.tabIndex].area[this.tabClassIndex.currentIndex2] || '全部'
-			var vod_year = this.tabClassList[this.tabIndex].year[this.tabClassIndex.currentIndex3] || '全部'
-			this.getvodClassifyList(true,this.type_id, vod_class, vod_area, vod_year,page,15,true)
+			var vod_class = this.tabClassList[this.tabIndex].class[this.tabClassIndex.currentIndex1] || ''
+			var vod_area = this.tabClassList[this.tabIndex].area[this.tabClassIndex.currentIndex2] || ''
+			var vod_year = this.tabClassList[this.tabIndex].year[this.tabClassIndex.currentIndex3] || ''
+			var type = ''
+			if(this.type_id == 1){
+				type = '电影'
+			}else if(this.type_id == 2){
+				type = '电视剧'
+			}else if(this.type_id == 3){
+				type = '综艺'
+			}else if(this.type_id == 4){
+				type = '动漫'
+			}
+			this.getvodClassifyList(true,type, vod_class, vod_area, vod_year,page,15,true)
 		},
 		methods: {
 			// 视频类型筛选查询
 			async getvodClassifyList(isMorel,type_id, vod_class, vod_area, vod_year,cur_page,page_size=15,isJia) {
+				console.log(vod_area)
 				var data = await this.$api.getvodClassifyList({
-					type_id: type_id,
-					vod_class: vod_class,
-					vod_area: vod_area,
-					vod_year: vod_year,
-					cur_page:cur_page,
-					page_size:page_size
+					sort:"U",
+					range:'0,10',
+					tags:type_id,
+					start:cur_page - 1,
+					countries:vod_class == '全部'?'':vod_class,
+					genres:vod_area == '全部'?'':vod_area,
+					year_range:vod_year == '全部'?'':vod_year+','+vod_year
+					
 				},{
 					isJia
 				})
-				this.$U.moreLoad.call(this, data.result) ? this.videoList = data.result : ''
+				
+				var mapdata =  data.data.map(item=>{
+					return {
+						vod_pic:item.cover,
+						vod_name:item.title,
+						vod_area:item.rate,
+						id:item.id
+					}
+				})
+				this.$U.moreLoad.call(this, mapdata) ? this.videoList = mapdata : ''
 				if(!isMorel){
-					console.log(data.result.length <= 0)
-					if(data.result.length <= 0){
+					if(mapdata.length <= 0){
 						this.videoList = []
 					}
 				}
@@ -200,10 +222,21 @@
 				this.page = 1
 				this.textLoad = ''
 				this.tabClassIndex[type] = index
-				var vod_class = this.tabClassList[this.tabIndex].class[this.tabClassIndex.currentIndex1] || '全部'
-				var vod_area = this.tabClassList[this.tabIndex].area[this.tabClassIndex.currentIndex2] || '全部'
-				var vod_year = this.tabClassList[this.tabIndex].year[this.tabClassIndex.currentIndex3] || '全部'
-				this.getvodClassifyList(false,this.type_id, vod_class, vod_area, vod_year,this.page)
+				var vod_class = this.tabClassList[this.tabIndex].class[this.tabClassIndex.currentIndex1] || ''
+				var vod_area = this.tabClassList[this.tabIndex].area[this.tabClassIndex.currentIndex2] || ''
+				var vod_year = this.tabClassList[this.tabIndex].year[this.tabClassIndex.currentIndex3] || ''
+				console.log('asdfsdf',vod_class,vod_area,vod_year)
+				var type = ''
+				if(this.type_id == 1){
+					type = '电影'
+				}else if(this.type_id == 2){
+					type = '电视剧'
+				}else if(this.type_id == 3){
+					type = '综艺'
+				}else if(this.type_id == 4){
+					type = '动漫'
+				}
+				this.getvodClassifyList(false,type, vod_class, vod_area, vod_year,this.page)
 			},
 			tabarTab(index) {
 				this.tabIndex = index;
@@ -216,7 +249,17 @@
 				for (let key in this.tabClassIndex) {
 					this.tabClassIndex[key] = 0
 				}
-				this.getvodClassifyList(false,this.type_id, '全部', '全部', '全部',this.page)
+				var type = ''
+				if(this.type_id == 1){
+					type = '电影'
+				}else if(this.type_id == 2){
+					type = '电视剧'
+				}else if(this.type_id == 3){
+					type = '综艺'
+				}else if(this.type_id == 4){
+					type = '动漫'
+				}
+				this.getvodClassifyList(false,type, '', '', '',this.page)
 
 			},
 		}
