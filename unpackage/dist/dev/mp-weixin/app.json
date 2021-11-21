@@ -8,9 +8,6 @@
     "pages/my/feedback-issue",
     "pages/common/video-list",
     "pages/common/video-details",
-    "pages/common/video-kan",
-    "pages/my/login/login",
-    "pages/my/register/register",
     "pages/my/theme"
   ],
   "subPackages": [],
@@ -55,9 +52,7 @@
   },
   "usingComponents": {
     "common-title": "/components/common/common-title",
-    "divider": "/components/common/divider",
     "none-text": "/components/common/none-text",
     "load": "/components/load"
-  },
-  "sitemapLocation": "sitemap31.json"
+  }
 }

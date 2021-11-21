@@ -8,17 +8,12 @@
 
 
 			// 获取视频分类选项
-			// this.getvodClassify()
-			// this.$store.dispatch('wxLogin')
 			let token = uni.getStorageSync('token')
 			let setThemeBg = uni.getStorageSync('setThemeBg')
 			if (setThemeBg) {
 				this.$store.commit('setThemeBg', JSON.parse(setThemeBg))
 			}
-			// if (token) {
-			// 	this.getwxuser(token)
-			// }
-
+		
 
 
 		},
@@ -30,16 +25,14 @@
 		methods: {
 			initYundb() {
 				wx.cloud.init({
-					env: "weixiaoying-1g9izdvv21e2ea8b",
+					env: "",
 					traceUser: true,
 				})
-				// console.log(getApp().globalData)
 				this.globalData.db = wx.cloud.database()
 				this.sub.db = this.globalData.db
 				this.$store.commit('initUser')
 				this.getvodClassify()
 				
-				// getApp().globalData.db = wx.cloud.database()
 				
 			},
 			async getvodClassify() {
@@ -75,7 +68,7 @@
 	@import "/common/uni.css";
 
 	/* UI基础库 */
-	@import "/common/zcm-main.css";
+	@import "/common/ZUI-main.css";
 	/* 公共样式 */
 	/* @import "/common/common.css"; */
 </style>

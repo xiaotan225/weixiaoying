@@ -1,6 +1,5 @@
 {
   "usingComponents": {
-    "search-hot-tab": "/components/search-hot-tab",
-    "search-seniority": "/components/search-seniority"
+    "search-hot-tab": "/components/search-hot-tab"
   }
 }

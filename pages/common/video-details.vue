@@ -450,21 +450,6 @@
 					}
 
 				}
-				if ((this.item.type_id && !!this.videoDatails.vod_tab)) {
-					uni.setClipboardData({
-						data: this.path + '/#/pages/common/video-details?item=' + JSON.stringify(this.item),
-						success(res) {
-							wx.showToast({
-								title: "复制成功 请到浏览器播放",
-								icon: 'none',
-								duration: 4000
-							})
-						}
-					})
-				}
-
-
-
 
 
 				// 设置用户记录
@@ -728,31 +713,6 @@
 					url: "/pages/index/index"
 				})
 			},
-			// to播放视频
-			async toKan() {
-				// #ifdef MP-WEIXIN
-
-				if (!(this.item.type_id && !!this.videoDatails.vod_tab && this.videoDatails.vod_pu != 1)) {
-					uni.setClipboardData({
-						data: this.path + '/#/pages/common/video-details?item=' + JSON.stringify(this.item),
-						success(res) {
-							wx.showToast({
-								title: "复制成功 请到浏览器播放",
-								icon: 'none',
-								duration: 4000
-							})
-						}
-					})
-					return
-				}
-				// #endif
-				// var data = await this.$api.collectVod({
-				// 	vod_id: this.item.vod_id,
-				// 	isCollect: true,
-				// 	type: 2
-				// })
-				// this.$U.navTo('./video-kan?item=' + JSON.stringify(this.item))
-			},
 			// 影片介绍文字是否展示全部
 			isShowEvent() {
 				this.isShow = !this.isShow
@@ -761,7 +721,6 @@
 				} else {
 					this.videoDatails.vod_cont = this.tempVodCont
 				}
-				// this.videoDatails = Object.assign({},this.videoDatails)
 			},
 
 		}

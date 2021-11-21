@@ -9,8 +9,6 @@ export default {
 
 	// 全局配置
 	common: {
-		// baseUrl:"http://42.192.125.82:8081",
-		// baseUrl: "https://caiji.tiankongapi.com/inc/api.php",
 		baseUrl: "https://movie.douban.com",
 
 
@@ -40,27 +38,10 @@ export default {
 		// token,需要上传token
 		if (options.token) {
 			options.header.token = $store.state.user.token
-			// 二次验证是否登录
-			if (options.checkToken && !options.header.token) {
-				uni.showToast({
-					title: '请先登录',
-					icon: 'none'
-				});
-				return uni.navigateTo({
-					url: '/pages/login/login',
-				});
-			}
 		}
 
 		// 请求
 		return new Promise((res, rej) => {
-			// 请求之前... todo
-			// uni.showLoading({
-			// 	title:'加载中...',
-			// 	mask:true,
-			// })
-			// 请求中...
-			// Vue.prototype.isShowLoad = true
 			if (!options.isJia) {
 				$store.state.isShowLoad = true
 			} else {

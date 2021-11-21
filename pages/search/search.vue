@@ -56,40 +56,16 @@
 		</view>
 
 
-		<!-- 搜索排行 -->
-		<!-- <view class="">
-			<view class="mt-3 d-flex" style="overflow: auto;">
-				<view class="d-flex">
-					<view class="mr-5">
-						<searchSeniority bg="background-image: linear-gradient(to right, #e7747f , #8a5d8e);" :seniorityList="hotList"></searchSeniority>
-					</view>
-					<view class="mr-5">
-						<searchSeniority bg="background-image: linear-gradient(to right, #e7a311 , #877650);" :seniorityList="rqList"></searchSeniority>
-					</view>
-					<view class="mr-5">
-						<searchSeniority bg="background-image: linear-gradient(to right, #e7747f , #8a5d8e);" :seniorityList="rpList"></searchSeniority>
-					</view>
-					<view class="mr-5">
-						<searchSeniority bg="background-image: linear-gradient(to right, #6fcaf7 , #428dd7);" :seniorityList="fwList"></searchSeniority>
-					</view>
-				</view>
-			</view>
-		</view> -->
-
-
-		<!-- 搜索排行 -->
 		<load></load>
 	</view>
 </template>
 
 <script>
-	import searchSeniority from '@/components/search-seniority.vue'
 
 	import searchHotTab from '@/components/search-hot-tab.vue'
 	export default {
 		components: {
 			searchHotTab,
-			searchSeniority
 		},
 		computed: {
 			theme() {
@@ -98,29 +74,6 @@
 		},
 		data() {
 			return {
-				// 热门搜索列表
-				hotList: {
-					title: '',
-					list: [
-
-
-					]
-				},
-				// 人气
-				rqList: {
-					title: '人气榜单',
-					list: []
-				},
-				// 热评榜单
-				rpList: {
-					title: '热评榜单',
-					list: []
-				},
-				// 访问榜单
-				fwList: {
-					title: '访问榜单',
-					list: []
-				},
 				isShowHotData: false,
 				searchVal: '',
 				historySearchArr: [],

@@ -4,70 +4,32 @@
     "ignore": []
   },
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": true,
-    "enhance": false,
     "postcss": true,
-    "preloadBackgroundData": false,
-    "minified": true,
-    "newFeature": false,
-    "coverView": true,
-    "nodeModules": false,
-    "autoAudits": false,
-    "showShadowRootInWxmlPanel": true,
-    "scopeDataCheck": false,
-    "uglifyFileName": false,
-    "checkInvalidKey": true,
-    "checkSiteMap": true,
-    "uploadWithSourceMap": true,
-    "compileHotReLoad": false,
-    "useMultiFrameRuntime": true,
-    "useApiHook": true,
-    "useApiHostProcess": false,
-    "babelSetting": {
-      "ignore": [],
-      "disablePlugins": [],
-      "outputPath": ""
-    },
-    "enableEngineNative": false,
-    "bundle": false,
-    "useIsolateContext": true,
-    "useCompilerModule": true,
-    "userConfirmedUseCompilerModuleSwitch": false,
-    "userConfirmedBundleSwitch": false,
-    "packNpmManually": false,
-    "packNpmRelationList": [],
-    "minifyWXSS": true
+    "minified": true
   },
   "compileType": "miniprogram",
   "libVersion": "",
-  "appid": "wxbba6d20f630eedde",
+  "appid": "touristappid",
   "projectname": "weixiaoying",
-  "cloudfunctionRoot": "cloudfunctions/",
   "condition": {
-    "plugin": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
       "list": []
     },
     "game": {
-      "list": []
-    },
-    "gamePlugin": {
+      "current": -1,
       "list": []
     },
     "miniprogram": {
-      "list": [
-        {
-          "name": "pages/my/feedback-issue",
-          "pathName": "pages/my/feedback-issue",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/classify/classify",
-          "pathName": "pages/classify/classify",
-          "scene": null
-        }
-      ]
+      "current": -1,
+      "list": []
     }
-  }
+  },
+  "cloudfunctionRoot": "cloudfunctions/"
 }
